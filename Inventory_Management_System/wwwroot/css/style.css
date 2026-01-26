@@ -347,6 +347,12 @@ body {
     margin-bottom: 2px;
 }
 
+.outofstock {
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    color: red;
+}
+
 .item-descrip {
     position: relative;
     border: 2px dashed rgb(172, 115, 23);
