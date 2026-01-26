@@ -1,0 +1,117 @@
+﻿@model IEnumerable<Inventory_Management_System.DTOs.StoreItemsDto>
+@{
+    Layout = null; // Disable the layout
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Items</title>
+
+    <link rel="stylesheet" href="~/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="bg-blur"></div>
+
+    <main class="content">
+        <!-- ===================== NAV BAR ===================== -->
+        <nav class="nav-main">
+            <div class="Neko">NeKo</div>
+            <div class="mid">
+                <div class="font_title">Store</div>
+                <div class="font_title">About us</div>
+            </div>
+
+            <div class="settings">
+                <div class="Gear">
+                    <i class="fa-solid fa-gear settings-icon"></i>
+                </div>
+
+                <div class="settings-menu">
+                    <a asp-controller="Purchase"
+                       asp-action="Index"
+                       class="setting-button">
+                        Purchase
+                    </a>
+
+                    <a asp-controller="Auth"
+                       asp-action="Logout"
+                       class="setting-button">
+                        Log out
+                    </a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Create"
+                           class="setting-button">
+                            Create
+                        </a>
+                    }
+                </div>
+            </div>
+        </nav>
+
+        <!-- ===================== ITEMS ===================== -->
+        <div class="item-box">
+            <nav class="nav-box">
+                <div class="font_title_box">Name</div>
+                <div class="font_title_box">Price</div>
+                <div class="font_title_box">Stacks</div>
+            </nav>
+
+            <div class="item-content">
+                @foreach (var item in Model)
+                {
+                    <div class="item-parent">
+                        <div class="item-info">
+                            <div>@item.item_name</div>
+                            <div class="peso">$@item.price</div>
+                            <div>@item.quantity x</div>
+                        </div>
+
+                        <div class="item-descrip">
+                            <p style="margin-right: 20px;">Description:</p>
+                            <div>@item.description</div>
+                        </div>
+                    </div>
+
+                    <div class="buttons">
+
+
+                        @if (User.IsInRole("Admin"))
+                        {
+
+               // asp-controller = "StoreItem" asp-action= "Edit" use this if you want to use specific location
+
+                            <a asp-action="Edit"
+                               asp-route-id="@item.id"
+                               class="Buy">
+                                Edit
+                            </a>
+                            <a asp-action="Delete"
+                               asp-route-id="@item.id"
+                               class="Buy">
+                                Delete
+                            </a>
+                        }
+
+                        <a asp-action="Buy"
+                           asp-route-id="@item.id"
+                           class="Buy">
+                            Buy
+                        </a>
+
+                        
+
+                    </div>
+                }
+            </div>
+        </div>
+    </main>
+
+</body>
+</html> 

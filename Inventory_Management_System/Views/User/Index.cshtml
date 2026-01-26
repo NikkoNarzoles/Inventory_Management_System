@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Inventory_Management_System.DTOs.UserDto>
+
+<h2>Users</h2>
+
+<a asp-action="Register">Register New User</a>
+
+<table border="1" cellpadding="5">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+
+             @if (User.IsInRole("Admin"))
+                    {
+            <th>Username</th>
+            <th>Actions</th>
+                    }
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.first_name</td>
+                <td>@user.last_name</td>
+
+    @if (User.IsInRole("Admin"))
+    {
+                     <td>@user.username</td>
+    }
+
+                <td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@user.id">Edit</a>
+                        <span> | </span>
+                        <a asp-action="Delete" asp-route-id="@user.id">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

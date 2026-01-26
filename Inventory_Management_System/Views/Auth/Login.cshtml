@@ -1,0 +1,66 @@
+﻿@model Inventory_Management_System.ViewModels.AuthViewModel
+@{
+    Layout = null; // Disable the layout
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+
+    <link rel="stylesheet" href="~/css/log_in.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="bg-blur"></div>
+
+    <main class="content">
+        <nav class="nav-main">
+            <div class="Neko">NeKo</div>
+
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <a asp-controller="Auth" asp-action="Logout" class="Logout">
+                   Log Out
+                </a>
+            }
+        </nav>
+
+        <div class="login-box">
+            <form asp-action="Login" method="post" novalidate>
+                @Html.AntiForgeryToken()
+
+                <div class="glass-input-wrapper">
+                    <input asp-for="UsernameOrEmail" class="glass-input" placeholder="Username / Email" />
+                    <span asp-validation-for="UsernameOrEmail" class="text-danger"></span>
+                </div>
+
+                <div class="glass-input-wrapper">
+                    <input asp-for="Password" type="password" class="glass-input" placeholder="Password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="register">
+                    Log In
+                </button>
+
+                <a asp-controller="User" asp-action="Register" class="register">
+                    Register
+                </a>
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Scripts for validation -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+</body>
+</html>

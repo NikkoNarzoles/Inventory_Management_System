@@ -1,0 +1,43 @@
+﻿@model Inventory_Management_System.ViewModels.BuyViewModel
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+
+<h2>Confirm Your Purchase</h2>
+
+<hr />
+
+<p><strong>Item Name:</strong> @Model.item_name</p>
+
+@if (!string.IsNullOrWhiteSpace(Model.description))
+{
+<p><strong>Description:</strong> @Model.description</p>
+}
+
+<p><strong>Price per Item:</strong> @Model.price</p>
+<p><strong>Quantity:</strong> @Model.quan</p>
+<p><strong>Total Price:</strong> @Model.total_price</p>
+
+<hr />
+
+<form asp-action="BuyConfirm" method="post">
+@Html.AntiForgeryToken()
+    <!-- Preserve data -->
+    <input type="hidden" asp-for="id" />
+    <input type="hidden" asp-for="quan" />
+
+    <button type="submit" class="btn btn-success">
+        Confirm Purchase
+    </button>
+    
+
+    <a asp-action="Buy" asp-route-id="@Model.id" class="btn btn-secondary">
+        Cancel
+    </a>
+
+</form>

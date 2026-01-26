@@ -1,0 +1,45 @@
+﻿@model Inventory_Management_System.DTOs.StoreItemsDto
+
+
+<h2>Edit Item</h2>
+
+<form asp-action="Edit" method="post">
+
+
+    <input type="hidden" asp-for="id" />
+
+    <div>
+        <label asp-for="item_code"></label>
+        <input asp-for="item_code" />
+        <span asp-validation-for="item_code"></span>
+    </div>
+
+    <div>
+        <label asp-for="item_name"></label>
+        <input asp-for="item_name" />
+        <span asp-validation-for="item_name"></span>
+    </div>
+
+    <div>
+        <label asp-for="description"></label>
+        <input asp-for="description" />
+    </div>
+
+    <div>
+        <label asp-for="quantity"></label>
+        <input asp-for="quantity" />
+        <span asp-validation-for="quantity"></span>
+    </div>
+
+    <div>
+        <label asp-for="price"></label>
+        <input asp-for="price" />
+        <span asp-validation-for="price"></span>
+    </div>
+
+       @if (User.IsInRole("Admin"))
+{
+    <button type="submit">Save Changes</button>
+    <a asp-action="Index">Cancel</a>
+}
+</form>

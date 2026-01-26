@@ -1,0 +1,36 @@
+﻿@model Inventory_Management_System.ViewModels.EditUserViewModel
+
+<h2>Edit User</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="id" />
+
+    <div>
+        <label asp-for="first_name"></label>
+        <input asp-for="first_name" />
+        <span asp-validation-for="first_name"></span>
+    </div>
+
+    <div>
+        <label asp-for="last_name"></label>
+        <input asp-for="last_name" />
+        <span asp-validation-for="last_name"></span>
+    </div>
+
+    <div>
+        <label asp-for="username"></label>
+        <input asp-for="username" />
+        <span asp-validation-for="username"></span>
+    </div>
+
+    <div>
+        <label asp-for="email"></label>
+        <input asp-for="email" />
+        <span asp-validation-for="email"></span>
+    </div>
+       @if (User.IsInRole("Admin"))
+{
+    <button type="submit">Save Changes</button>
+    <a asp-action="Index">Cancel</a>
+}
+</form>

@@ -1,0 +1,337 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+
+body {
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: #000;
+    color: #fff;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+
+.bg-blur {
+    position: fixed;
+    inset: 0;
+    background-image: url("/Images/bg/storeitembg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(7px);
+    transform: scale(1.1);
+    z-index: -1;
+}
+
+.content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  
+}
+
+.font_title {
+    font-family: 'Press Start 2P', cursive;
+    background: linear-gradient(to bottom, #f7d22c, #c98e05);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 15px;
+}
+
+.Gear {
+    font-family: 'Press Start 2P', cursive;
+    background: linear-gradient(to bottom, #f7d22c, #c98e05);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 30px;
+}
+
+.settings {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+    .settings::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: -20px;
+        right: -20px;
+        height: 20px;
+    }
+
+
+.settings-menu {
+    position: absolute;
+    top: 120%;
+    right: 0;
+    background-image: url(/Images/bg/maybe.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(100 px);
+    outline: 5px solid rgba(94, 20, 20, 0.489);
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-6px);
+    transition: all 0.2s ease;
+}
+
+.settings:hover .settings-menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.setting-button {
+    font-family: 'Press Start 2P', cursive;
+    background: linear-gradient(to bottom, #f7d22c, #c98e05);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 12px;
+    margin: 10px;
+}
+
+
+
+
+
+.Neko {
+    font-family: 'Press Start 2P', cursive;
+    background: rgb(212, 181, 3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 20px;
+}
+
+.nav-main {
+    position: relative;
+    z-index: 1;
+    width: 100vw;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+}
+
+    .nav-main::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(87, 119, 139, 0.205);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        mask-image: linear-gradient( to bottom, black 0%, black 85%, transparent 100% );
+        -webkit-mask-image: linear-gradient( to bottom, black 0%, black 85%, transparent 100% );
+        z-index: -1; /* 👈 THIS LINE FIXES IT */
+        pointer-events: none;
+    }
+
+
+.mid {
+    width: 45%;
+    height: 100%;
+    margin-right: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.item-box {
+    position: relative;
+    width: 70%;
+    aspect-ratio: 16 / 9;
+    margin: auto;
+    background-image: url("/Images/storebox.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.nav-box {
+    background-image: url(/Images/bg/dark.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 60%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    position: absolute;
+    top: 126px;
+    padding-left: 30px;
+    z-index: 10;
+}
+
+
+
+.item-content {
+    width: 59%;
+    height: 60%;
+    margin-top: 12%;
+    margin-right: 4px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: center;
+    text-align: center;
+    color: white;
+    pointer-events: none;
+    overflow-y: auto; /* 👈 ENABLE SCROLL */
+    pointer-events: auto; /* keep buttons clickable */
+}
+
+
+
+
+
+
+.font_title_box {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 15px;
+    font-weight: bold;
+    background: linear-gradient(to bottom, #f7d22c, #c98e05);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.item-parent {
+    background-image: url(/Images/bg/paper.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 60%;
+}
+
+
+
+/* ================= PIXEL SCROLLBAR ================= */
+
+/* Chrome / Edge / Safari */
+.item-content::-webkit-scrollbar {
+    width: 14px;
+}
+
+.item-content::-webkit-scrollbar-track {
+    background: #1a1408;
+    border: 2px solid #5a3b14;
+    box-shadow: inset 0 0 0 2px #000;
+}
+
+.item-content::-webkit-scrollbar-thumb {
+    background: repeating-linear-gradient( to bottom, #f7d22c 0px, #f7d22c 4px, #c98e05 4px, #c98e05 8px );
+    border: 2px solid #7a4a18;
+    box-shadow: inset 0 0 0 2px #3a2601, 0 0 0 1px #000;
+}
+
+    /* Hover effect */
+    .item-content::-webkit-scrollbar-thumb:hover {
+        background: repeating-linear-gradient( to bottom, #ffeb6a 0px, #ffeb6a 4px, #d6a400 4px, #d6a400 8px );
+    }
+
+/* Firefox fallback */
+.item-content {
+    scrollbar-width: thin;
+    scrollbar-color: #c98e05 #1a1408;
+}
+
+.peso {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-info {
+    border: 2px dashed rgb(172, 115, 23);
+    width: 78%;
+    height: 20%;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 15px;
+    font-weight: bold;
+    padding-right: 30px;
+    color: #000000bb;
+    margin-top: 45px;
+    margin-bottom: 2px;
+}
+
+.item-descrip {
+    position: relative;
+    border: 2px dashed rgb(172, 115, 23);
+    font-family: 'VT323', monospace;
+    font-size: 15px;
+    color: #000000bb;
+    font-weight: bold;
+    width: 78%;
+    height: 35%;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.buttons {
+    font-family: 'Press Start 2P', cursive;
+    width: 75%;
+    height: 40%;
+    position: relative;
+    bottom: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+    
+}
+
+.Buy {
+    background-image: url(/Images/bg/buy.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000bb;
+    font-size: 10px;
+    text-decoration: none;
+}

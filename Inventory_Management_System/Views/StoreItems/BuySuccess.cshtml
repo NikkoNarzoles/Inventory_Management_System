@@ -1,0 +1,25 @@
+﻿@model Inventory_Management_System.ViewModels.BuyViewModel
+
+<h2>Purchase Confirmed</h2>
+
+<hr />
+
+<p><strong>Item Name:</strong> @Model.item_name</p>
+
+
+@if (!string.IsNullOrWhiteSpace(Model.description))
+{
+<p><strong>Description:</strong> @Model.description</p>
+}
+
+<p><strong>Price per Item:</strong> @Model.price</p>
+
+<p><strong>Quantity Bought:</strong> @Model.quan</p>
+
+<p><strong>Total Price:</strong> @Model.total_price</p>
+
+<hr />
+
+<a asp-action="Index" class="btn btn-primary">
+    Back to Items
+</a>

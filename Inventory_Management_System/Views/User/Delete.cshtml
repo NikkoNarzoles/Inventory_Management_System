@@ -1,0 +1,20 @@
+﻿@model Inventory_Management_System.DTOs.UserDto
+
+<h2>Delete User</h2>
+
+<p>Are you sure you want to delete this user?</p>
+
+<ul>
+    <li><strong>First Name:</strong> @Model.first_name</li>
+    <li><strong>Last Name:</strong> @Model.last_name</li>
+    <li><strong>Username:</strong> @Model.username</li>
+</ul>
+
+<form asp-action="DeleteConfirmed" method="post">
+       @if (User.IsInRole("Admin"))
+        {
+            <input type="hidden" asp-for="id" />
+            <button type="submit">Yes, Delete</button>
+            <a asp-action="Index">Cancel</a>
+        }
+    </form>

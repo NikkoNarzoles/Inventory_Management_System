@@ -1,0 +1,45 @@
+﻿@model Inventory_Management_System.ViewModels.BuyViewModel
+
+<h2>Buy Item</h2>
+
+<hr />
+
+<form asp-action="PreBuyConfirm" method="post">
+
+    <!-- Item ID (hidden, user never types this) -->
+    <input type="hidden" asp-for="id" />
+
+    <div>
+        <label><strong>Item Name:</strong></label>
+        <p>@Model.item_name</p>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.description))
+{
+    <div>
+        <label><strong>Description:</strong></label>
+        <p>@Model.description</p>
+    </div>
+}
+
+    <div>
+        <label><strong>Price:</strong></label>
+        <p>@Model.price</p>
+    </div>
+
+    <div>
+        <label asp-for="quan">Quantity</label>
+        <input asp-for="quan" type="number" min="1" />
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">
+        Continue
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Cancel
+    </a>
+
+</form>
