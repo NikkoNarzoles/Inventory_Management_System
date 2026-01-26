@@ -3,6 +3,8 @@ using Inventory_Management_System.Repositories.Interfaces;
 using Inventory_Management_System.Services.Interfaces;
 using Inventory_Management_System.Services.ServiceInterface;
 using Inventory_Management_System.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using Inventory_Management_System.DTOs;
 
 
 
@@ -98,10 +100,15 @@ namespace Inventory_Management_System.Services.ServiceImplementation
         }
 
 
+        public async Task<List<StoreItemsDto>> GetItemsAsync(string? search)
+        {
+            return string.IsNullOrWhiteSpace(search)
+                ? await _IStoreRepo.GetAllAsync()
+                : await _IStoreRepo.SearchAsync(search);
+        }
 
 
-
-
+        public
 
     }
 }

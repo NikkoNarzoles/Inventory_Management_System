@@ -48,20 +48,48 @@ namespace Inventory_Management_System.Repositories.Implementations
 
         // GET ALL (async)
 
-        public async Task<IEnumerable<StoreItemsDto>> GetAllAsync()
+        public async Task<List<StoreItemsDto>> GetAllAsync()
+        {
+            return await _context.StoreItems
+                .AsNoTracking()
+                .Select(item => new StoreItemsDto
+                {
+                    id = item.id,
+                    item_code = item.item_code,
+                    item_name = item.item_name,
+                    description = item.description,
+                    quantity = item.quantity,
+                    price = item.price
+                })
+                .ToListAsync();
+        }
+
+        public async Task<List<StoreItemsDto>> SearchAsync(string? search)
+        {
+            IQueryable<StoreItem> query =
+                _context.StoreItems.AsNoTracking();
+
+            if (!string.IsNullOrWhiteSpace(search))
             {
-                return await _context.StoreItems
-                    .AsNoTracking() // important for read-only performance
-                    .Select(item => new StoreItemsDto
-                    {
-                        id = item.id,
-                        item_code = item.item_code,
-                        item_name = item.item_name,
-                        description = item.description,
-                        quantity = item.quantity,
-                        price = item.price
-                    }).ToListAsync();
+                query = query.Where(i =>
+                    i.item_name.Contains(search) ||
+                    i.item_code.Contains(search)
+                );
             }
+
+            return await query
+                .Select(item => new StoreItemsDto
+                {
+                    id = item.id,
+                    item_code = item.item_code,
+                    item_name = item.item_name,
+                    description = item.description,
+                    quantity = item.quantity,
+                    price = item.price
+                })
+                .ToListAsync();
+        }
+
 
 
 

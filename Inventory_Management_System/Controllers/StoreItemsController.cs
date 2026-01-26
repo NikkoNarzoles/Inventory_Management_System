@@ -146,11 +146,15 @@ namespace Inventory_Management_System.Controllers
 
         [Authorize]
         // GET: StoreItems
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? search)
         {
-            var items = await _Irepository.GetAllAsync();
+            var items = await _Iservice.GetItemsAsync(search);
+            ViewData["Search"] = search;
             return View(items);
         }
+
+
+
 
 
 

@@ -6,12 +6,19 @@ namespace Inventory_Management_System.Repositories.Interfaces
 {
     public interface IStoreItemsRepository
     {
-        Task<IEnumerable<StoreItemsDto>> GetAllAsync();
+        Task<List<StoreItemsDto>> GetAllAsync();
+        Task<List<StoreItemsDto>> SearchAsync(string? search);
+
         Task<StoreItemsDto?> GetByIdAsync(int id);
+
         Task<StoreItem?> FindAsync(int id);
+
         Task AddAsync(StoreItem item);
+
         Task UpdateAsync(StoreItem item);
+
         Task DeleteAsync(int id);
+
         Task<BuyViewModel> NoCodeListAsync(int id);
     }
 }

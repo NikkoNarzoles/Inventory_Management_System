@@ -149,13 +149,66 @@ body {
 .mid {
     width: 45%;
     height: 100%;
-    margin-right: 50px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    margin-right: 50px;
 }
 
+
+.search {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* IMAGE CONTAINER */
+.search-bg {
+    width: 89%;
+    height: 170px;
+    background-image: url("/Images/bg/search.png"); /* <- your pixel image */
+    background-repeat: no-repeat;
+    background-size: 100% 100%; /* stretch horizontally */
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* INPUT */
+.search-content {
+    width: 85%;
+    height: 40px;
+    background: transparent; /* IMPORTANT */
+    border: none;
+    outline: none;
+    text-align: center;
+    color: black;
+    font-family: 'VT323', monospace;
+    font-size: 25px;
+}
+
+    .search-content::placeholder {
+        color: #000000a3; /* warm gold */
+        font-family: 'VT323', monospace;
+        font-size: 25px;
+        opacity: 1;
+    }
+
+.search-icon {
+    position: absolute;
+    left: -15px;
+    background-image: url("/Images/bg/magnifying.png"); /* <- your pixel image */
+
+    background-repeat: no-repeat;
+    background-size: 100% 100%; /* stretch horizontally */
+    background-position: center;
+    height: 60px;
+    width: 90px;
+}
 
 .item-box {
     position: relative;

@@ -1,4 +1,5 @@
-﻿using Inventory_Management_System.Models;
+﻿using Inventory_Management_System.DTOs;
+using Inventory_Management_System.Models;
 using Inventory_Management_System.ViewModels;
 
 namespace Inventory_Management_System.Services.ServiceInterface
@@ -10,6 +11,9 @@ namespace Inventory_Management_System.Services.ServiceInterface
 
         Task<int> BuyConfirmAsync(int id, int quan, int userId);
 
-        
-    }   
+        Task<List<StoreItemsDto>> GetItemsAsync(string? search);
+
+
+
+    }
 }

@@ -23,7 +23,7 @@ namespace Inventory_Management_System.ViewModels
 
 
         [Required(ErrorMessage = "Quantity is required")]
-        public int quantity { get; set; }
+        public int quantity { get; set; } 
 
 
         [Required(ErrorMessage = "Price must be set")]
