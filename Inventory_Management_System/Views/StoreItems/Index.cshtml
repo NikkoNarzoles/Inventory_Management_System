@@ -19,131 +19,134 @@
     <div class="bg-blur"></div>
 
     <main class="content">
-        <!-- ===================== NAV BAR ===================== -->
-        <nav class="nav-main">
-            <!-- LOGO -->
-            <div class="Neko">NeKo</div>
+        <!-- ===================== FILTER FORM (wraps both search and sort) ===================== -->
+        <form asp-action="Index" method="get" class="filter-form">
 
-            <!-- SEARCH AREA -->
-            <div class="mid">
-                <div class="search">
+            <!-- ===================== NAV BAR ===================== -->
+            <nav class="nav-main">
+                <!-- LOGO -->
+                <div class="Neko">NeKo</div>
 
-                    <!-- FORM WRAPS THE SEARCH UI -->
-                    <form asp-action="Index" method="get" class="search-bg">
-                        <input type="text"
-                               name="search"
-                               value="@ViewData["Search"]"
-                               class="search-content"
-                               placeholder="Search" />
-                    </form>
-
-                    <!-- SEARCH ICON -->
-                    <div class="search-icon"></div>
-
-                </div>
-            </div>
-
-            <!-- SETTINGS -->
-            <div class="settings">
-                <div class="Gear">
-                    <i class="fa-solid fa-gear settings-icon"></i>
-                </div>
-
-                <div class="settings-menu">
-
-                    <a asp-controller="Purchase"
-                       asp-action="Index"
-                       class="setting-button">
-                        Purchase
-                    </a>
-
-                    <a asp-controller="Auth"
-                       asp-action="Logout"
-                       class="setting-button">
-                        Log out
-                    </a>
-
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <a asp-action="Create"
-                           class="setting-button">
-                            Create
-                        </a>
-                    }
-
-                    <div class="setting-button">About Us</div>
-                </div>
-            </div>
-        </nav>
-
-
-        <!-- ===================== ITEMS ===================== -->
-        <div class="item-box">
-            <nav class="nav-box">
-                <div class="font_title_box">Name</div>
-                <div class="font_title_box">Price</div>
-                <div class="font_title_box">Stocks</div>
-            </nav>
-
-            <div class="item-content">
-                @foreach (var item in Model)
-                {
-                    <div class="item-parent">
-                        <div class="item-info">
-                            <div>@item.item_name</div>
-                            <div class="peso">$@item.price</div>
-
-
-                            @if (item.quantity <= 0)
-                            {
-                                <div class="outofstock">Out of Stock</div>
-                            }
-                            else
-                            {
-                                <div>@item.quantity x</div>
-                            }
-
-                        </div>
-
-                        <div class="item-descrip">
-                            <p style="margin-right: 20px;">Description:</p>
-                            <div>@item.description</div>
+                <!-- SEARCH AREA -->
+                <div class="mid">
+                    <div class="search">
+                        <div class="search-bg">
+                            <input type="text"
+                                   name="search"
+                                   value="@ViewData["Search"]"
+                                   class="search-content"
+                                   placeholder="Search" />
+                            <!-- SEARCH ICON -->
+                            <div class="search-icon"></div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="buttons">
+                <!-- SETTINGS -->
+                <div class="settings">
+                    <div class="Gear">
+                        <i class="fa-solid fa-gear settings-icon"></i>
+                    </div>
 
+                    <div class="settings-menu">
+                        <a asp-controller="Purchase"
+                           asp-action="Index"
+                           class="setting-button">
+                            Purchase
+                        </a>
 
                         @if (User.IsInRole("Admin"))
                         {
-
-               // asp-controller = "StoreItem" asp-action= "Edit" use this if you want to use specific location
-
-                            <a asp-action="Edit"
-                               asp-route-id="@item.id"
-                               class="Buy">
-                                Edit
-                            </a>
-                            <a asp-action="Delete"
-                               asp-route-id="@item.id"
-                               class="Buy">
-                                Delete
+                            <a asp-action="Create"
+                               class="setting-button">
+                                Create
                             </a>
                         }
 
-                        <a asp-action="Buy"
-                           asp-route-id="@item.id"
-                           class="Buy">
-                            Buy
+                        <div class="setting-button">About Us</div>
+
+                        <a asp-controller="Auth"
+                           asp-action="Logout"
+                           class="setting-button">
+                            Log out
                         </a>
-
-                        
-
                     </div>
-                }
+                </div>
+            </nav>
+
+            <!-- ===================== ITEMS ===================== -->
+            <div class="item-box">
+                <!-- SORTING BUTTON IS HERE -->
+                <!-- SORT DROPDOWN -->
+                <div class="item-sort">
+                    <select name="sortBy" class="sort-select" onchange="this.form.submit()">
+                        <option value="" selected="@(string.IsNullOrEmpty(ViewData["SortBy"]?.ToString()))">Sort By</option>
+                        <option value="NameAsc" selected="@(ViewData["SortBy"]?.ToString() == "NameAsc")">Name ↑</option>
+                        <option value="NameDesc" selected="@(ViewData["SortBy"]?.ToString() == "NameDesc")">Name ↓</option>
+                        <option value="PriceAsc" selected="@(ViewData["SortBy"]?.ToString() == "PriceAsc")">Price ↑</option>
+                        <option value="PriceDesc" selected="@(ViewData["SortBy"]?.ToString() == "PriceDesc")">Price ↓</option>
+                        <option value="StockAsc" selected="@(ViewData["SortBy"]?.ToString() == "StockAsc")">Stock ↑</option>
+                        <option value="StockDesc" selected="@(ViewData["SortBy"]?.ToString() == "StockDesc")">Stock ↓</option>
+                    </select>
+                </div>
+                <nav class="nav-box">
+                    <div class="font_title_box">Name</div>
+                    <div class="font_title_box">Price</div>
+                    <div class="font_title_box">Stocks</div>
+
+                   
+                </nav>
+
+                <div class="item-content">
+                    @foreach (var item in Model)
+                    {
+                        <div class="item-parent">
+                            <div class="item-info">
+                                <div>@item.item_name</div>
+                                <div class="peso">$@item.price</div>
+
+                                @if (item.quantity <= 0)
+                                {
+                                    <div class="outofstock">Out of Stock</div>
+                                }
+                                else
+                                {
+                                    <div>@item.quantity x</div>
+                                }
+                            </div>
+
+                            <div class="item-descrip">
+                                <p style="margin-right: 20px;">Description:</p>
+                                <div>@item.description</div>
+                            </div>
+                        </div>
+
+                        <div class="buttons">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-action="Edit"
+                                   asp-route-id="@item.id"
+                                   class="Buy">
+                                    Edit
+                                </a>
+                                <a asp-action="Delete"
+                                   asp-route-id="@item.id"
+                                   class="Buy">
+                                    Delete
+                                </a>
+                            }
+
+                            <a asp-action="Buy"
+                               asp-route-id="@item.id"
+                               class="Buy">
+                                Buy
+                            </a>
+                        </div>
+                    }
+                </div>
             </div>
-        </div>
+        </form>
     </main>
 
 </body>
-</html> 
+</html>

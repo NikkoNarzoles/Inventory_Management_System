@@ -1,25 +1,23 @@
-using System.Diagnostics;
 using Inventory_Management_System.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace Inventory_Management_System.Controllers
 {
     public class HomeController : Controller
     {
+        [AllowAnonymous]
         public IActionResult Index()
         {
-            return View();
-        }
+            if (User.Identity?.IsAuthenticated == true)
+            {
+                // ? already logged in
+                return RedirectToAction("Index", "StoreItems");
+            }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            // ? not logged in
+            return RedirectToAction("Login", "Auth");
         }
     }
 }

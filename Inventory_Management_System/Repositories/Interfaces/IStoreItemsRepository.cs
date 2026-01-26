@@ -6,8 +6,7 @@ namespace Inventory_Management_System.Repositories.Interfaces
 {
     public interface IStoreItemsRepository
     {
-        Task<List<StoreItemsDto>> GetAllAsync();
-        Task<List<StoreItemsDto>> SearchAsync(string? search);
+        Task<List<StoreItemsDto>> GetAsync(string? search, StoreItemSortBy? sortBy);
 
         Task<StoreItemsDto?> GetByIdAsync(int id);
 

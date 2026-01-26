@@ -100,12 +100,11 @@ namespace Inventory_Management_System.Services.ServiceImplementation
         }
 
 
-        public async Task<List<StoreItemsDto>> GetItemsAsync(string? search)
+        public async Task<List<StoreItemsDto>> GetItemsAsync(string? search,StoreItemSortBy? sortBy)
         {
-            return string.IsNullOrWhiteSpace(search)
-                ? await _IStoreRepo.GetAllAsync()
-                : await _IStoreRepo.SearchAsync(search);
+            return await _IStoreRepo.GetAsync(search, sortBy);
         }
+
 
 
 

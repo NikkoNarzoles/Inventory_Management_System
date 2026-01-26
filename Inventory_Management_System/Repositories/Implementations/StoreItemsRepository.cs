@@ -48,26 +48,11 @@ namespace Inventory_Management_System.Repositories.Implementations
 
         // GET ALL (async)
 
-        public async Task<List<StoreItemsDto>> GetAllAsync()
-        {
-            return await _context.StoreItems
-                .AsNoTracking()
-                .Select(item => new StoreItemsDto
-                {
-                    id = item.id,
-                    item_code = item.item_code,
-                    item_name = item.item_name,
-                    description = item.description,
-                    quantity = item.quantity,
-                    price = item.price
-                })
-                .ToListAsync();
-        }
 
-        public async Task<List<StoreItemsDto>> SearchAsync(string? search)
+
+        public async Task<List<StoreItemsDto>> GetAsync(string? search,StoreItemSortBy? sortBy)
         {
-            IQueryable<StoreItem> query =
-                _context.StoreItems.AsNoTracking();
+            IQueryable<StoreItem> query = _context.StoreItems.AsNoTracking();
 
             if (!string.IsNullOrWhiteSpace(search))
             {
@@ -76,6 +61,17 @@ namespace Inventory_Management_System.Repositories.Implementations
                     i.item_code.Contains(search)
                 );
             }
+
+            query = sortBy switch
+            {
+                StoreItemSortBy.NameAsc => query.OrderBy(i => i.item_name),
+                StoreItemSortBy.NameDesc => query.OrderByDescending(i => i.item_name),
+                StoreItemSortBy.PriceAsc => query.OrderBy(i => i.price),
+                StoreItemSortBy.PriceDesc => query.OrderByDescending(i => i.price),
+                StoreItemSortBy.QuantityAsc => query.OrderBy(i => i.quantity),
+                StoreItemSortBy.QuantityDesc => query.OrderByDescending(i => i.quantity),
+                _ => query.OrderBy(i => i.id)
+            };
 
             return await query
                 .Select(item => new StoreItemsDto
@@ -89,6 +85,8 @@ namespace Inventory_Management_System.Repositories.Implementations
                 })
                 .ToListAsync();
         }
+
+
 
 
 

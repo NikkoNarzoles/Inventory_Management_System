@@ -11,9 +11,7 @@ namespace Inventory_Management_System.Services.ServiceInterface
 
         Task<int> BuyConfirmAsync(int id, int quan, int userId);
 
-        Task<List<StoreItemsDto>> GetItemsAsync(string? search);
-
-
+        Task<List<StoreItemsDto>> GetItemsAsync(string? search, StoreItemSortBy? sortBy);
 
     }
 }
