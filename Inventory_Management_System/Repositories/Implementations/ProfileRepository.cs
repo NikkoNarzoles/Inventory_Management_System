@@ -27,6 +27,7 @@ namespace Inventory_Management_System.Repositories.Implementations
                         .Select(
                          item => new StoreItemsDto
                          {
+                             id = item.id,
                              item_name = item.item_name,
                              description  = item.description,
                              price = item.price,

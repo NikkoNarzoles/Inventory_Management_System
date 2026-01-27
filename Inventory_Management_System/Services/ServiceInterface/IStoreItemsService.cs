@@ -15,5 +15,9 @@ namespace Inventory_Management_System.Services.ServiceInterface
 
         Task CreateAsync(StoreItemsViewModels viewModel, int userId);
 
+        Task<StoreItemsDto> EditMapAsync(int id);
+
+        Task<bool> EditAsync(StoreItemsViewModels viewModel, int id);
+
     }
 }

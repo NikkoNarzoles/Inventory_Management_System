@@ -220,18 +220,10 @@ namespace Inventory_Management_System.Controllers
                 return NotFound();
             }
 
-            var viewModel = 
-                new StoreItemsDto
-                                        {
-                                            id = item.id,
-                                            item_code = item.item_code!,
-                                            item_name = item.item_name!,
-                                            description = item.description,
-                                            quantity = item.quantity,
-                                            price = item.price
-                                        };
+            var vm = await _Iservice.EditMapAsync(id.Value);
 
-            return View(viewModel);
+
+            return View(vm);
         }
 
 
@@ -247,32 +239,13 @@ namespace Inventory_Management_System.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, StoreItemsViewModels viewModel)
         {
-            if (id != viewModel.id)
-            {
-                return NotFound();
-            }
-
             if (!ModelState.IsValid)
-            {
                 return View(viewModel);
-            }
 
-            var item = await _Irepository.FindAsync(id);
+            var success = await _Iservice.EditAsync(viewModel, id);
 
-            if (item == null)
-            {
+            if (!success)
                 return NotFound();
-            }
-
-            item.item_code = viewModel.item_code;
-            item.item_name = viewModel.item_name;
-            item.description = viewModel.description;
-            item.quantity = viewModel.quantity;
-            item.price = viewModel.price;
-            item.supplier = viewModel.supplier;
-            item.updated_at = DateTime.UtcNow;
-
-            await _Irepository.UpdateAsync(item);
 
             return RedirectToAction(nameof(Index));
         }

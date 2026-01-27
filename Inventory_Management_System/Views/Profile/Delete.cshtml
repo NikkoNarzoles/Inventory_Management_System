@@ -1,0 +1,32 @@
+﻿@model Inventory_Management_System.DTOs.StoreItemsDto
+
+<h2>Delete Item</h2>
+
+<p>Are you sure you want to delete this?</p>
+
+<hr />
+
+<div>
+    <strong>Item Name:</strong> @Model.item_name
+</div>
+<div>
+    <strong>Description:</strong> @Model.description
+</div>
+<div>
+    <strong>Price:</strong> @Model.price
+</div>
+<div>
+    <strong>Quantity:</strong> @Model.quantity
+</div>
+
+<br />
+
+<form asp-action="DeleteConfirmed" method="post">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="id" />
+
+    <button type="submit">Yes, Delete</button>
+    |
+    <a asp-action="Index">Cancel</a>
+</form>

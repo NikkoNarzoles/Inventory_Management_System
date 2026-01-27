@@ -27,6 +27,48 @@ namespace Inventory_Management_System.Services.ServiceImplementation
 
 
 
+        public async Task<StoreItemsDto> EditMapAsync(int id)
+        {
+            var item = await _IStoreRepo.GetByIdAsync(id);
+
+            if (item == null)
+                return null!;
+
+            return new StoreItemsDto
+            {
+                item_code = item.item_code,
+                item_name = item.item_name,
+                description = item.description,
+                quantity = item.quantity,
+                price = item.price,
+            };
+        }
+
+
+         public async Task<bool> EditAsync(StoreItemsViewModels viewModel, int id)
+        {
+            var item = await _IStoreRepo.FindAsync(id);
+
+            if (item == null)
+                return false;
+
+            item.item_code = viewModel.item_code;
+            item.item_name = viewModel.item_name;
+            item.description = viewModel.description;
+            item.quantity = viewModel.quantity;
+            item.price = viewModel.price;
+            item.supplier = viewModel.supplier;
+            item.updated_at = DateTime.UtcNow;
+
+            await _IStoreRepo.UpdateAsync(item);
+            return true;
+        }
+
+
+
+
+
+
 
 
         public async Task CreateAsync(StoreItemsViewModels viewModel, int userId)
