@@ -31,7 +31,6 @@ namespace Inventory_Management_System.Services.Implementations
                 purchase_date = purchase.purchase_date,
                 userId = purchase.user_id,
 
-
             };
         }
 

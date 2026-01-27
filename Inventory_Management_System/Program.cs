@@ -45,7 +45,9 @@ builder.Services.AddScoped< IAuthService, AuthService>();
 
 builder.Services.AddScoped< IStoreItemsService, StoreItemsService>();
 
-builder.Services.AddScoped<IPurchaseService, PurchaseService>();
+builder.Services.AddScoped< IPurchaseService, PurchaseService>();
+
+builder.Services.AddScoped< IProfileRepository, ProfileRepository>();
 
 
 

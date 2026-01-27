@@ -1,13 +1,10 @@
 ﻿using Inventory_Management_System.DTOs;
-using Inventory_Management_System.Models;
 using Inventory_Management_System.Repositories.Interfaces;
 using Inventory_Management_System.Services.Interfaces;
-using Inventory_Management_System.Services.ServiceImplementation;
 using Inventory_Management_System.Services.ServiceInterface;
 using Inventory_Management_System.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 
 

@@ -4,13 +4,15 @@
     {
         public int id { get; set; }
 
+        public int owners_id { get; set; }
+
         public string item_code { get; set; } =  null!;
         public required string item_name { get; set; } = null!;
         public string? description { get; set; }
         public int quantity { get; set; }
         public decimal price { get; set; }
 
-        public int owners_id { get; set; }
+
 
     }
 }
