@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Inventory_Management_System.DTOs.StoreItemsDto>
 
-<h2>My Store Items</h2>
+<h2>@(User.Identity?.Name ?? "My")'s Store</h2>
 
 @if (!Model.Any())
 {
@@ -27,9 +27,11 @@ else
                     <td>@item.price</td>
                     <td>@item.quantity</td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.id">Edit</a>
+                        <a asp-action="Edit" asp-route-id="@item.id">Edit</a>   
                         |
                         <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                        |
+                        <a asp-controller="StoreItems" asp-action="Create">Create</a>
                     </td>
                 </tr>
             }

@@ -49,16 +49,33 @@
                     </div>
 
                     <div class="settings-menu">
-                        <a asp-controller="Purchase"
+                       
+                        @if (User.IsInRole("Admin"))
+                            {
+
+                                <a asp-controller="Purchase"
+                                   asp-action="Index"
+                                   class="setting-button">
+                                    Purchase
+                                </a>
+
+                                <a asp-action="Create"
+                                class="setting-button">
+                                    Create
+                                </a>
+
+                                <a asp-controller="User"
+                                   asp-action="Index"
+                                   class="setting-button">
+                                    Users
+                                </a>
+                            }
+
+                        <a asp-controller="Profile"
                            asp-action="Index"
                            class="setting-button">
-                            Purchase
+                            Profile
                         </a>
-
-                            <a asp-action="Create"
-                               class="setting-button">
-                                Create
-                            </a>
 
                         <div class="setting-button">About Us</div>
 
@@ -67,6 +84,8 @@
                            class="setting-button">
                             Log out
                         </a>
+
+                        
                     </div>
                 </div>
             </nav>

@@ -15,14 +15,19 @@ namespace Inventory_Management_System.Controllers
 
         private readonly IStoreItemsService _storeService;
 
+        private readonly IUserRepository _userRepository;
 
-        public ProfileController(IProfileRepository profileRepository, IStoreItemsRepository storeItemsRepository, IStoreItemsService storeService)
+
+        public ProfileController(IProfileRepository profileRepository, IStoreItemsRepository storeItemsRepository, 
+                                 IStoreItemsService storeService,  IUserRepository  userRepository)
         {
             _profileRepo = profileRepository;
 
             _storeRepo = storeItemsRepository;
 
             _storeService = storeService;
+
+            _userRepository = userRepository;
         }
 
 
@@ -34,16 +39,9 @@ namespace Inventory_Management_System.Controllers
 
             var items =  await _profileRepo.GetOwnItems(userId);
 
+
             return View(items);
         }
-
-
-
-
-
-
-
-
 
         public async Task<IActionResult> Delete(int? id)
         {
