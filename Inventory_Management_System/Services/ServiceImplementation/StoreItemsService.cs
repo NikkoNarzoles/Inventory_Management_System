@@ -27,6 +27,30 @@ namespace Inventory_Management_System.Services.ServiceImplementation
 
 
 
+
+
+        public async Task CreateAsync(StoreItemsViewModels viewModel, int userId)
+        {
+            var item = new StoreItem
+            {
+                item_code = viewModel.item_code,
+                item_name = viewModel.item_name,
+                description = viewModel.description,
+                quantity = viewModel.quantity,
+                price = viewModel.price,
+                supplier = viewModel.supplier,
+
+                owners_id = userId,
+                created_at = DateTime.UtcNow
+            };
+
+            await _IStoreRepo.AddAsync(item);
+        }
+
+
+
+
+
         public async Task<BuyViewModel> Buymap(int id, int quan)
         {
             if (quan <= 0)

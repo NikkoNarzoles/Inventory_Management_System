@@ -167,7 +167,7 @@ namespace Inventory_Management_System.Controllers
         //=================================================================================================================
 
 
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         // GET: StoreItems/Create
         public IActionResult Create ()
         {
@@ -179,32 +179,23 @@ namespace Inventory_Management_System.Controllers
         //=================================================================================================================
         //=================================================================================================================
 
-        [Authorize(Roles = "Admin")]
         // POST: StoreItems/Create
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create  (StoreItemsViewModels viewModel)
+        public async Task<IActionResult> Create(StoreItemsViewModels viewModel)
         {
-                if (!ModelState.IsValid)
-                {   
-                    return View(viewModel);
-                }
+            if (!ModelState.IsValid)
+                return View(viewModel);
 
-                var item = new StoreItem
-                {
-                    item_code = viewModel.item_code,
-                    item_name = viewModel.item_name,
-                    description = viewModel.description,
-                    quantity = viewModel.quantity,
-                    price = viewModel.price,
-                    supplier = viewModel.supplier,
-                    created_at = DateTime.UtcNow
-                };
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-            await _Irepository.AddAsync(item);
+            await _Iservice.CreateAsync(viewModel, userId);
 
             return RedirectToAction(nameof(Index));
         }
+
+
 
 
 

@@ -8,6 +8,10 @@ namespace Inventory_Management_System.ViewModels
 
         public int id { get; set; }
 
+
+        public int owners_id { get; set; }
+
+
         [Required (ErrorMessage ="Item Id is required")]
         [StringLength(20, ErrorMessage ="Exceeds 20 letters")] 
         public required string item_code { get; set; } 

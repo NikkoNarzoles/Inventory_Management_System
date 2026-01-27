@@ -13,5 +13,7 @@ namespace Inventory_Management_System.Services.ServiceInterface
 
         Task<List<StoreItemsDto>> GetItemsAsync(string? search, StoreItemSortBy? sortBy);
 
+        Task CreateAsync(StoreItemsViewModels viewModel, int userId);
+
     }
 }

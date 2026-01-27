@@ -15,6 +15,8 @@
 
         public string? supplier { get; set; }
 
+        public int owners_id { get; set; }
+
         public DateTime created_at { get; set; } = DateTime.UtcNow;
 
         public DateTime? updated_at { get; set; }
