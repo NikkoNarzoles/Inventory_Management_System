@@ -2,12 +2,16 @@
 
 <h2>@(User.Identity?.Name ?? "My")'s Store</h2>
 
+
+<a asp-controller="StoreItems" asp-action="Create">Create</a>
+
 @if (!Model.Any())
 {
     <p>You have no items.</p>
 }
 else
 {
+    
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
             <tr>
@@ -30,8 +34,7 @@ else
                         <a asp-action="Edit" asp-route-id="@item.id">Edit</a>   
                         |
                         <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-                        |
-                        <a asp-controller="StoreItems" asp-action="Create">Create</a>
+                        
                     </td>
                 </tr>
             }

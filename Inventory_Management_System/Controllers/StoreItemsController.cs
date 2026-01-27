@@ -100,36 +100,6 @@ namespace Inventory_Management_System.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         [Authorize]
         public IActionResult AccessDenied()
         {

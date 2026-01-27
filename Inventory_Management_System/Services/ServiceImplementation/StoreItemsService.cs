@@ -155,6 +155,7 @@ namespace Inventory_Management_System.Services.ServiceImplementation
                 quantity_bought = quan,
                 price = item.price,
                 total_price = item.price * quan,
+                owners_id = item.owners_id,
 
                 user_id = userId
             };

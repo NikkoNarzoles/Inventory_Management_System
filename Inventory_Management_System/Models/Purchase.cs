@@ -11,8 +11,8 @@
         public decimal price { get; set; }
         public decimal total_price { get; set; }
         public DateTime purchase_date { get; set; }
-
-        public int user_id { get; set; } 
+        public int user_id { get; set; }
+        public int owners_id { get; set; }
 
     }
 }

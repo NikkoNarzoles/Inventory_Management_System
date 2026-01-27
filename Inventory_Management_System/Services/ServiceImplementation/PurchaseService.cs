@@ -1,8 +1,9 @@
-﻿using Inventory_Management_System.Models;
-using Inventory_Management_System.DTOs;
+﻿using Inventory_Management_System.DTOs;
+using Inventory_Management_System.Models;
 using Inventory_Management_System.Repositories.Interfaces;
 using Inventory_Management_System.Services.Interfaces;
 using Inventory_Management_System.ViewModels;
+using System.Security.Claims;
 
 namespace Inventory_Management_System.Services.Implementations
 {
@@ -37,25 +38,28 @@ namespace Inventory_Management_System.Services.Implementations
         public IEnumerable<PurchaseViewModel> MapToPurchaseViewModels(IEnumerable<Purchase> purchases, IEnumerable<UserDto> users)
         {
             return purchases.Select(p => {
+                                                var user = users.FirstOrDefault(u => u.id == p.user_id);
 
-                var user = users.FirstOrDefault(u => u.id == p.user_id);
+                                                return new PurchaseViewModel
+                                                {
+                                                    id = p.id,
+                                                    item_name = p.item_name,
+                                                    quantity_bought = p.quantity_bought,
+                                                    total_price = p.total_price,
+                                                    purchase_date = p.purchase_date,
+                                                    userId = p.user_id,
+                                                   
 
-                return new PurchaseViewModel
-                {
-                    id = p.id,
-                    item_name = p.item_name,
-                    quantity_bought = p.quantity_bought,
-                    total_price = p.total_price,
-                    purchase_date = p.purchase_date,
-                    userId = p.user_id,
-
-                    buyer_name = user != null
-                            ? $"{user.first_name} {user.last_name}"
-                            : "Unknown"
-                            };
-            });
+                                                    buyer_name = user != null
+                                                            ? $"{user.first_name} {user.last_name}"
+                                                            : "Unknown"
+                                                            };
+                                            }
+                                          );
 
         }
+
+
 
 
 

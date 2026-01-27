@@ -10,5 +10,7 @@ namespace Inventory_Management_System.Repositories.Interfaces
         Task DeleteAsync(int id);
         Task UpdateAsync(Purchase purchase);
         Task<Purchase?> FindAsync(int id);
+
+        Task<IEnumerable<Purchase>> GetPurchasesByOwnerAsync(int ownerId);      
     }
 }

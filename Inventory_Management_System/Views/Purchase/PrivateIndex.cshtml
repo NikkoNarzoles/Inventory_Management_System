@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Inventory_Management_System.ViewModels.PurchaseViewModel>
+
+@{
+    ViewData["Title"] = "Purchases";
+}
+
+<h2>Purchase List</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Item Name</th>
+            <th>Quantity</th>
+            <th>Date</th>
+            <th>Total Amount</th>
+            <th>Buyers Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                
+                <td>@item.item_name</td>
+                <td>@item.quantity_bought</td>
+                <td>
+                    @item.purchase_date.ToLocalTime().ToString("MMMM dd, yyyy hh:mm tt")
+                </td>
+                <td>@item.total_price</td>
+                <td>@item.buyer_name</td>
+                <td>
+                    <a asp-action="Delete"
+                       asp-route-id="@item.id"
+                       class="btn btn-danger btn-sm">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
