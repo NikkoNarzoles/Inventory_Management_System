@@ -241,6 +241,7 @@ body {
     align-items: center;
     position: relative;
     z-index: 1;
+    padding-left:var(--padleft);
 }
 
 .nav-box {
@@ -248,7 +249,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    width: 61%;
+    width: var(--widthbox);
     height: 10%;
     display: flex;
     align-items: center;
@@ -256,8 +257,7 @@ body {
     justify-content: space-evenly;
     flex-direction: row;
     position: absolute;
-    top: 123px;
-    padding-left: 30px;
+    top: var(--top);
     z-index: 10;
 }
 
@@ -448,10 +448,25 @@ body.blacksmith {
     --bg-image: url("/Images/ProfileView/blacksmith.png");
     --box-image: url("/Images/blacksmithbox.png");
     --nav-bg: rgba(57, 18, 18, 0.285);
+    --widthbox: 61%;
+    --padleft: 8px;
+    --top: 125px;
 }
 
 body.library {
     --bg-image: url("/Images/ProfileView/library.png");
     --box-image: url("/Images/librarybox.png");
     --nav-bg: #d4cbab17;
+    --widthbox: 61%;
+    --padleft: 8px;
+    --top: 125px;
+}
+
+body.brewery {
+    --bg-image: url("/Images/ProfileView/brewery.png");
+    --box-image: url("/Images/potionbox.png");
+    --nav-bg: #22202077;
+    --widthbox: 60%;
+    --padleft: 14px;
+    --top: 120px;
 }
