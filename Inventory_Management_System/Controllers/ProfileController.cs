@@ -42,6 +42,8 @@ namespace Inventory_Management_System.Controllers
             return View(items);
         }
 
+
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

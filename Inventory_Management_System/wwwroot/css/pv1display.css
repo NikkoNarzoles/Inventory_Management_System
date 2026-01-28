@@ -1,4 +1,15 @@
-﻿* {
+﻿
+:root {
+    --bg-image: url("/Images/ProfileView/Storage.jpg");
+    --box-image: url("/Images/storagebox.png");
+    --nav-bg: rgba(57, 18, 18, 0.285);
+}
+
+
+
+
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -18,7 +29,7 @@ body {
 .bg-blur {
     position: fixed;
     inset: 0;
-    background-image: url("/Images/ProfileView/blacksmith.png");
+    background-image: var(--bg-image);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -141,7 +152,7 @@ body {
         content: "";
         position: absolute;
         inset: 0;
-        background: rgba(57, 18, 18, 0.285);
+        background: var(--nav-bg);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
         mask-image: linear-gradient( to bottom, black 0%, black 85%, transparent 100% );
@@ -221,7 +232,7 @@ body {
     width: 69%;
     aspect-ratio: 16 / 9;
     margin: auto;
-    background-image: url("/Images/blacksmithbox.png");
+    background-image: var(--box-image);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -431,3 +442,16 @@ body {
         background: #1a1a1a;
         color: #fff;
     }
+
+
+body.blacksmith {
+    --bg-image: url("/Images/ProfileView/blacksmith.png");
+    --box-image: url("/Images/blacksmithbox.png");
+    --nav-bg: rgba(57, 18, 18, 0.285);
+}
+
+body.library {
+    --bg-image: url("/Images/ProfileView/library.png");
+    --box-image: url("/Images/librarybox.png");
+    --nav-bg: #d4cbab17;
+}
