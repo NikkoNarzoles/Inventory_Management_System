@@ -57,7 +57,9 @@ namespace Inventory_Management_System.Services.ServicesImplementation
                     {
                         new Claim(ClaimTypes.NameIdentifier, user.id.ToString()),
                         new Claim(ClaimTypes.Name, user.username),
-                        new Claim(ClaimTypes.Role, user.role)
+                        new Claim(ClaimTypes.Role, user.role),
+                        new Claim(ClaimTypes.GivenName, user.first_name)
+
                     };
 
             var identity = new ClaimsIdentity(

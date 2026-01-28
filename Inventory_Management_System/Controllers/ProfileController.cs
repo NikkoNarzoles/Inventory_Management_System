@@ -15,11 +15,10 @@ namespace Inventory_Management_System.Controllers
 
         private readonly IStoreItemsService _storeService;
 
-        private readonly IUserRepository _userRepository;
-
+     
 
         public ProfileController(IProfileRepository profileRepository, IStoreItemsRepository storeItemsRepository, 
-                                 IStoreItemsService storeService,  IUserRepository  userRepository)
+                                 IStoreItemsService storeService)
         {
             _profileRepo = profileRepository;
 
@@ -27,7 +26,7 @@ namespace Inventory_Management_System.Controllers
 
             _storeService = storeService;
 
-            _userRepository = userRepository;
+           
         }
 
 

@@ -3,6 +3,8 @@
 <h2>Add New Item</h2>
 
 <form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
 
     <div>
         <label asp-for="item_code"></label>

@@ -136,10 +136,10 @@ namespace Inventory_Management_System.Controllers
 
         [Authorize]
         // GET: StoreItems/Create
-        public IActionResult Create ()
+        public IActionResult Create(string? returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
-
         }
 
 
@@ -150,7 +150,7 @@ namespace Inventory_Management_System.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(StoreItemsViewModels viewModel)
+        public async Task<IActionResult> Create(StoreItemsViewModels viewModel, string? returnUrl)
         {
             if (!ModelState.IsValid)
                 return View(viewModel);
@@ -158,6 +158,9 @@ namespace Inventory_Management_System.Controllers
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
             await _Iservice.CreateAsync(viewModel, userId);
+
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                return Redirect(returnUrl);
 
             return RedirectToAction(nameof(Index));
         }
