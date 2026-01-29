@@ -15,8 +15,12 @@ namespace Inventory_Management_System.ViewModels
         [Required]
         public string username { get; set; } = null!;
 
-        [Required, EmailAddress]
-        public string email { get; set; } = null!;
+
+        public string? ReturnUrl { get; set; }
+
+
+        [Range (1,4)]
+        public int theme_id { get; set; }
     }
 
 }

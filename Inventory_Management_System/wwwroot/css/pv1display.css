@@ -3,6 +3,9 @@
     --bg-image: url("/Images/ProfileView/Storage.jpg");
     --box-image: url("/Images/storagebox.png");
     --nav-bg: rgba(57, 18, 18, 0.285);
+    --widthbox: 61%;
+    --padleft: 8px;
+    --top: 125px;
 }
 
 
@@ -397,6 +400,7 @@ body {
     justify-content: center;
     color: #000000bb;
     font-size: 10px;
+    text-decoration: none;
 }
 
 
@@ -441,6 +445,17 @@ body {
     }
 
 
+
+body.storage {
+    --bg-image: url("/Images/ProfileView/Storage.jpg");
+    --box-image: url("/Images/storagebox.png");
+    --nav-bg: rgba(57, 18, 18, 0.285);
+    --widthbox: 61%;
+    --padleft: 8px;
+    --top: 125px;
+}
+
+
 body.blacksmith {
     --bg-image: url("/Images/ProfileView/blacksmith.png");
     --box-image: url("/Images/blacksmithbox.png");
@@ -465,5 +480,6 @@ body.brewery {
     --nav-bg: #22202077;
     --widthbox: 60%;
     --padleft: 14px;
-    --top: 120px;
+    --top: 115px;
 }
+

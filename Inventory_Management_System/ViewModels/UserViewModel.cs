@@ -31,7 +31,7 @@ namespace Inventory_Management_System.ViewModels
         public string passwordhash { get; set; } = null!;
 
 
-     
+        
 
 
     }

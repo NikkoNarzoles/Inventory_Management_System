@@ -211,14 +211,10 @@ namespace Inventory_Management_System.Controllers
         //=================================================================================================================
 
         //get 
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int? id)
+        [Authorize]
+        public async Task<IActionResult> Edit(int id, string? returnUrl)
         {
-            if (id == null)
-                return NotFound();
-
-            var dto = await _IuserService.EditAsync(id.Value);
-
+            var dto = await _IuserService.EditAsync(id);
             if (dto == null)
                 return NotFound();
 
@@ -228,7 +224,8 @@ namespace Inventory_Management_System.Controllers
                 first_name = dto.first_name,
                 last_name = dto.last_name,
                 username = dto.username,
-                email = "" // or fetch email via entity if needed
+                theme_id = dto.theme_id,
+                ReturnUrl = returnUrl
             };
 
             return View(vm);
@@ -239,7 +236,7 @@ namespace Inventory_Management_System.Controllers
 
 
 
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditUserViewModel vm)
@@ -250,6 +247,9 @@ namespace Inventory_Management_System.Controllers
             var success = await _IuserService.UpdateAsync(vm);
             if (!success)
                 return NotFound();
+
+            if (!string.IsNullOrEmpty(vm.ReturnUrl) && Url.IsLocalUrl(vm.ReturnUrl))
+                return Redirect(vm.ReturnUrl);
 
             return RedirectToAction(nameof(Index));
         }

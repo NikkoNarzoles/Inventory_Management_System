@@ -5,5 +5,7 @@ namespace Inventory_Management_System.Repositories.Interfaces
     public interface IProfileRepository
     {
         Task<IEnumerable<StoreItemsDto>> GetOwnItems(int userId);
+
+        Task<int> GetUserThemeId(int userId);
     }
 }
