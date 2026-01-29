@@ -46,10 +46,9 @@ namespace Inventory_Management_System.Repositories.Implementations
 
 
 
+
+
         // GET ALL (async)
-
-
-
         public async Task<List<StoreItemsDto>> GetAsync(string? search,StoreItemSortBy? sortBy)
         {
             IQueryable<StoreItem> query = _context.StoreItems.AsNoTracking();

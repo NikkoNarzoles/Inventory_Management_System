@@ -10,11 +10,15 @@
             <th>First Name</th>
             <th>Last Name</th>
 
-             @if (User.IsInRole("Admin"))
-                    {
-            <th>Username</th>
-            <th>Actions</th>
-                    }
+            @if (User.IsInRole("Admin"))
+            {
+                <th>Username</th>
+                <th>Actions</th>
+            }
+            else
+            {
+                <th>Actions</th>
+            }
         </tr>
     </thead>
 
@@ -25,14 +29,22 @@
                 <td>@user.first_name</td>
                 <td>@user.last_name</td>
 
-    @if (User.IsInRole("Admin"))
-    {
-                     <td>@user.username</td>
-    }
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>@user.username</td>
+                }
 
                 <td>
+                    
+                    <a asp-controller="User"
+                       asp-action="Profile"
+                       asp-route-id="@user.id">
+                        Profile
+                    </a>
+
                     @if (User.IsInRole("Admin"))
                     {
+                        <span> | </span>
                         <a asp-action="Edit" asp-route-id="@user.id">Edit</a>
                         <span> | </span>
                         <a asp-action="Delete" asp-route-id="@user.id">Delete</a>

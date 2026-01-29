@@ -78,6 +78,26 @@ namespace Inventory_Management_System.Repositories.Implementations
         }
 
 
+        public async Task<List<UserDto>> SearchAsync(string search)
+        {
+            return await _context.Users
+                .AsNoTracking()
+                .Where(u =>
+                    u.first_name.Contains(search) ||
+                    u.last_name.Contains(search) ||
+                    u.username.Contains(search)
+                )
+                .Select(u => new UserDto
+                {
+                    id = u.id,
+                    first_name = u.first_name,
+                    last_name = u.last_name,
+                    username = u.username,
+                })
+                .ToListAsync();
+        }
+
+
         //=================================================================================================================
         //=================================================================================================================
 
@@ -94,8 +114,9 @@ namespace Inventory_Management_System.Repositories.Implementations
                     first_name = item.first_name,
                     last_name = item.last_name,
                     username = item.username,
+                    theme_id = item.theme_id
                 })
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(); 
         }
 
 
@@ -147,6 +168,11 @@ namespace Inventory_Management_System.Repositories.Implementations
 
             return true;
         }
+
+
+        //=================================================================================================================
+        //=================================================================================================================
+
 
 
 

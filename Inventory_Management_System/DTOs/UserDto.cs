@@ -9,5 +9,7 @@
 
         public string username { get; set; } = null!;
 
+        public int theme_id { get; set; }
+
     }
 }

@@ -50,6 +50,7 @@ namespace Inventory_Management_System.Services.ServicesImplementation
                 username = viewModel.username,
                 email = viewModel.email,
                 passwordhash = hashedPassword,
+                theme_id = 0,
 
                 // FIRST USER BECOMES ADMIN
                 role = adminExists ? "User" : "Admin"
@@ -102,6 +103,8 @@ namespace Inventory_Management_System.Services.ServicesImplementation
             await _Irepository.UpdateAsync(user);
             return true;
         }
+
+
 
 
 
