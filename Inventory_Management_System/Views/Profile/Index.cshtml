@@ -1,43 +1,119 @@
-﻿@model IEnumerable<Inventory_Management_System.DTOs.StoreItemsDto>
-
-<h2>@(User.Identity?.Name ?? "My")'s Store</h2>
+﻿﻿@using System.Security.Claims
 
 
-<a asp-controller="StoreItems" asp-action="Create">Create</a>
-
-@if (!Model.Any())
-{
-    <p>You have no items.</p>
+@model IEnumerable<Inventory_Management_System.DTOs.StoreItemsDto>
+@{
+    Layout = null;
 }
-else
-{
-    
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Item Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.item_name</td>
-                    <td>@item.description</td>
-                    <td>@item.price</td>
-                    <td>@item.quantity</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.id">Edit</a>   
-                        |
-                        <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-                        
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+
+@{
+    var firstName = User.FindFirst(ClaimTypes.GivenName)?.Value ?? "My";
 }
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="~/css/pv1display.css" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <title>@((User.Identity?.Name ?? "My") + " Store")</title>
+</head>
+<body class="brewery">
+
+    <div class="bg-blur"></div>
+
+    <main class="content">
+
+        <!-- HEADER / NAV -->
+        <nav class="nav-main">
+            <a asp-controller="StoreItems" asp-action="Index" class="Neko">NeKo</a>
+
+            <div class="mid">
+                <div class="storeName">@firstName's Shop</div>
+            </div>
+
+            <div class="settings">
+                <div class="Gear">
+                    <i class="fa-solid fa-gear settings-icon"></i>
+                </div>
+
+                <div class="settings-menu">
+
+
+                    <a asp-controller="Purchase" asp-action="PrivateIndex" class="setting-button">Purchase</a>
+
+
+
+                    <a asp-action="Create" asp-controller="StoreItems" class="setting-button" asp-route-returnUrl="@Context.Request.Path">Add Item</a>
+                    
+                    <div class="setting-button">About Us</div>
+                    <a asp-controller="Auth" asp-action="Logout" class="setting-button">Log out</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- STORE ITEMS -->
+        <div class="item-box">
+            <nav class="nav-box">
+                <div class="font_title_box">Name</div>
+                <div class="font_title_box">Price</div>
+                <div class="font_title_box">Stocks</div>
+            </nav>
+
+            <div class="item-content">
+                @if (!Model.Any())
+                {
+                    <p class="Neko">You have no items.</p>
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        <div class="item-parent">
+
+                                            <div class="item-info">
+                                                <div>@item.item_name</div>
+                                                <div class="peso">$@item.price</div>
+                               
+
+
+                                                @if (item.quantity <= 0)
+                                                {
+                                                    <div class="outofstock">Out of Stock</div>
+                                                }
+                                                else
+                                                {
+                                                    <div>@item.quantity x</div>
+                                                }
+
+
+                                            </div>
+
+                                            <div class="item-descrip">
+                                                <p style="margin-right: 20px;">Description:</p>
+                                                <div> @item.description</div>
+                                            </div>
+
+                                            <div class="buttons">
+                                                <a asp-action="Edit" asp-route-id="@item.id" class="Buy">Edit</a>
+                                                <a asp-action="Delete" asp-route-id="@item.id" class="Buy">Delete</a>
+                                            </div>
+
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>

@@ -32,8 +32,8 @@ namespace Inventory_Management_System.Controllers
 
 
 
-
-          public async Task <IActionResult> Index()
+   
+       public async Task <IActionResult> Index()
         {
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
@@ -42,6 +42,8 @@ namespace Inventory_Management_System.Controllers
 
             return View(items);
         }
+
+
 
         public async Task<IActionResult> Delete(int? id)
         {

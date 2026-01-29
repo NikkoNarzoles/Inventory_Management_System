@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<Inventory_Management_System.DTOs.StoreItemsDto>
+
 @{
-    Layout = null; // Disable the layout
+    Layout = null;
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +32,6 @@
                 <!-- SEARCH AREA -->
                 <div class="mid">
                     <div class="search">
-                                        
                         <div class="search-bg">
                             <input type="text"
                                    name="search"
@@ -39,18 +40,21 @@
                                    placeholder="Search" />
                             <!-- SEARCH ICON -->
                             <div class="search-icon"></div>
-                                         
                         </div>
-                    </div>
+                                    <div class="item_user">
+                                                <select name="mode" class="itus-select">
+                                                    <option value="items"
+                                                            selected="@(ViewData["Mode"]?.ToString() != "users")">
+                                                        Items
+                                                    </option>
+                                                    <option value="users" 
+                                                            selected="@(ViewData["Mode"]?.ToString() == "users")">
+                                                        Users
+                                                    </option>
+                                                </select>
+                                    </div>
 
-                                          <select name="mode">
-                                            <option value="items" selected="@(ViewData["Mode"]?.ToString() != "users")">
-                                                Items
-                                            </option>
-                                            <option value="users" selected="@(ViewData["Mode"]?.ToString() == "users")">
-                                                Users
-                                            </option>
-                                          </select>
+                    </div>
                 </div>
 
                 <!-- SETTINGS -->
@@ -89,14 +93,7 @@
                         </a>
 
                         <div class="setting-button">About Us</div>
-
-                        <a asp-controller="Auth"
-                           asp-action="Logout"
-                           class="setting-button">
-                            Log out
-                        </a>
-
-                        
+              
                     </div>
                 </div>
             </nav>
@@ -140,7 +137,7 @@
                                 {
                                     <div>@item.quantity x</div>
                                 }
-                            </div>
+                          </div>
 
                             <div class="item-descrip">
                                 <p style="margin-right: 20px;">Description:</p>

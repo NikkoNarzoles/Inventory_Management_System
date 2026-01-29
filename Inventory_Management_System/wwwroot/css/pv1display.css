@@ -1,4 +1,15 @@
-﻿﻿* {
+﻿﻿
+:root {
+    --bg-image: url("/Images/ProfileView/Storage.jpg");
+    --box-image: url("/Images/storagebox.png");
+    --nav-bg: rgba(57, 18, 18, 0.285);
+}
+
+
+
+
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -12,16 +23,13 @@ body {
     background-color: #000;
     color: #fff;
     overflow-x: hidden;
-    overflow-y: hidden;
-    margin: 0px;
-
 }
 
 
 .bg-blur {
     position: fixed;
     inset: 0;
-    background-image: url("/Images/bg/storeitembg.png");
+    background-image: var(--bg-image);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -36,7 +44,6 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 0px;
 }
 
 .font_title {
@@ -61,7 +68,6 @@ body {
     position: relative;
     display: inline-flex;
     align-items: center;
-    margin-right: 30px;
 }
 
     .settings::after {
@@ -85,7 +91,7 @@ body {
     backdrop-filter: blur(100 px);
     outline: 5px solid rgba(94, 20, 20, 0.489);
     border-radius: 10px;
-    padding: 15px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -109,12 +115,9 @@ body {
     color: transparent;
     font-size: 12px;
     margin: 10px;
+    text-decoration: none;
     white-space: nowrap;
 }
-
-
-
-
 
 .Neko {
     font-family: 'Press Start 2P', cursive;
@@ -123,7 +126,15 @@ body {
     background-clip: text;
     color: transparent;
     font-size: 20px;
-    margin-left: 30px;
+}
+
+.storeName {
+    font-family: 'Press Start 2P', cursive;
+    background: rgb(212, 181, 3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 30px;
 }
 
 .nav-main {
@@ -134,56 +145,20 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 10px;
-    margin-bottom: 3%;
+    padding: 0 30px;
 }
 
     .nav-main::after {
         content: "";
         position: absolute;
         inset: 0;
-        background: rgba(87, 119, 139, 0.205);
+        background: var(--nav-bg);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
         mask-image: linear-gradient( to bottom, black 0%, black 85%, transparent 100% );
         -webkit-mask-image: linear-gradient( to bottom, black 0%, black 85%, transparent 100% );
         z-index: -1; /* 👈 THIS LINE FIXES IT */
         pointer-events: none;
-    }
-
-
-
-
-.item_user {
-    position: absolute;
-    z-index: 99;
-    top: 67%;
-   
-}
-
-
-.itus-select {
-    padding: 2px 20px;
-    background: url(/Images/bg/settingbg3.png);
-    color: navajowhite;
-    font-family: 'VT323', monospace;
-    font-size: 20px;
-    cursor: pointer;
-    border: 1px solid black;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    appearance: none; /* Standard */
-    -webkit-appearance: none; /* Chrome / Safari */
-    -moz-appearance: none; /* Firefox */
-
-    text-align: center; /* 👈 center selected text */
-    text-align-last: center; /* 👈 center selected option (important) */
-}
-
-
-    .itus-select option {
-        background: #1a1a1a;
-        color: #fff;
     }
 
 
@@ -208,8 +183,8 @@ body {
 
 /* IMAGE CONTAINER */
 .search-bg {
-    width: 89%;
-    height: 170px;
+    width: 90%;
+    height: 160px;
     background-image: url("/Images/bg/search.png"); /* <- your pixel image */
     background-repeat: no-repeat;
     background-size: 100% 100%; /* stretch horizontally */
@@ -217,7 +192,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 3;
 }
 
 /* INPUT */
@@ -252,12 +226,13 @@ body {
     width: 90px;
 }
 
+
 .item-box {
     position: relative;
-    width: 70%;
+    width: 69%;
     aspect-ratio: 16 / 9;
     margin: auto;
-    background-image: url("/Images/storebox.png");
+    background-image: var(--box-image);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -266,6 +241,7 @@ body {
     align-items: center;
     position: relative;
     z-index: 1;
+    padding-left: var(--padleft);
 }
 
 .nav-box {
@@ -273,7 +249,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    width: 59.3%;
+    width: var(--widthbox);
     height: 10%;
     display: flex;
     align-items: center;
@@ -281,18 +257,16 @@ body {
     justify-content: space-evenly;
     flex-direction: row;
     position: absolute;
-    top: 126px;
-    padding-left: 30px;
+    top: var(--top);
     z-index: 10;
 }
 
 
 
 .item-content {
-    width: 59%;
-    height: 60%;
-    margin-top: 12%;
-    margin-right: 4px;
+    width: 61%;
+    height: 63%;
+    margin-top: 14%;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -331,6 +305,8 @@ body {
     align-items: center;
     width: 100%;
     min-height: 60%;
+    position: relative;
+    margin-bottom: 100px;
 }
 
 
@@ -365,17 +341,11 @@ body {
     scrollbar-color: #c98e05 #1a1408;
 }
 
-.peso {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
 
 .item-info {
     border: 2px dashed rgb(172, 115, 23);
     width: 78%;
-    height: 10%;
+    height: 15%;
     align-items: center;
     display: flex;
     flex-direction: row;
@@ -383,16 +353,10 @@ body {
     font-family: 'Press Start 2P', cursive;
     font-size: 15px;
     font-weight: bold;
+    padding-right: 0px;
     color: #000000bb;
-    margin-top: 45px;
+    margin-top: 52px;
     margin-bottom: 2px;
-    padding: 5px;
-}
-
-.outofstock {
-    font-family: 'VT323', monospace;
-    font-size: 20px;
-    color: red;
 }
 
 .item-descrip {
@@ -403,7 +367,7 @@ body {
     color: #000000bb;
     font-weight: bold;
     width: 78%;
-    height: 30%;
+    height: 35%;
     display: flex;
     align-items: center;
     padding: 5px;
@@ -413,8 +377,8 @@ body {
     font-family: 'Press Start 2P', cursive;
     width: 75%;
     height: 40%;
-    position: relative;
-    bottom: 50px;
+    position: absolute;
+    bottom: -45px;
     display: flex;
     flex-direction: row;
     justify-content: right;
@@ -433,36 +397,73 @@ body {
     justify-content: center;
     color: #000000bb;
     font-size: 10px;
-    text-decoration: none;
 }
+
+
+.peso {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 
 
 .item-sort {
     position: absolute;
     z-index: 99;
-    top: 40%;
-    right: 9.4%;
+    top: 14%;
+    right: 29%;
 }
-
 
 .sort-select {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-right: 5px;
-    padding-left: 5px;
-    background: url(/Images/bg/settingbg3.png);
-    color: navajowhite;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    color: #fff;
     font-family: 'VT323', monospace;
     font-size: 18px;
+    outline: none;
     cursor: pointer;
-    border: 1px solid white;
-    border-left: none;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    transition: all 0.25s ease;
 }
 
+    .sort-select:hover {
+        background: rgba(255, 255, 255, 0.25);
+    }
 
     .sort-select option {
         background: #1a1a1a;
         color: #fff;
     }
+
+
+body.blacksmith {
+    --bg-image: url("/Images/ProfileView/blacksmith.png");
+    --box-image: url("/Images/blacksmithbox.png");
+    --nav-bg: rgba(57, 18, 18, 0.285);
+    --widthbox: 61%;
+    --padleft: 8px;
+    --top: 125px;
+}
+
+body.library {
+    --bg-image: url("/Images/ProfileView/library.png");
+    --box-image: url("/Images/librarybox.png");
+    --nav-bg: #d4cbab17;
+    --widthbox: 61%;
+    --padleft: 8px;
+    --top: 125px;
+}
+
+body.brewery {
+    --bg-image: url("/Images/ProfileView/brewery.png");
+    --box-image: url("/Images/potionbox.png");
+    --nav-bg: #22202077;
+    --widthbox: 60%;
+    --padleft: 14px;
+    --top: 120px;
+}
