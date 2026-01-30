@@ -55,21 +55,7 @@
                 </div>
 
                 <div class="settings-menu">
-                    <a asp-controller="Purchase" asp-action="PrivateIndex" class="setting-button">Purchase</a>
-
-                    <a asp-controller="StoreItems"
-                       asp-action="Create"
-                       asp-route-returnUrl="@Context.Request.Path"
-                       class="setting-button">
-                        Add Item
-                    </a>
-
-                    <a asp-controller="Profile"
-                       asp-action="EditProfile"
-                       asp-route-returnUrl="@Context.Request.Path"
-                       class="setting-button">
-                        Edit
-                    </a>
+                    
 
                     <div class="setting-button">About Us</div>
                     <a asp-controller="Auth" asp-action="Logout" class="setting-button">Log out</a>

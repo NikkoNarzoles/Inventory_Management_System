@@ -50,7 +50,7 @@ namespace Inventory_Management_System.Services.ServicesImplementation
                 username = viewModel.username,
                 email = viewModel.email,
                 passwordhash = hashedPassword,
-                theme_id = 0,
+                theme_id = 1,
 
                 // FIRST USER BECOMES ADMIN
                 role = adminExists ? "User" : "Admin"

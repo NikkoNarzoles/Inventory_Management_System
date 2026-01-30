@@ -127,7 +127,7 @@
                         <div class="item-parent">
                             <div class="item-info">
                                 <div>@item.item_name</div>
-                                <div class="peso">$@item.price</div>
+                                <div class="peso">$@item.price.ToString("#,0.##")</div>
 
                                 @if (item.quantity <= 0)
                                 {

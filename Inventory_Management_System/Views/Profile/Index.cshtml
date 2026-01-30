@@ -87,7 +87,7 @@
             <div class="item-content">
                 @if (!Model.Any())
                 {
-                    <p class="Neko">You have no items.</p>
+                    <p class="Neko" style="margin-top: 140px">You have no items.</p>
                 }
                 else
                 {
@@ -97,7 +97,7 @@
 
                                             <div class="item-info">
                                                 <div>@item.item_name</div>
-                                                <div class="peso">$@item.price</div>
+                                                <div class="peso">$@item.price.ToString("0.##")</div>
                                
 
 

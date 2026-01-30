@@ -375,6 +375,7 @@ body {
     display: flex;
     align-items: center;
     padding: 5px;
+    letter-spacing: 1px;
 }
 
 .buttons {
@@ -410,6 +411,12 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
+
+.outofstock {
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    color: red;
 }
 
 

@@ -399,7 +399,7 @@ body {
     position: relative;
     border: 2px dashed rgb(172, 115, 23);
     font-family: 'VT323', monospace;
-    font-size: 15px;
+    font-size: 16px;
     color: #000000bb;
     font-weight: bold;
     width: 78%;
@@ -407,6 +407,7 @@ body {
     display: flex;
     align-items: center;
     padding: 5px;
+    letter-spacing: 1px;
 }
 
 .buttons {

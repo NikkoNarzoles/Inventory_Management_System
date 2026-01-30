@@ -14,10 +14,12 @@ namespace Inventory_Management_System.Repositories.Implementations
 
 
         private readonly InventoryDbContext _context;
+        private readonly IProfileRepository _Iprofile;
 
-        public UserRepository(InventoryDbContext context)
+        public UserRepository(InventoryDbContext context, IProfileRepository iprofile)
         {
             _context = context;
+            _Iprofile = iprofile;
         }
 
 
@@ -163,7 +165,12 @@ namespace Inventory_Management_System.Repositories.Implementations
             if (item == null)
                 return false;
 
+            var ownItems = await _context.StoreItems
+                     .Where(s => s.owners_id == id)
+                     .ToListAsync();
+
             _context.Users.Remove(item);
+            _context.StoreItems.RemoveRange(ownItems);
             await _context.SaveChangesAsync();
 
             return true;
