@@ -1,8 +1,11 @@
-﻿
+﻿﻿
 :root {
     --bg-image: url("/Images/ProfileView/Storage.jpg");
     --box-image: url("/Images/storagebox.png");
     --nav-bg: rgba(57, 18, 18, 0.285);
+    --widthbox: 61%;
+    --padleft: 8px;
+    --top: 125px;
 }
 
 
@@ -241,7 +244,7 @@ body {
     align-items: center;
     position: relative;
     z-index: 1;
-    padding-left:var(--padleft);
+    padding-left: var(--padleft);
 }
 
 .nav-box {
@@ -265,7 +268,7 @@ body {
 
 .item-content {
     width: 61%;
-    height:63%;
+    height: 63%;
     margin-top: 14%;
     position: absolute;
     display: flex;
@@ -307,9 +310,7 @@ body {
     width: 100%;
     min-height: 60%;
     position: relative;
-    margin-bottom:100px;
-
-
+    margin-bottom: 100px;
 }
 
 
@@ -400,6 +401,7 @@ body {
     justify-content: center;
     color: #000000bb;
     font-size: 10px;
+    text-decoration: none;
 }
 
 
@@ -444,6 +446,17 @@ body {
     }
 
 
+
+body.storage {
+    --bg-image: url("/Images/ProfileView/Storage.jpg");
+    --box-image: url("/Images/storagebox.png");
+    --nav-bg: rgba(57, 18, 18, 0.285);
+    --widthbox: 61%;
+    --padleft: 8px;
+    --top: 125px;
+}
+
+
 body.blacksmith {
     --bg-image: url("/Images/ProfileView/blacksmith.png");
     --box-image: url("/Images/blacksmithbox.png");
@@ -468,5 +481,6 @@ body.brewery {
     --nav-bg: #22202077;
     --widthbox: 60%;
     --padleft: 14px;
-    --top: 120px;
+    --top: 115px;
 }
+

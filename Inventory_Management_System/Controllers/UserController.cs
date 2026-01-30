@@ -1,4 +1,5 @@
-﻿using Inventory_Management_System.Services.ServiceInterface;
+﻿using Inventory_Management_System.Repositories.Interfaces;
+using Inventory_Management_System.Services.ServiceInterface;
 using Inventory_Management_System.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +15,55 @@ namespace Inventory_Management_System.Controllers
 
         private readonly IUserService _IuserService;
 
+        private readonly IUserRepository _IuserRepo;
+
+        private readonly IProfileRepository _IprofileRepo;
+
        
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IUserRepository userReposy, IProfileRepository profileRepository)
         {
             _IuserService = userService;
+
+            _IuserRepo = userReposy;
+
+            _IprofileRepo = profileRepository;
         }
+
+
+
+
+
+
+        public async Task<IActionResult> Profile(int? id)
+        {
+            if (id == null)
+                return RedirectToAction("Index");
+
+            var user = await _IuserRepo.GetByIdAsync(id.Value);
+            if (user == null)
+                return NotFound();
+
+            var ownItems = await _IprofileRepo.GetOwnItems(id.Value);
+
+            var vm = new UserProfileViewModel
+            {
+                User = user,
+                Items = ownItems.ToList()
+            };
+
+            return View(vm);
+        }
+
+
+
+
+
+
+
+
+
+
+
 
         //=================================================================================================================
         //=================================================================================================================
@@ -33,12 +78,40 @@ namespace Inventory_Management_System.Controllers
 
 
         // GET: Users
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? search)
         {
-            var items = await _IuserService.ShowAsync();
 
-            return View(items);
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                var users = await _IuserService.ShowAsync();
+
+                ViewData["Search"] = null;
+                ViewData["UserNotFound"] = false;
+
+                return View(users);
+            }
+
+           
+
+
+            var filteredUsers = await _IuserRepo.SearchAsync(search);
+
+            ViewData["Search"] = search;
+
+
+          
+
+
+            if (!filteredUsers.Any())
+            {
+                ViewData["UserNotFound"] = true;
+                return View(filteredUsers); 
+            }
+
+            ViewData["UserNotFound"] = false;
+            return View(filteredUsers);
         }
+
 
 
 
@@ -138,14 +211,10 @@ namespace Inventory_Management_System.Controllers
         //=================================================================================================================
 
         //get 
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int? id)
+        [Authorize]
+        public async Task<IActionResult> Edit(int id, string? returnUrl)
         {
-            if (id == null)
-                return NotFound();
-
-            var dto = await _IuserService.EditAsync(id.Value);
-
+            var dto = await _IuserService.EditAsync(id);
             if (dto == null)
                 return NotFound();
 
@@ -155,7 +224,8 @@ namespace Inventory_Management_System.Controllers
                 first_name = dto.first_name,
                 last_name = dto.last_name,
                 username = dto.username,
-                email = "" // or fetch email via entity if needed
+                theme_id = dto.theme_id,
+                ReturnUrl = returnUrl
             };
 
             return View(vm);
@@ -166,7 +236,7 @@ namespace Inventory_Management_System.Controllers
 
 
 
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditUserViewModel vm)
@@ -177,6 +247,9 @@ namespace Inventory_Management_System.Controllers
             var success = await _IuserService.UpdateAsync(vm);
             if (!success)
                 return NotFound();
+
+            if (!string.IsNullOrEmpty(vm.ReturnUrl) && Url.IsLocalUrl(vm.ReturnUrl))
+                return Redirect(vm.ReturnUrl);
 
             return RedirectToAction(nameof(Index));
         }

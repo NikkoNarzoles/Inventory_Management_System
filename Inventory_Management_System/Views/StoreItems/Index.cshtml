@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<Inventory_Management_System.DTOs.StoreItemsDto>
+
 @{
-    Layout = null; // Disable the layout
+    Layout = null;
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,6 +41,19 @@
                             <!-- SEARCH ICON -->
                             <div class="search-icon"></div>
                         </div>
+                                    <div class="item_user">
+                                                <select name="mode" class="itus-select">
+                                                    <option value="items"
+                                                            selected="@(ViewData["Mode"]?.ToString() != "users")">
+                                                        Items
+                                                    </option>
+                                                    <option value="users" 
+                                                            selected="@(ViewData["Mode"]?.ToString() == "users")">
+                                                        Users
+                                                    </option>
+                                                </select>
+                                    </div>
+
                     </div>
                 </div>
 
@@ -78,9 +93,7 @@
                         </a>
 
                         <div class="setting-button">About Us</div>
-
-                      
-                        
+              
                     </div>
                 </div>
             </nav>

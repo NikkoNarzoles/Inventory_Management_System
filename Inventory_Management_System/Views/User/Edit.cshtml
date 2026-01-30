@@ -4,6 +4,7 @@
 
 <form asp-action="Edit" method="post">
     <input type="hidden" asp-for="id" />
+    <input type="hidden" asp-for="ReturnUrl" />
 
     <div>
         <label asp-for="first_name"></label>
@@ -23,14 +24,17 @@
         <span asp-validation-for="username"></span>
     </div>
 
+   
+
     <div>
-        <label asp-for="email"></label>
-        <input asp-for="email" />
-        <span asp-validation-for="email"></span>
+        <label asp-for="theme_id"></label>
+        <input asp-for="theme_id" />
+        <span asp-validation-for="theme_id"></span>
     </div>
-       @if (User.IsInRole("Admin"))
-{
+
+
+       
     <button type="submit">Save Changes</button>
     <a asp-action="Index">Cancel</a>
-}
+
 </form>

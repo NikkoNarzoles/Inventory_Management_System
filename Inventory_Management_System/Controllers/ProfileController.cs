@@ -1,6 +1,9 @@
-﻿using Inventory_Management_System.Repositories.Interfaces;
+﻿using Inventory_Management_System.Models;
+using Inventory_Management_System.Repositories.Interfaces;
 using Inventory_Management_System.Services.ServiceInterface;
+using Inventory_Management_System.Services.ServicesImplementation;
 using Inventory_Management_System.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -15,10 +18,13 @@ namespace Inventory_Management_System.Controllers
 
         private readonly IStoreItemsService _storeService;
 
-     
+        private readonly IUserRepository _userRepository;
+
+        private readonly IUserService _IuserService;
+
 
         public ProfileController(IProfileRepository profileRepository, IStoreItemsRepository storeItemsRepository, 
-                                 IStoreItemsService storeService)
+                                 IStoreItemsService storeService,  IUserRepository  userRepository, IUserService userService)
         {
             _profileRepo = profileRepository;
 
@@ -26,18 +32,22 @@ namespace Inventory_Management_System.Controllers
 
             _storeService = storeService;
 
-           
+            _userRepository = userRepository;
+
+            _IuserService = userService;
         }
 
 
 
-
-          public async Task <IActionResult> Index()
+   
+       public async Task <IActionResult> Index()
         {
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
+
             var items =  await _profileRepo.GetOwnItems(userId);
 
+            ViewBag.ThemeId = await _profileRepo.GetUserThemeId(userId);
 
             return View(items);
         }
@@ -103,6 +113,22 @@ namespace Inventory_Management_System.Controllers
                 return NotFound();
 
             return RedirectToAction(nameof(Index));
+        }
+
+
+
+
+        [Authorize]
+        public async Task<IActionResult> EditProfile(int? id, string? returnUrl = null)
+        {
+            int userId = id ?? int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+            var dto = await _IuserService.EditAsync(userId);
+            if (dto == null)
+                return NotFound();
+
+            return RedirectToAction("Edit","User",new {id = dto.id, returnUrl = returnUrl?? Request.Headers["Referer"].ToString()}
+           );
         }
 
 

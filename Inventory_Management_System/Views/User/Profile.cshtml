@@ -1,0 +1,135 @@
+﻿@model Inventory_Management_System.ViewModels.UserProfileViewModel
+
+@using System.Security.Claims
+
+@{
+    Layout = null;
+
+    int themeId = Model.User.theme_id;
+
+    string bodyClass = themeId switch
+    {
+        1 => "storage",
+        2 => "blacksmith",
+        3 => "library",
+        4 => "brewery",
+        _ => ""
+    };
+
+    var firstName = Model.User.first_name ?? "My";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="~/css/pv1display.css" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <title>@firstName's Store</title>
+</head>
+
+<body class="@bodyClass">
+
+    <div class="bg-blur"></div>
+
+    <main class="content">
+
+        <!-- HEADER / NAV -->
+        <nav class="nav-main">
+            <a asp-controller="StoreItems" asp-action="Index" class="Neko">NeKo</a>
+
+            <div class="mid">
+                <div class="storeName">@firstName's Shop</div>
+            </div>
+
+            <div class="settings">
+                <div class="Gear">
+                    <i class="fa-solid fa-gear settings-icon"></i>
+                </div>
+
+                <div class="settings-menu">
+                    <a asp-controller="Purchase" asp-action="PrivateIndex" class="setting-button">Purchase</a>
+
+                    <a asp-controller="StoreItems"
+                       asp-action="Create"
+                       asp-route-returnUrl="@Context.Request.Path"
+                       class="setting-button">
+                        Add Item
+                    </a>
+
+                    <a asp-controller="Profile"
+                       asp-action="EditProfile"
+                       asp-route-returnUrl="@Context.Request.Path"
+                       class="setting-button">
+                        Edit
+                    </a>
+
+                    <div class="setting-button">About Us</div>
+                    <a asp-controller="Auth" asp-action="Logout" class="setting-button">Log out</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- STORE ITEMS -->
+        <div class="item-box">
+            <nav class="nav-box">
+                <div class="font_title_box">Name</div>
+                <div class="font_title_box">Price</div>
+                <div class="font_title_box">Stocks</div>
+            </nav>
+
+            <div class="item-content">
+                @if (!Model.Items.Any())
+                {
+                    <p class="Neko">This user has no items.</p>
+                }
+                else
+                {
+                    foreach (var item in Model.Items)
+                    {
+                        <div class="item-parent">
+
+                            <div class="item-info">
+                                <div>@item.item_name</div>
+                                <div class="peso">$@item.price</div>
+
+                                @if (item.quantity <= 0)
+                                {
+                                    <div class="outofstock">Out of Stock</div>
+                                }
+                                else
+                                {
+                                    <div>@item.quantity x</div>
+                                }
+                            </div>
+
+                            <div class="item-descrip">
+                                <p style="margin-right: 20px;">Description:</p>
+                                <div>@item.description</div>
+                            </div>
+
+                            <div class="buttons">
+                                <a asp-action="Buy" asp-controller="StoreItems"
+                                   asp-route-id="@item.id"
+                                   class="Buy">
+                                    Buy
+                                </a>
+                            </div>
+
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>

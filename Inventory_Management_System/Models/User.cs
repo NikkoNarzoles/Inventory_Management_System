@@ -16,5 +16,7 @@
         public string passwordhash { get; set; } = null!;
 
         public string role { get; set; } = "User";
+
+        public int theme_id { get; set; } = 1;
     }
 }

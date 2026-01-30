@@ -1,7 +1,21 @@
-﻿@using System.Security.Claims
+﻿@model IEnumerable<Inventory_Management_System.DTOs.StoreItemsDto>﻿
+
+@using System.Security.Claims
+
+@{
+    int themeId = ViewBag.ThemeId ?? 0;
+
+    string bodyClass = themeId switch
+    {
+        1 => "storage",
+        2 => "blacksmith",
+        3 => "library",
+        4 => "brewery",
+        _ => ""  
+    };
+}
 
 
-@model IEnumerable<Inventory_Management_System.DTOs.StoreItemsDto>
 @{
     Layout = null;
 }
@@ -26,7 +40,7 @@
 
     <title>@((User.Identity?.Name ?? "My") + " Store")</title>
 </head>
-<body class="brewery">
+<body class="@bodyClass">
 
     <div class="bg-blur"></div>
 
@@ -53,6 +67,8 @@
 
 
                     <a asp-action="Create" asp-controller="StoreItems" class="setting-button" asp-route-returnUrl="@Context.Request.Path">Add Item</a>
+
+                    <a asp-action="EditProfile" asp-controller="Profile" class="setting-button" asp-route-returnUrl="@Context.Request.Path">Edit</a>
                     
                     <div class="setting-button">About Us</div>
                     <a asp-controller="Auth" asp-action="Logout" class="setting-button">Log out</a>

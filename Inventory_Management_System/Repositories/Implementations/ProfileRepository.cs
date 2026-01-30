@@ -37,6 +37,14 @@ namespace Inventory_Management_System.Repositories.Implementations
         }
 
 
+        public async Task<int> GetUserThemeId(int userId)
+        {
+            return await _context.Users
+                .Where(u => u.id == userId)
+                .Select(u => u.theme_id)
+                .FirstOrDefaultAsync();
+        }
+
 
 
 

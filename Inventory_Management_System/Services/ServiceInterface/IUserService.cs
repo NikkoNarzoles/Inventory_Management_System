@@ -16,5 +16,7 @@ namespace Inventory_Management_System.Services.ServiceInterface
         Task<UserDto?> EditAsync(int id);
 
         Task<bool> UpdateAsync(EditUserViewModel vm);
+
+       
     }
 }

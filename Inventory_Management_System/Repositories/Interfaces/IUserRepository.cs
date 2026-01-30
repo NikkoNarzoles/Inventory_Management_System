@@ -16,6 +16,8 @@ namespace Inventory_Management_System.Repositories.Interfaces
 
         Task<User?> GetByUsernameOrEmailAsync(string usernameOrEmail);
 
+        Task<List<UserDto>> SearchAsync(string search);
+
 
     }
 }       
