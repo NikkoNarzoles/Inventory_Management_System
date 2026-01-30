@@ -70,6 +70,7 @@ namespace Inventory_Management_System.Controllers
         //=================================================================================================================
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -90,7 +91,7 @@ namespace Inventory_Management_System.Controllers
 
         //=================================================================================================================
 
-
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

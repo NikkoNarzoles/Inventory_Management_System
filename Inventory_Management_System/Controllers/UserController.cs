@@ -33,7 +33,7 @@ namespace Inventory_Management_System.Controllers
 
 
 
-
+        [Authorize]
         public async Task<IActionResult> Profile(int? id)
         {
             if (id == null)
@@ -76,7 +76,7 @@ namespace Inventory_Management_System.Controllers
         }
 
 
-
+        [Authorize]
         // GET: Users
         public async Task<IActionResult> Index(string? search)
         {

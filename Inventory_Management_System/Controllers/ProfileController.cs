@@ -39,8 +39,8 @@ namespace Inventory_Management_System.Controllers
 
 
 
-   
-       public async Task <IActionResult> Index()
+        [Authorize]
+        public async Task <IActionResult> Index()
         {
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
@@ -53,7 +53,7 @@ namespace Inventory_Management_System.Controllers
         }
 
 
-
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -72,7 +72,7 @@ namespace Inventory_Management_System.Controllers
         }
 
 
-
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -85,7 +85,7 @@ namespace Inventory_Management_System.Controllers
 
 
 
-
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -99,7 +99,7 @@ namespace Inventory_Management_System.Controllers
             return View(vm);
         }
 
-
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, StoreItemsViewModels viewModel)

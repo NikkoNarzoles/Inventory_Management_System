@@ -39,8 +39,9 @@
                     <span asp-validation-for="UsernameOrEmail" class="text-danger"></span>
                 </div>
 
-                <div class="glass-input-wrapper">
-                    <input asp-for="Password" type="password" class="glass-input" placeholder="Password" />
+                <div class="glass-input-wrapper password-wrapper">
+                    <input asp-for="Password" type="password" class="glass-input" id="passwordInput" placeholder="Password" />
+                    <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
 
@@ -61,6 +62,21 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
+    <script>
+        const togglePassword = document.getElementById("togglePassword");
+        const passwordInput = document.getElementById("passwordInput");
+
+        togglePassword.addEventListener("click", () => {
+            const isPassword = passwordInput.type === "password";
+
+            passwordInput.type = isPassword ? "text" : "password";
+
+            togglePassword.classList.toggle("fa-eye");
+            togglePassword.classList.toggle("fa-eye-slash");
+        });
+    </script>
 
 </body>
 </html>
