@@ -1,40 +1,94 @@
 ﻿@model Inventory_Management_System.ViewModels.EditUserViewModel
 
-<h2>Edit User</h2>
+@{
+    Layout = null;
+}
 
-<form asp-action="Edit" method="post">
-    <input type="hidden" asp-for="id" />
-    <input type="hidden" asp-for="ReturnUrl" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
 
-    <div>
-        <label asp-for="first_name"></label>
-        <input asp-for="first_name" />
-        <span asp-validation-for="first_name"></span>
-    </div>
+    <link rel="stylesheet" href="~/css/useredit.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
 
-    <div>
-        <label asp-for="last_name"></label>
-        <input asp-for="last_name" />
-        <span asp-validation-for="last_name"></span>
-    </div>
+<body>
+<div class="bg-blur"></div>
 
-    <div>
-        <label asp-for="username"></label>
-        <input asp-for="username" />
-        <span asp-validation-for="username"></span>
-    </div>
+<main class="content">
 
-   
+    <nav class="nav-main">
+        <a asp-controller="Profile" asp-action="Index" class="Neko">NeKo</a>
+        <div class="Neko" style="margin-left:40px;">Edit Profile</div>
+        <div class="font_title">About Us</div>
+    </nav>
 
-    <div>
-        <label asp-for="theme_id"></label>
-        <input asp-for="theme_id" />
-        <span asp-validation-for="theme_id"></span>
-    </div>
+    <form asp-action="Edit" method="post" class="card-container">
+        @Html.AntiForgeryToken()
 
+        <input type="hidden" asp-for="id" />
+        <input type="hidden" asp-for="ReturnUrl" />
 
-       
-    <button type="submit">Save Changes</button>
-    <a asp-action="Index" asp-controller="Profile" >Cancel</a>
+        <img src="/Images/card.png" alt="" class="bg-image">
 
-</form>
+        <div class="fill-up">
+
+            <div class="field-wrapper">
+                <label class="field-label">First Name</label>
+                <input asp-for="first_name" class="box">
+                <span asp-validation-for="first_name"></span>
+            </div>
+
+            <div class="field-wrapper">
+                <label class="field-label">Last Name</label>
+                <input asp-for="last_name" class="box">
+                <span asp-validation-for="last_name"></span>
+            </div>
+
+            <div class="field-wrapper">
+                <label class="field-label">Username</label>
+                <input asp-for="username" class="box">
+                <span asp-validation-for="username"></span>
+            </div>
+
+            <div class="field-wrapper">
+                <label class="field-label">Theme</label>
+                <select asp-for="theme_id" class="box">
+                    <option value="1">Storage Theme</option>
+                    <option value="2">Blacksmith Theme</option>
+                    <option value="3">Library Theme</option>
+                    <option value="4">Brewery Theme</option>
+                </select>
+                <span asp-validation-for="theme_id"></span>
+            </div>
+
+        </div>
+
+        <div class="button">
+            <button type="submit" class="button-box one">
+                Save
+            </button>
+
+            <a asp-controller="Profile"
+               asp-action="Index"
+               class="button-box two">
+                Cancel
+            </a>
+        </div>
+
+    </form>
+
+</main>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+</body>
+</html>

@@ -1,20 +1,92 @@
 ﻿@model Inventory_Management_System.DTOs.UserDto
 
-<h2>Delete User</h2>
+@{
+    Layout = null;
+}
 
-<p>Are you sure you want to delete this user?</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete User</title>
 
-<ul>
-    <li><strong>First Name:</strong> @Model.first_name</li>
-    <li><strong>Last Name:</strong> @Model.last_name</li>
-    <li><strong>Username:</strong> @Model.username</li>
-</ul>
+    <link rel="stylesheet" href="~/css/userdelete.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
 
-<form asp-action="DeleteConfirmed" method="post">
-       @if (User.IsInRole("Admin"))
-        {
+<body>
+
+    <div class="bg-blur"></div>
+
+    <main class="content">
+
+        <nav class="nav-main">
+            <a asp-action="Index" asp-controller="StoreItems" class="Neko">Neko</a>
+            <div class="font_title">About Us</div>
+        </nav>
+
+        <form asp-action="DeleteConfirmed" method="post" class="card-container">
+            @Html.AntiForgeryToken()
             <input type="hidden" asp-for="id" />
-            <button type="submit">Yes, Delete</button>
-            <a asp-action="Index">Cancel</a>
-        }
-    </form>
+
+            <img src="/Images/card.png" alt="" class="bg-image">
+
+            <div class="fill-up">
+
+                <div class="question">
+                    Are you sure you want to delete this Account?
+                </div>
+
+                <div class="box-container">
+                    <div class="title">First Name</div>
+                    <div class="box">
+                        @Model.first_name
+                    </div>
+                </div>
+
+                <div class="box-container">
+                    <div class="title">Last Name</div>
+                    <div class="box">
+                        @Model.last_name
+                    </div>
+                </div>
+
+                <div class="box-container">
+                    <div class="title">Username</div>
+                    <div class="box">
+                        @Model.username
+                    </div>
+                </div>
+
+            </div>
+
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="button">
+
+                    <button type="submit" class="button-box one">
+                        Delete
+                    </button>
+
+                    <a asp-action="Index"
+                       class="button-box two">
+                        Cancel
+                    </a>
+
+                </div>
+            }
+
+        </form>
+
+    </main>
+
+</body>
+</html>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

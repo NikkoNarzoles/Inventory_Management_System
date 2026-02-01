@@ -29,7 +29,7 @@ namespace Inventory_Management_System.ViewModels
 
 
         [Required(ErrorMessage = "Quantity is required")]
-        [Range(1,99999999, ErrorMessage = "Set Right Price")]
+        [Range(1,99999999, ErrorMessage = "Set Right Quantity")]
         public int quantity { get; set; } 
 
 

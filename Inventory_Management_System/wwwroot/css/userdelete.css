@@ -1,0 +1,160 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.bg-blur {
+    position: fixed;
+    inset: 0;
+    background-image: url("/Images/bg/deletebg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(7px);
+    transform: scale(1.1);
+    z-index: -10;
+}
+
+.content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
+}
+
+nav {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 18px 30px 15px 30px;
+    background-color: #00000071;
+}
+
+.Neko {
+    font-family: 'Press Start 2P', cursive;
+    background: rgb(212, 181, 3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.font_title {
+    font-family: 'Press Start 2P', cursive;
+    background: linear-gradient(to bottom, #f7d22c, #c98e05);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 15px;
+}
+
+
+
+.card-container {
+    position: relative;
+    display: inline-block; /* Shrinks to fit image */
+    width: 800px; /* Change this to resize */
+    margin: auto;
+}
+
+.bg-image {
+    width: 100%;
+    height: auto; /* Automatically maintains proportion */
+    display: block;
+}
+
+.fill-up {
+    position: absolute;
+    width: 50%;
+    height: 70%;
+    top: 75px;
+    left: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.box {
+    border: 2px solid rgb(73, 50, 7);
+    font-family: 'VT323', monospace;
+    font-size: 25px;
+    background: transparent;
+    padding: 10px 0px 10px 15px;
+    border-radius: 25px;
+    color: #0000007b;
+    position: relative;
+}
+
+
+
+.title {
+    color: #0000007b;
+    margin: 10px 300px 5px 0px;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+}
+
+
+.button {
+    position: absolute;
+    height: 29%;
+    width: 16.5%;
+    outline: black 5px solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20%;
+    right: 52px;
+    bottom: 80px;
+    padding: 10px;
+    font-family: 'VT323', monospace;
+    background: #e5d9b0fd;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.button-box {
+    color: #0000007b;
+    border: 2px solid black;
+    border-radius: 25px;
+    padding: 5px;
+    text-decoration: none;
+    background: none;
+    font-family: 'VT323', monospace;
+}
+
+    .button-box.two:hover {
+        background: rgba(0, 128, 0, 0.505);
+        
+    }
+
+    .button-box.one {
+        padding: 5px;
+        font-family: 'VT323', monospace;
+        font-size: 25px
+    }
+
+    .button-box.one:hover {
+        background: rgba(255, 0, 0, 0.516);
+    }
+
+.question {
+    color: #000000ac;
+    font-family: 'Press Start 2P', cursive;
+    line-height: 1.6;
+}

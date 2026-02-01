@@ -1,32 +1,80 @@
 ﻿@model Inventory_Management_System.DTOs.StoreItemsDto
 
-<h2>Delete Item</h2>
+@{
+    Layout = null;
+}
 
-<p>Are you sure you want to delete this?</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Item</title>
 
-<hr />
+    <link rel="stylesheet" href="~/css/Itemdelete.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
 
-<div>
-    <strong>Item Name:</strong> @Model.item_name
-</div>
-<div>
-    <strong>Description:</strong> @Model.description
-</div>
-<div>
-    <strong>Price:</strong> @Model.price
-</div>
-<div>
-    <strong>Quantity:</strong> @Model.quantity
-</div>
+<body>
 
-<br />
+    <div class="bg-blur"></div>
 
-<form asp-action="DeleteConfirmed" method="post">
-    @Html.AntiForgeryToken()
+    <main class="content">
 
-    <input type="hidden" asp-for="id" />
+        <nav class="nav-main">
+            <a asp-action="Index" asp-controller="Profile" class="Neko">Neko</a>
+            <div class="font_title">About Us</div>
+        </nav>
 
-    <button type="submit">Yes, Delete</button>
-    |
-    <a asp-action="Index">Cancel</a>
-</form>
+        <form asp-action="DeleteConfirmed" method="post" class="card-container">
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" asp-for="id" />
+
+            <img src="/Images/userpaper.png" alt="" class="bg-image">
+
+            <div class="container">
+
+                <div class="new">Delete Item</div>
+
+                <div class="delete">
+                    <strong>Item Code:</strong> @Model.item_code
+                </div>
+
+                <div class="delete">
+                    <strong>Item Name:</strong> @Model.item_name
+                </div>
+
+                <div class="delete">
+                    <strong>Quantity:</strong> @Model.quantity
+                </div>
+
+                <div class="delete">
+                    <strong>Price:</strong> @Model.price
+                </div>
+
+                <div class="button">
+
+                    <a asp-action="Index"
+                       asp-controller="StoreItems"
+                       class="button-box one">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="button-box one">
+                        Delete
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </main>
+
+</body>
+</html>

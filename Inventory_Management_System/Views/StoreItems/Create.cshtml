@@ -1,50 +1,99 @@
 ﻿@model Inventory_Management_System.ViewModels.StoreItemsViewModels
 
-<h2>Add New Item</h2>
+@{
+    Layout = null;
+}
 
-<form asp-action="Create" method="post">
-    @Html.AntiForgeryToken()
-    <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Item</title>
 
-    <div>
-        <label asp-for="item_code"></label>
-        <input asp-for="item_code" />
-        <span asp-validation-for="item_code"></span>
-    </div>
+    <link rel="stylesheet" href="~/css/create.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 
-    <div>
-        <label asp-for="item_name"></label>
-        <input asp-for="item_name" />
-        <span asp-validation-for="item_name"></span>
-    </div>
+</head>
 
+<body>
 
-    <div>
-        <label asp-for="description"></label>
-        <input asp-for="description" />
-    </div>
+<div class="bg-blur"></div>
 
-    <div>
-        <label asp-for="quantity"></label>
-        <input asp-for="quantity" />
-        <span asp-validation-for="quantity"></span>
-    </div>
+<main class="content">
 
-    <div>
-        <label asp-for="price"></label>
-        <input asp-for="price" />
-        <span asp-validation-for="price"></span>
-    </div>
+    <nav class="nav-main">
+            <a asp-action="Index" asp-controller="Profile" class="Neko">Neko</a>
+        <div class="font_title">About Us</div>
+    </nav>
 
-    <div>
-        <label asp-for="supplier"></label>
-        <input asp-for="supplier" />
-    </div>
+    <form asp-action="Create" method="post" class="card-container">
+        @Html.AntiForgeryToken()
 
+        <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
 
+        <img src="/Images/userpaper.png" alt="" class="bg-image">
 
-    <button type="submit">Save</button>
+        <div class="container">
 
+            <div class="new">New Item</div>
 
+            <div class="field-wrapper">
+                <input asp-for="item_code" class="box" placeholder="Item Code">
+                <span asp-validation-for="item_code"></span>
+            </div>
 
-</form>
+            <div class="field-wrapper">
+                <input asp-for="item_name" class="box" placeholder="Item Name">
+                <span asp-validation-for="item_name"></span>
+            </div>
+
+            <div class="field-wrapper">
+                <input asp-for="description" class="box" placeholder="Description">
+            </div>
+
+            <div class="field-wrapper">
+                <input asp-for="quantity" type="number" class="box" placeholder="Quantity">
+                <span asp-validation-for="quantity"></span>
+            </div>
+
+            <div class="field-wrapper">
+                <input asp-for="price" class="box" placeholder="Price">
+                <span asp-validation-for="price"></span>
+            </div>
+
+            <div class="field-wrapper">
+                <input asp-for="supplier" class="box" placeholder="Supplier">
+            </div>
+
+            <div class="button">
+
+                    <a asp-action="Index"
+                       asp-controller="StoreItems"
+                       class="button-box one">
+                        Cancel
+                    </a>
+
+                <button type="submit" class="button-box one">
+                    Save
+                </button>
+
+                
+            </div>
+
+        </div>
+
+    </form>
+
+</main>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+</body>
+</html>

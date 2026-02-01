@@ -1,0 +1,187 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.bg-blur {
+    position: fixed;
+    inset: 0;
+    background-image: url("/Images/bg/createbg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(7px);
+    transform: scale(1.1);
+    z-index: -10;
+}
+
+.content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
+    justify-content: space-between;
+}
+
+
+nav {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 18px 40px 15px 40px;
+    background-color: #00000062;
+}
+
+.Neko {
+    font-family: 'Press Start 2P', cursive;
+    background: rgb(212, 181, 3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 20px;
+}
+
+.font_title {
+    font-family: 'Press Start 2P', cursive;
+    background: linear-gradient(to bottom, #f7d22c, #c98e05);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 15px;
+}
+
+.card-container {
+    position: relative;
+    display: inline-block; /* Shrinks to fit image */
+    width: 500px; /* Change this to resize */
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bg-image {
+    width: 100%;
+    height: auto; /* Automatically maintains proportion */
+    display: block;
+}
+
+.new {
+    color: rgba(0, 0, 0, 0.851);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 25px;
+}
+
+
+.container {
+    position: absolute;
+    height: 90%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+
+input {
+    background: transparent;
+    padding: 5px;
+    font-family: 'VT323', monospace;
+    font-size: 25px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    text-align: center;
+    border-bottom: 2px dashed rgba(0, 0, 0, 0.582);
+    width: 65%;
+}
+
+    input::placeholder {
+        color: rgba(0, 0, 0, 0.582);
+    }
+
+    input:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+
+.button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    gap: 20%;
+    text-decoration: none;
+    background: transparent;
+}
+
+.button-box {
+    color: #00000097;
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    border-bottom: 2px dashed rgb(0, 0, 0);
+    padding: 5px 15px;
+}
+
+    .button-box.one {
+        text-decoration: none;
+        background: transparent;
+        border: none;
+        font-size: 18px;
+    }
+
+    .button-box.two {
+        text-decoration: none;
+        background: transparent;
+        border: none;
+    }
+
+
+
+.field-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.field-validation-error {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -18px;
+    color: #b30000;
+    font-family: 'VT323', monospace;
+    font-size: 14px;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.input-validation-error {
+    border: 2px solid #b30000 !important;
+    background: rgba(255, 0, 0, 0.08);
+}
+
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}

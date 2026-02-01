@@ -1,40 +1,101 @@
 ﻿@model Inventory_Management_System.ViewModels.StoreItemsViewModels
 
-<h2>Edit Item</h2>
+@{
+    Layout = null;
+}
 
-<form asp-action="Edit" method="post">
-    @Html.AntiForgeryToken()
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Item</title>
 
-    <!-- ID comes from route -->
+    <link rel="stylesheet" href="~/css/create.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 
-    <div>
-        <label>Item Code</label><br />
-        <input asp-for="item_code" />
-    </div>
+</head>
 
-    <div>
-        <label>Item Name</label><br />
-        <input asp-for="item_name" />
-    </div>
+<body>
 
-    <div>
-        <label>Description</label><br />
-        <textarea asp-for="description"></textarea>
-    </div>
+    <div class="bg-blur"></div>
 
-    <div>
-        <label>Quantity</label><br />
-        <input asp-for="quantity" type="number" />
-    </div>
+    <main class="content">
 
-    <div>
-        <label>Price</label><br />
-        <input asp-for="price" type="number" step="0.01" />
-    </div>
+        <nav class="nav-main">
+            <a asp-action="Index" asp-controller="Profile" class="Neko">Neko</a>
+            <div class="font_title">About Us</div>
+        </nav>
 
-    <br />
+        <form asp-action="Edit" method="post" class="card-container">
+            @Html.AntiForgeryToken()
 
-    <button type="submit">Save</button>
-    |
-    <a asp-action="Index">Cancel</a>
-</form>
+            <!-- REQUIRED FOR EDIT -->
+            <input type="hidden" asp-for="id" />
+
+            <img src="/Images/userpaper.png" alt="" class="bg-image">
+
+            <div class="container">
+
+                <div class="new">Edit Item</div>
+
+                <div class="field-wrapper">
+                    <input asp-for="item_code" class="box" placeholder="Item Code">
+                    <span asp-validation-for="item_code"></span>
+                </div>
+
+                <div class="field-wrapper">
+                    <input asp-for="item_name" class="box" placeholder="Item Name">
+                    <span asp-validation-for="item_name"></span>
+                </div>
+
+                <div class="field-wrapper">
+                    <input asp-for="description" class="box" placeholder="Description">
+                </div>
+
+                <div class="field-wrapper">
+                    <input asp-for="quantity"
+                           type="number"
+                           class="box"
+                           placeholder="Quantity">
+                    <span asp-validation-for="quantity"></span>
+                </div>
+
+                <div class="field-wrapper">
+                    <input asp-for="price"
+                           type="number"
+                           step="0.01"
+                           class="box"
+                           placeholder="Price">
+                    <span asp-validation-for="price"></span>
+                </div>
+
+                <div class="button">
+
+                    <button type="submit" class="button-box one">
+                        Save
+                    </button>
+
+                    <a asp-action="Index"
+                       asp-controller="StoreItems"
+                       class="button-box one">
+                        Cancel
+                    </a>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+</body>
+</html>
