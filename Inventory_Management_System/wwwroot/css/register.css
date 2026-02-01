@@ -1,0 +1,182 @@
+﻿html, body {
+    width: 100%;
+    height: 100%;
+    font-size: 16px; /* restores normal scale */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.bg-blur {
+    position: fixed;
+    inset: 0;
+    background-image: url("/Images/bg/guardsbg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(10px);
+    transform: scale(1.1);
+    z-index: -10;
+}
+
+.content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
+    justify-content: space-between;
+}
+
+
+nav {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 18px 30px 15px 30px;
+    background-color: #00000062;
+}
+
+.Neko {
+    font-family: 'Press Start 2P', cursive;
+    background: rgb(212, 181, 3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 20px;
+    text-decoration:none;
+}
+
+.font_title {
+    font-family: 'Press Start 2P', cursive;
+    background: linear-gradient(to bottom, #f7d22c, #c98e05);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 15px;
+}
+
+.card-container {
+    position: relative;
+    display: inline-block; /* Shrinks to fit image */
+    width: 900px; /* Change this to resize */
+    margin: auto;
+}
+
+.bg-image {
+    width: 100%;
+    height: auto; /* Automatically maintains proportion */
+    display: block;
+}
+
+.fill-up {
+    position: absolute;
+    width: 50%;
+    height: 70%;
+    top: 90px;
+    left: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.box {
+    border: 2px solid rgb(73, 50, 7);
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    background: transparent;
+    padding: 8px 0px 8px 15px;
+    border-radius: 25px;
+    color: #0000007b;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.button {
+    position: absolute;
+    height: 29%;
+    width: 16.5%;
+    outline: black 5px solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20%;
+    right: 57px;
+    bottom: 90px;
+    padding: 10px;
+    font-family: 'VT323', monospace;
+    background: #e5d9b0fd;
+    font-size: 25px;
+    font-weight: 500;
+
+}
+
+.button-box {
+    color: #0000007b;
+    border: 2px solid black;
+    border-radius: 25px;
+    padding: 5px;
+    text-decoration: none;
+    background: none;
+}
+
+    .button-box.one:hover {
+        background: rgba(0, 128, 0, 0.505);
+    }
+
+    .button-box.two:hover {
+        background: rgba(255, 0, 0, 0.516);
+    }
+
+
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+    .password-wrapper .box {
+        width: 100%;
+        padding-right: 45px; /* space for eye icon */
+    }
+
+.reveal {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #0000007b;
+    font-size: 15px;
+}
+
+.field-validation-error {
+    color: red;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Invalid input box */
+.input-validation-error {
+    border: 2px solid red !important;
+    background: rgba(255, 0, 0, 0.08);
+}

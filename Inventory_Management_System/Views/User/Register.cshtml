@@ -1,38 +1,106 @@
 ﻿@model Inventory_Management_System.ViewModels.UserViewModel
 
-<h2>Register User</h2>
 
-<form asp-action="Register" method="post">
-    <div>
-        <label asp-for="first_name"></label>
-        <input asp-for="first_name" />
-        <span asp-validation-for="first_name"></span>
-    </div>
 
-    <div>
-        <label asp-for="last_name"></label>
-        <input asp-for="last_name" />
-        <span asp-validation-for="last_name"></span>
-    </div>
 
-    <div>
-        <label asp-for="username"></label>
-        <input asp-for="username" />
-        <span asp-validation-for="username"></span>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
 
-    <div>
-        <label asp-for="email"></label>
-        <input asp-for="email" />
-        <span asp-validation-for="email"></span>
-    </div>
+    <link rel="stylesheet" href="~/css/register.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
 
-    <div>
-        <label asp-for="passwordhash">password</label>
-        <input asp-for="passwordhash" type="password" />
-        <span asp-validation-for="passwordhash"></span>
-    </div>
+<body>
+<div class="bg-blur"></div>
 
-    <button type="submit">Register</button>
-    <a asp-action="Login" asp-controller="Auth">Cancel</a>
-</form>
+<main class="content">
+
+    <nav class="nav-main">
+        <a asp-action="Login" asp-controller="Auth" class="Neko">Neko</a>
+        <div class="Neko" style="margin-left:40px;">Registration</div>
+        <div class="font_title">About Us</div>
+    </nav>
+
+    <form asp-action="Register" method="post" class="card-container">
+        @Html.AntiForgeryToken()
+
+        <img src="/Images/card.png" alt="" class="bg-image">
+
+        <div class="fill-up">
+
+            <input asp-for="first_name" class="box" placeholder="First Name">
+            <span asp-validation-for="first_name"></span>
+
+            <input asp-for="last_name" class="box" placeholder="Last Name">
+            <span asp-validation-for="last_name"></span>
+
+            <input asp-for="username" class="box" placeholder="Username">
+            <span asp-validation-for="username"></span>
+
+            <input asp-for="email" class="box" placeholder="Email">
+            <span asp-validation-for="email"></span>
+
+            <div class="password-wrapper">
+                <input asp-for="passwordhash"
+                       type="password"
+                       class="box"
+                       id="password"
+                       placeholder="Password">
+
+                <i class="fa-solid fa-eye-slash reveal"
+                   onclick="togglePassword()"></i>
+            </div>
+
+            <span asp-validation-for="passwordhash"></span>
+
+        </div>
+
+        <div class="button">
+            <button type="submit" class="button-box one">
+                Register
+            </button>
+
+            <a asp-action="Login"
+               asp-controller="Auth"
+               class="button-box two">
+                Cancel
+            </a>
+        </div>
+
+    </form>
+
+</main>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
+<script>
+function togglePassword() {
+    const password = document.getElementById("password");
+    const icon = document.querySelector(".reveal");
+
+    if (password.type === "password") {
+        password.type = "text";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    } else {
+        password.type = "password";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    }
+}
+</script>
+
+
+</body>
+</html>
