@@ -6,5 +6,7 @@ namespace Inventory_Management_System.ViewModels
     {
         public UserDto User { get; set; } = null!;
         public List<StoreItemsDto> Items { get; set; } = new();
+
+        public string? ReturnUrl { get; set; }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace Inventory_Management_System.ViewModels
+﻿namespace Inventory_Management_System.DTOs
 {
-    public class PurchaseViewModel
+    public class PurchaseDto
     {
         public int id { get; set; }
 
@@ -18,6 +18,6 @@
 
         public int userId { get; set; }
 
-        public string buyer_name { get; set; } = "Unknown"; 
+        public string buyer_name { get; set; } = "Unknown";
     }
 }

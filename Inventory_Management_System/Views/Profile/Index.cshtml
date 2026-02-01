@@ -1,5 +1,4 @@
-﻿@model IEnumerable<Inventory_Management_System.DTOs.StoreItemsDto>﻿
-
+﻿@model IEnumerable<Inventory_Management_System.DTOs.StoreItemsDto>
 @using System.Security.Claims
 
 @{
@@ -11,19 +10,13 @@
         2 => "blacksmith",
         3 => "library",
         4 => "brewery",
-        _ => ""  
+        _ => ""
     };
-}
 
-
-@{
     Layout = null;
-}
 
-@{
     var firstName = User.FindFirst(ClaimTypes.GivenName)?.Value ?? "My";
 }
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,66 +33,101 @@
 
     <title>@((User.Identity?.Name ?? "My") + " Store")</title>
 </head>
+
 <body class="@bodyClass">
 
     <div class="bg-blur"></div>
 
     <main class="content">
 
-        <!-- HEADER / NAV -->
-        <nav class="nav-main">
-            <a asp-controller="StoreItems" asp-action="Index" class="Neko">NeKo</a>
+                    <!-- HEADER -->
+                    <nav class="nav-main">
 
-            <div class="mid">
-                <div class="storeName">@firstName's Shop</div>
-            </div>
+                                            <a asp-controller="StoreItems" asp-action="Index" class="Neko">
+                                                NeKo
+                                            </a>
 
-            <div class="settings">
-                <div class="Gear">
-                    <i class="fa-solid fa-gear settings-icon"></i>
-                </div>
+                                            <div class="mid">
+                                                <div class="storeName">@firstName's Shop</div>
+                                            </div>
 
-                <div class="settings-menu">
+                                            <div class="settings">
 
+                                                <div class="Gear">
+                                                    <i class="fa-solid fa-gear settings-icon"></i>
+                                                </div>
 
-                    <a asp-controller="Purchase" asp-action="PrivateIndex" class="setting-button">Purchase</a>
+                                                <div class="settings-menu">
 
+                                                            <a asp-controller="Purchase"
+                                                               asp-action="PrivateIndex"
+                                                               class="setting-button">
+                                                                Purchase
+                                                            </a>
 
+                                                            <a asp-action="Create"
+                                                               asp-controller="StoreItems"
+                                                               class="setting-button"
+                                                               asp-route-returnUrl="@Context.Request.Path">
+                                                                Add Item
+                                                            </a>
 
-                    <a asp-action="Create" asp-controller="StoreItems" class="setting-button" asp-route-returnUrl="@Context.Request.Path">Add Item</a>
+                                                            <a asp-action="EditProfile"
+                                                               asp-controller="Profile"
+                                                               class="setting-button"
+                                                               asp-route-returnUrl="@Context.Request.Path">
+                                                                Edit
+                                                            </a>
 
-                    <a asp-action="EditProfile" asp-controller="Profile" class="setting-button" asp-route-returnUrl="@Context.Request.Path">Edit</a>
-                    
-                    <div class="setting-button">About Us</div>
-                    <a asp-controller="Auth" asp-action="Logout" class="setting-button">Log out</a>
-                </div>
-            </div>
-        </nav>
+                                                            <div class="setting-button">About Us</div>
 
-        <!-- STORE ITEMS -->
-        <div class="item-box">
-            <nav class="nav-box">
-                <div class="font_title_box">Name</div>
-                <div class="font_title_box">Price</div>
-                <div class="font_title_box">Stocks</div>
-            </nav>
+                                                            <a asp-controller="Auth"
+                                                               asp-action="Logout"
+                                                               class="setting-button">
+                                                                Log out
+                                                            </a>
 
-            <div class="item-content">
-                @if (!Model.Any())
-                {
-                    <p class="Neko" style="margin-top: 140px">You have no items.</p>
-                }
-                else
-                {
-                    @foreach (var item in Model)
-                    {
-                        <div class="item-parent">
+                                                </div>
+                                            </div>
+                    </nav>
+
+                    <!-- STORE ITEMS -->
+                    <div class="item-box">
+
+                        <!-- Frame -->
+                         <img class="item-box-frame image" class="item-box-frame">
+
+                        <nav class="nav-box">
+                            <div class="font_title_box">Name</div>
+                            <div class="font_title_box">Price</div>
+                            <div class="font_title_box">Stocks</div>
+                        </nav>
+
+                        <div class="item-content">
+
+                            @if (!Model.Any())
+                            {
+                                <p class="Neko" style="margin-top:140px;">
+                                    You have no items.
+                                </p>
+                            }
+                            else
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    <div class="item-parent">
+
+                                        <img src="~/Images/bg/paper.png"
+                                             class="item-parent-frame" />
+
+                                        <div class="item-context">
 
                                             <div class="item-info">
                                                 <div>@item.item_name</div>
-                                                <div class="peso">$@item.price.ToString("0.##")</div>
-                               
 
+                                                <div class="peso">
+                                                    <p>$</p>@item.price.ToString("0.##")
+                                                </div>
 
                                                 @if (item.quantity <= 0)
                                                 {
@@ -110,24 +138,35 @@
                                                     <div>@item.quantity x</div>
                                                 }
 
-
                                             </div>
 
                                             <div class="item-descrip">
-                                                <p style="margin-right: 20px;">Description:</p>
-                                                <div> @item.description</div>
+                                                <p style="margin-right:20px;">Description:</p>
+                                                <p>@item.description</p>
                                             </div>
 
-                                            <div class="buttons">
-                                                <a asp-action="Edit" asp-route-id="@item.id" class="Buy">Edit</a>
-                                                <a asp-action="Delete" asp-route-id="@item.id" class="Buy">Delete</a>
-                                            </div>
+                                        </div>
+
+                                        <div class="buttons">
+                                            <a asp-action="Edit"
+                                               asp-route-id="@item.id"
+                                               class="Buy">
+                                                Edit
+                                            </a>
+
+                                            <a asp-action="Delete"
+                                               asp-route-id="@item.id"
+                                               class="Buy">
+                                                Delete
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                }
+                            }
 
                         </div>
-                    }
-                }
-            </div>
-        </div>
+                    </div>
 
     </main>
 

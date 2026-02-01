@@ -1,24 +1,17 @@
-﻿﻿
-:root {
+﻿:root {
     --bg-image: url("/Images/ProfileView/Storage.jpg");
     --box-image: url("/Images/storagebox.png");
     --nav-bg: rgba(57, 18, 18, 0.285);
-    --widthbox: 61%;
-    --padleft: 8px;
-    --top: 125px;
+    --marleft: 0px;
 }
 
-
-
-
-
+/* RESET */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     user-select: none;
 }
-
 
 body {
     min-height: 100vh;
@@ -28,7 +21,7 @@ body {
     overflow-x: hidden;
 }
 
-
+/* BACKGROUND */
 .bg-blur {
     position: fixed;
     inset: 0;
@@ -46,26 +39,50 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
 }
 
-.font_title {
-    font-family: 'Press Start 2P', cursive;
-    background: linear-gradient(to bottom, #f7d22c, #c98e05);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-size: 15px;
+/* NAVIGATION */
+.nav-main {
+    position: relative;
+    z-index: 1;
+    width: 100vw;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
 }
 
-.Gear {
+    .nav-main::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--nav-bg);
+        backdrop-filter: blur(8px);
+        z-index: -1;
+    }
+
+.Neko {
     font-family: 'Press Start 2P', cursive;
-    background: linear-gradient(to bottom, #f7d22c, #c98e05);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-size: 30px;
+    color: #d4b503;
+    font-size: 20px;
+    text-decoration: none;
 }
+
+.storeName {
+    font-family: 'Press Start 2P', cursive;
+    color: #d4b503;
+    font-size: 28px;
+}
+
+.mid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+/* SETTINGS */
 
 .settings {
     position: relative;
@@ -83,6 +100,16 @@ body {
     }
 
 
+.Gear {
+    font-family: 'Press Start 2P', cursive;
+    background: linear-gradient(to bottom, #f7d22c, #c98e05);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 30px;
+}
+
+
 .settings-menu {
     position: absolute;
     top: 120%;
@@ -94,9 +121,10 @@ body {
     backdrop-filter: blur(100 px);
     outline: 5px solid rgba(94, 20, 20, 0.489);
     border-radius: 10px;
-    padding: 12px;
+    padding: 15px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 8px;
     opacity: 0;
     pointer-events: none;
@@ -118,141 +146,37 @@ body {
     color: transparent;
     font-size: 12px;
     margin: 10px;
-    text-decoration: none;
     white-space: nowrap;
 }
 
-.Neko {
-    font-family: 'Press Start 2P', cursive;
-    background: rgb(212, 181, 3);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-size: 20px;
-}
-
-.storeName {
-    font-family: 'Press Start 2P', cursive;
-    background: rgb(212, 181, 3);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-size: 30px;
-}
-
-.nav-main {
-    position: relative;
-    z-index: 1;
-    width: 100vw;
-    height: 8vh;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 30px;
-}
-
-    .nav-main::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: var(--nav-bg);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        mask-image: linear-gradient( to bottom, black 0%, black 85%, transparent 100% );
-        -webkit-mask-image: linear-gradient( to bottom, black 0%, black 85%, transparent 100% );
-        z-index: -1; /* 👈 THIS LINE FIXES IT */
-        pointer-events: none;
-    }
-
-
-.mid {
-    width: 45%;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-right: 50px;
-}
-
-
-.search {
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
-/* IMAGE CONTAINER */
-.search-bg {
-    width: 90%;
-    height: 160px;
-    background-image: url("/Images/bg/search.png"); /* <- your pixel image */
-    background-repeat: no-repeat;
-    background-size: 100% 100%; /* stretch horizontally */
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* INPUT */
-.search-content {
-    width: 85%;
-    height: 40px;
-    background: transparent; /* IMPORTANT */
-    border: none;
-    outline: none;
-    text-align: center;
-    color: black;
-    font-family: 'VT323', monospace;
-    font-size: 25px;
-}
-
-    .search-content::placeholder {
-        color: #000000a3; /* warm gold */
-        font-family: 'VT323', monospace;
-        font-size: 25px;
-        opacity: 1;
-    }
-
-.search-icon {
-    position: absolute;
-    left: -15px;
-    background-image: url("/Images/bg/magnifying.png"); /* <- your pixel image */
-
-    background-repeat: no-repeat;
-    background-size: 100% 100%; /* stretch horizontally */
-    background-position: center;
-    height: 60px;
-    width: 90px;
-}
-
-
+/* STORE FRAME */
 .item-box {
     position: relative;
-    width: 69%;
-    aspect-ratio: 16 / 9;
+    width: 48%;
     margin: auto;
-    background-image: var(--box-image);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
     z-index: 1;
-    padding-left: var(--padleft);
 }
 
+.item-box-frame {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+    .item-box-frame.image {
+        content: var(--box-image)
+    }
+
+/* HEADER INSIDE BOX */
 .nav-box {
     background-image: url(/Images/bg/dark.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    width: var(--widthbox);
+    width: 88%;
     height: 10%;
     display: flex;
     align-items: center;
@@ -260,16 +184,22 @@ body {
     justify-content: space-evenly;
     flex-direction: row;
     position: absolute;
-    top: var(--top);
+    top: 21%;
+    margin-left: var(--marleft);
     z-index: 10;
 }
 
+.font_title_box {
+    font-family: 'Press Start 2P';
+    font-size: 14px;
+    color: #f7d22c;
+}
 
-
+/* SCROLL AREA */
 .item-content {
-    width: 61%;
+    width: 89%;
     height: 63%;
-    margin-top: 14%;
+    margin-top: 21%;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -279,43 +209,41 @@ body {
     text-align: center;
     color: white;
     pointer-events: none;
-    overflow-y: auto; /* 👈 ENABLE SCROLL */
-    pointer-events: auto; /* keep buttons clickable */
+    overflow-y: auto;
+    pointer-events: auto;
 }
 
-
-
-
-
-
-.font_title_box {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 15px;
-    font-weight: bold;
-    background: linear-gradient(to bottom, #f7d22c, #c98e05);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
+/* ITEM CARD */
 .item-parent {
-   
-    background-image: url(/Images/bg/paper.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
-    min-height: 60%;
+    margin-bottom: 120px;
+}
+
+.item-parent-frame {
+    width: 100%;
+    height: auto;
+    display: block;
     position: relative;
-    margin-bottom: 100px;
+}
+
+/* CONTENT OVERLAY */
+.item-context {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    width: 78%;
+    height: 67%;
+    margin-bottom: 6px;
 }
 
 
-
-/* ================= PIXEL SCROLLBAR ================= */
 
 /* Chrome / Edge / Safari */
 .item-content::-webkit-scrollbar {
@@ -345,11 +273,10 @@ body {
     scrollbar-color: #c98e05 #1a1408;
 }
 
-
 .item-info {
     border: 2px dashed rgb(172, 115, 23);
-    width: 78%;
-    height: 15%;
+    width: 100%;
+    height: 50%;
     align-items: center;
     display: flex;
     flex-direction: row;
@@ -357,33 +284,32 @@ body {
     font-family: 'Press Start 2P', cursive;
     font-size: 15px;
     font-weight: bold;
-    padding-right: 0px;
     color: #000000bb;
-    margin-top: 52px;
+    padding: 10px;
     margin-bottom: 2px;
 }
 
 .item-descrip {
-    position: relative;
     border: 2px dashed rgb(172, 115, 23);
     font-family: 'VT323', monospace;
-    font-size: 15px;
+    font-size: 16px;
     color: #000000bb;
     font-weight: bold;
-    width: 78%;
-    height: 35%;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     padding: 5px;
     letter-spacing: 1px;
 }
 
+/* BUTTONS */
 .buttons {
     font-family: 'Press Start 2P', cursive;
-    width: 75%;
+    width: 80%;
     height: 40%;
     position: absolute;
-    bottom: -45px;
+    bottom: -58px;
     display: flex;
     flex-direction: row;
     justify-content: right;
@@ -405,89 +331,46 @@ body {
     text-decoration: none;
 }
 
-
+/* PRICE */
 .peso {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    gap: 3px;
 }
 
+/* OUT OF STOCK */
 .outofstock {
-    font-family: 'VT323', monospace;
+    font-family: 'VT323';
     font-size: 20px;
     color: red;
 }
 
 
 
-.item-sort {
-    position: absolute;
-    z-index: 99;
-    top: 14%;
-    right: 29%;
-}
-
-.sort-select {
-    padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 8px;
-    color: #fff;
-    font-family: 'VT323', monospace;
-    font-size: 18px;
-    outline: none;
-    cursor: pointer;
-    transition: all 0.25s ease;
-}
-
-    .sort-select:hover {
-        background: rgba(255, 255, 255, 0.25);
-    }
-
-    .sort-select option {
-        background: #1a1a1a;
-        color: #fff;
-    }
-
-
-
+/* THEMES */
 body.storage {
     --bg-image: url("/Images/ProfileView/Storage.jpg");
     --box-image: url("/Images/storagebox.png");
     --nav-bg: rgba(57, 18, 18, 0.285);
-    --widthbox: 61%;
-    --padleft: 8px;
-    --top: 125px;
+    --marleft: 0px;
 }
-
 
 body.blacksmith {
     --bg-image: url("/Images/ProfileView/blacksmith.png");
     --box-image: url("/Images/blacksmithbox.png");
     --nav-bg: rgba(57, 18, 18, 0.285);
-    --widthbox: 61%;
-    --padleft: 8px;
-    --top: 125px;
+    --marleft: 0px;
 }
 
 body.library {
     --bg-image: url("/Images/ProfileView/library.png");
     --box-image: url("/Images/librarybox.png");
     --nav-bg: #d4cbab17;
-    --widthbox: 61%;
-    --padleft: 8px;
-    --top: 125px;
+    --marleft: 0px;
 }
 
 body.brewery {
     --bg-image: url("/Images/ProfileView/brewery.png");
     --box-image: url("/Images/potionbox.png");
     --nav-bg: #22202077;
-    --widthbox: 60%;
-    --padleft: 14px;
-    --top: 115px;
+    --marleft: 10px;
 }
-

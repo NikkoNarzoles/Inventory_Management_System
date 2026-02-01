@@ -77,12 +77,22 @@ body {
     font-size: 20px;
 }
 
+.sub-sub {
+    position: absolute;
+    width: 80%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
 
 
 .login-box {
     position: relative;
-    height: 70vh;
-    width: 33vw;
+    height: 520px;
+    width: 450px;
     margin: auto;
     background-image: url("/Images/logout.png");
     background-size: 100% 100%;

@@ -26,17 +26,27 @@ namespace Inventory_Management_System.ViewModels
         public string? description { get; set; }
 
 
+
+
         [Required(ErrorMessage = "Quantity is required")]
+        [Range(1,99999999, ErrorMessage = "Set Right Price")]
         public int quantity { get; set; } 
+
+
 
 
         [Required(ErrorMessage = "Price must be set")]
         [Column(TypeName = "decimal(10,2)")]
+        [Range(typeof(decimal), "0.01", "99999999999", ErrorMessage = "Set Right Price")]
+
         public decimal price { get; set; }
+
+
+
+
 
         public string? supplier { get; set; }
 
-        [Required]
         public DateTime created_at { get; set; } = DateTime.UtcNow;
         public DateTime? updated_at { get; set; }
     }

@@ -9,9 +9,6 @@
         public int quantity { get; set; }
         public decimal price { get; set; }
 
-
-
-
         public string first_name { get; set; } = null!;
 
         public int theme_id { get; set; }

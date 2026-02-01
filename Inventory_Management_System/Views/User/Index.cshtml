@@ -1,59 +1,88 @@
 ﻿@model IEnumerable<Inventory_Management_System.DTOs.UserDto>
 
-<h2>Users</h2>
+@{
+    Layout = null;
+}
 
-<a asp-controller="StoreItems"
-   asp-action="Index">
-    Back
-</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
 
-<table border="1" cellpadding="5">
-    <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
+    <link rel="stylesheet" href="~/css/user.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
 
-            @if (User.IsInRole("Admin"))
-            {
-                <th>Username</th>
-                <th>Actions</th>
-            }
-            else
-            {
-                <th>Actions</th>
-            }
-        </tr>
-    </thead>
+    <div class="bg-blur"></div>
 
-    <tbody>
-        @foreach (var user in Model)
-        {
-            <tr>
-                <td>@user.first_name</td>
-                <td>@user.last_name</td>
+    <main class="content">
 
-                @if (User.IsInRole("Admin"))
-                {
-                    <td>@user.username</td>
-                }
+        <nav class="nav-main">
+            <a asp-controller="StoreItems" asp-action="Index" class="Neko">NeKo</a>
+            <div class="font_title">About Us</div>
+        </nav>
 
-                <td>
-                    
-                    <a asp-controller="User"
-                       asp-action="Profile"
-                       asp-route-id="@user.id">
-                        Profile
-                    </a>
+        <div class="user-boX">
+            <div class="bg-user">
+                <img src="/Images/userbox.png" alt="">
 
-                    @if (User.IsInRole("Admin"))
+                <div class="whole-content">
+
+                    @foreach (var user in Model)
                     {
-                        <span> | </span>
-                        <a asp-action="Edit" asp-route-id="@user.id">Edit</a>
-                        <span> | </span>
-                        <a asp-action="Delete" asp-route-id="@user.id">Delete</a>
+                        <div class="paper-bg">
+
+                            <img src="/Images/userpaper.png" alt="">
+
+                            <div class="paper-info">
+                                <div class="Name">
+                                    @user.first_name
+                                </div>
+
+                                <div class="items">
+                                    Selling
+                                    <div class="num">
+                                        @user.ItemCount items
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a class="profile"
+                               asp-controller="User"
+                               asp-action="Profile"
+                               asp-route-id="@user.id">
+                            </a>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <div class="button">
+                                    <a asp-action="Delete"
+                                       asp-route-id="@user.id"
+                                       style="color:red;">
+                                        | Delete |
+                                    </a>
+
+                                    <a asp-action="Edit"
+                                       asp-route-id="@user.id"
+                                       style="color:green;">
+                                        | Edit |
+                                    </a>
+                                </div>
+                            }
+
+                        </div>
                     }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>

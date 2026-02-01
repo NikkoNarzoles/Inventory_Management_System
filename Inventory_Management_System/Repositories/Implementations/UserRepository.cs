@@ -68,14 +68,15 @@ namespace Inventory_Management_System.Repositories.Implementations
             return await _context.Users
                 .AsNoTracking() // important for read-only performance
                 .Where(u => u.role != "Admin")
-                .Select(
-                item => new UserDto
-                {   
-                    id = item.id,
-                    first_name = item.first_name,
-                    last_name = item.last_name,
-                    username = item.username,
-                }
+                .Select((u => new UserDto
+                {
+                    id = u.id,
+                    first_name = u.first_name,
+                    last_name = u.last_name,
+                    username = u.username,
+
+                    ItemCount = _context.StoreItems.Count(i => i.owners_id == u.id)
+                })
                 ).ToListAsync();
         }
 
@@ -95,6 +96,7 @@ namespace Inventory_Management_System.Repositories.Implementations
                     first_name = u.first_name,
                     last_name = u.last_name,
                     username = u.username,
+                    ItemCount = _context.StoreItems.Count(i => i.owners_id == u.id)
                 })
                 .ToListAsync();
         }

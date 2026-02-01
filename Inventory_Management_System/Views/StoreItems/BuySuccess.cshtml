@@ -20,6 +20,10 @@
 
 <hr />
 
-<a asp-action="Index" class="btn btn-primary">
-    Back to Items
+<a href="@(Url.IsLocalUrl(Model.ReturnUrl)
+               ? Model.ReturnUrl
+               : Url.Action("Index"))"
+   class="btn btn-primary">
+    Back
 </a>
+

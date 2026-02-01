@@ -14,9 +14,13 @@ namespace Inventory_Management_System.Services.ServicesImplementation
 
         private readonly IUserRepository _Irepository;
 
-        public UserService (IUserRepository UserRepository)
+        private readonly IProfileRepository _profileRepository;
+
+        public UserService (IUserRepository UserRepository, IProfileRepository profileRepository)
         {
             _Irepository = UserRepository;
+
+            _profileRepository = profileRepository;
         }
 
 
@@ -28,6 +32,7 @@ namespace Inventory_Management_System.Services.ServicesImplementation
         {
            return await _Irepository.GetAllAsync();
         }
+
 
 
         //=================================================================================================================

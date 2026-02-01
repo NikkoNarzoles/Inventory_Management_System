@@ -86,7 +86,7 @@ namespace Inventory_Management_System.Controllers
 
 
         [Authorize]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id) 
         {
             if (id == null)
                 return NotFound();
@@ -98,6 +98,8 @@ namespace Inventory_Management_System.Controllers
 
             return View(vm);
         }
+
+
 
         [Authorize]
         [HttpPost]

@@ -43,7 +43,7 @@
 
         <!-- HEADER / NAV -->
         <nav class="nav-main">
-            <a asp-controller="StoreItems" asp-action="Index" class="Neko">NeKo</a>
+            <a asp-controller="User" asp-action="Index" class="Neko">NeKo</a>
 
             <div class="mid">
                 <div class="storeName">@firstName's Shop</div>
@@ -64,56 +64,89 @@
         </nav>
 
         <!-- STORE ITEMS -->
-        <div class="item-box">
-            <nav class="nav-box">
-                <div class="font_title_box">Name</div>
-                <div class="font_title_box">Price</div>
-                <div class="font_title_box">Stocks</div>
-            </nav>
+                    <div class="item-box">
 
-            <div class="item-content">
-                @if (!Model.Items.Any())
-                {
-                    <p class="Neko">This user has no items.</p>
-                }
-                else
-                {
-                    foreach (var item in Model.Items)
-                    {
-                        <div class="item-parent">
+                        <img class="item-box-frame image" class="item-box-frame">
 
-                            <div class="item-info">
-                                <div>@item.item_name</div>
-                                <div class="peso">$@item.price</div>
+                        <nav class="nav-box">
+                            <div class="font_title_box">Name</div>
+                            <div class="font_title_box">Price</div>
+                            <div class="font_title_box">Stocks</div>
+                        </nav>
 
-                                @if (item.quantity <= 0)
+                        <div class="item-content">
+                            @if (!Model.Items.Any())
+                            {
+                                <p class="Neko">This user has no items.</p>
+                            }
+                            else
+                            {
+                                foreach (var item in Model.Items)
                                 {
-                                    <div class="outofstock">Out of Stock</div>
+                                            <div class="item-parent">
+
+                                                                    <img src="~/Images/bg/paper.png" class="item-parent-frame">
+
+                                                                    <div class="item-context">
+
+                                                                                <div class="item-info">
+                                                                                    <div>@item.item_name</div>
+
+                                                                                    <div class="peso">
+                                                                                        <p>$</p>@item.price.ToString("#,0.##")
+                                                                                    </div>
+
+                                                                                    @if (item.quantity <= 0)
+                                                                                    {
+                                                                                        <div class="outofstock">Out of Stock</div>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <div>@item.quantity x</div>
+                                                                                    }
+                                                                                    </div>
+
+                                                                                    <div class="item-descrip">
+                                                                                        <p style="margin-right:20px;">Description:</p>
+                                                                                        <p>@item.description</p>
+                                                                                    </div>
+
+                                                                    </div>
+
+                                                                    <div class="buttons">
+
+                                                                            @if (User.IsInRole("Admin"))
+                                                                            {
+                                                                            <a asp-action="Edit"
+                                                                               asp-controller="StoreItems"
+                                                                               asp-route-id="@item.id"
+                                                                               class="Buy">
+                                                                            Edit
+                                                                            </a>
+
+                                                                            <a asp-action="Delete"
+                                                                               asp-controller="StoreItems"
+                                                                               asp-route-id="@item.id"
+                                                                               class="Buy">
+                                                                            Delete
+                                                                            </a>
+                                                                            }
+
+                                                                            <a asp-controller="StoreItems"
+                                                                                asp-action="Buy"
+                                                                                asp-route-id="@item.id"
+                                                                                asp-route-returnUrl="@Context.Request.Path"
+                                                                                class="Buy">
+                                                                                Buy
+                                                                            </a>
+
+                                                                    </div>
+
+                                                            </div>
                                 }
-                                else
-                                {
-                                    <div>@item.quantity x</div>
-                                }
-                            </div>
-
-                            <div class="item-descrip">
-                                <p style="margin-right: 20px;">Description:</p>
-                                <div>@item.description</div>
-                            </div>
-
-                            <div class="buttons">
-                                <a asp-action="Buy" asp-controller="StoreItems"
-                                   asp-route-id="@item.id"
-                                   class="Buy">
-                                    Buy
-                                </a>
-                            </div>
-
+                            }
                         </div>
-                    }
-                }
-            </div>
-        </div>
+                    </div>
 
     </main>
 

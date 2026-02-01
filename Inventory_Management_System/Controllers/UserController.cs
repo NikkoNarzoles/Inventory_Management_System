@@ -91,16 +91,9 @@ namespace Inventory_Management_System.Controllers
                 return View(users);
             }
 
-           
-
-
             var filteredUsers = await _IuserRepo.SearchAsync(search);
 
             ViewData["Search"] = search;
-
-
-          
-
 
             if (!filteredUsers.Any())
             {

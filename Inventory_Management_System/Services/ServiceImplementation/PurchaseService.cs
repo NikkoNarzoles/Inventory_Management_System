@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace Inventory_Management_System.Services.Implementations
 {
-    public class PurchaseService : IPurchaseService
+    public class PurchaseService :  IPurchaseService
     {
         private readonly IPurchaseRepository _purchaseRepo;
 
@@ -18,12 +18,12 @@ namespace Inventory_Management_System.Services.Implementations
             _purchaseRepo = purchaseRepo;
 
            
-        }
+        }   
 
        
-        public PurchaseViewModel MapToPurchaseViewModel(Purchase purchase)
+        public PurchaseDto MapToPurchaseViewModel(Purchase purchase)
         {
-            return new PurchaseViewModel
+            return new PurchaseDto
             {
                 id = purchase.id,
                 item_name = purchase.item_name,
@@ -35,12 +35,12 @@ namespace Inventory_Management_System.Services.Implementations
             };
         }
 
-        public IEnumerable<PurchaseViewModel> MapToPurchaseViewModels(IEnumerable<Purchase> purchases, IEnumerable<UserDto> users)
+        public IEnumerable<PurchaseDto> MapToPurchaseViewModels(IEnumerable<Purchase> purchases, IEnumerable<UserDto> users)
         {
             return purchases.Select(p => {
                                                 var user = users.FirstOrDefault(u => u.id == p.user_id);
 
-                                                return new PurchaseViewModel
+                                                return new PurchaseDto
                                                 {
                                                     id = p.id,
                                                     item_name = p.item_name,

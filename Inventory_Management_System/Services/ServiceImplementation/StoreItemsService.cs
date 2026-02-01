@@ -27,14 +27,14 @@ namespace Inventory_Management_System.Services.ServiceImplementation
 
 
 
-        public async Task<StoreItemsDto> EditMapAsync(int id)
+        public async Task<StoreItemsViewModels> EditMapAsync(int id)
         {
             var item = await _IStoreRepo.GetByIdAsync(id);
 
             if (item == null)
                 return null!;
 
-            return new StoreItemsDto
+            return new StoreItemsViewModels
             {
                 item_code = item.item_code,
                 item_name = item.item_name,

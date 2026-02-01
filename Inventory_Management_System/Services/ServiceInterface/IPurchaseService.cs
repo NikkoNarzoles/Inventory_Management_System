@@ -10,8 +10,8 @@ namespace Inventory_Management_System.Services.Interfaces
         Task<Purchase?> GetPurchaseAsync(int id);
         Task<IEnumerable<Purchase>> ListPurchasesAsync();
         BuyViewModel MapToBuyViewModel(Purchase purchase);
-        IEnumerable<PurchaseViewModel> MapToPurchaseViewModels(IEnumerable<Purchase> purchases,IEnumerable<UserDto> users);
-        PurchaseViewModel MapToPurchaseViewModel(Purchase purchase);
+        IEnumerable<PurchaseDto> MapToPurchaseViewModels(IEnumerable<Purchase> purchases,IEnumerable<UserDto> users);
+        PurchaseDto MapToPurchaseViewModel(Purchase purchase);
         Task DeletePurchaseAsync(int id);
 
 

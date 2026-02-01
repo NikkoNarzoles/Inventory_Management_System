@@ -37,17 +37,19 @@ namespace Inventory_Management_System.Controllers
 
 
         [Authorize]
-        public async Task<IActionResult> Buy(int id)
+        public async Task<IActionResult> Buy(int id, string? returnUrl)
         {
-            var vm = await _Iservice.Buymap(id, 1); 
+            var vm = await _Iservice.Buymap(id, 1);
+            vm.ReturnUrl = returnUrl;
             return View(vm);
         }
 
 
         [Authorize]
-        public async Task<IActionResult> PreBuyConfirm(int id, int quan)
+        public async Task<IActionResult> PreBuyConfirm(int id, int quan, string? returnUrl)
         {
             var vm = await _Iservice.Buymap(id, quan);
+            vm.ReturnUrl = returnUrl;
             return View(vm);
         }
 
@@ -55,7 +57,7 @@ namespace Inventory_Management_System.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> BuyConfirm(int id, int quan)
+        public async Task<IActionResult> BuyConfirm(int id, int quan, string? returnUrl)
         {
             try
             {
@@ -66,22 +68,22 @@ namespace Inventory_Management_System.Controllers
                
                 var purchaseId = await _Iservice.BuyConfirmAsync(id, quan, userId);
 
-                return RedirectToAction(nameof(BuySuccess), new { purchaseId });
+                return RedirectToAction(nameof(BuySuccess),new { purchaseId, returnUrl });
             }
             catch (Exception ex)
             {
                 
                 TempData["Error"] = ex.Message;
 
-               
-                return RedirectToAction(nameof(PreBuyConfirm), new { id, quan });
+
+                return RedirectToAction(nameof(PreBuyConfirm),new { id, quan, returnUrl });
             }
         }
 
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> BuySuccess(int purchaseId)
+        public async Task<IActionResult> BuySuccess(int purchaseId, string? returnUrl)
         {
             var purchase = await _purchaseService.GetPurchaseAsync(purchaseId);
 
@@ -91,6 +93,8 @@ namespace Inventory_Management_System.Controllers
             }
 
             var vm = _purchaseService.MapToBuyViewModel(purchase);
+            vm.ReturnUrl = returnUrl;
+
 
             return View(vm);
         }

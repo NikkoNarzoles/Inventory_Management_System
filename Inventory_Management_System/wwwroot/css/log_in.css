@@ -28,6 +28,7 @@ body {
 
 .content {
     min-height: 100vh;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,7 +39,7 @@ body {
 .nav-main {
     position: relative;
     z-index: 1;
-    width: 100vw;
+    width: 100%;
     height: 8vh;
     display: flex;
     align-items: center;
@@ -88,8 +89,8 @@ body {
 
 .login-box {
     position: relative;
-    height: 70vh;
-    width: 33vw;
+    height: 520px;
+    width: 450px;
     margin: auto;
     background-image: url("/Images/login.png");
     background-size: 100% 100%;
@@ -97,22 +98,31 @@ body {
     background-position: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    z-index: 0;
+    padding-top: 30px;
+}
+
+.sub-sub {
+    position: absolute;
+    margin-top: 15%;
+    width: 80%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    z-index: 1;
-    padding-top:30px;
+    justify-content: space-around;
 }
 
 .glass-input-wrapper {
-    width: 350px;
-    margin-bottom: 30px;
-    position: relative; /* Required for absolute positioning of child */
+    width: 90%;
+    position: relative;
+    margin-bottom: 20px;
 }
 
 .text-danger {
-    width: 1000px;
-    color: #ff6b6b;
-    font-size: 15px;
+    width: 400px;
+    color: red;
+    font-size: 20px;
     display: block;
     position: absolute; /* Float over the layout */
     top: 100%; /* Position below the input */
@@ -121,6 +131,7 @@ body {
     margin-top: 5px;
     font-family: 'VT323', monospace;
     z-index: 10; /* Ensure it appears above other elements */
+    background-color: #0000002f;
 }
 
 .glass-input {
@@ -150,7 +161,7 @@ body {
 .register {
     margin-top: 20px;
     position: relative;
-    width: 50%;
+    width: 40%;
     padding: 14px 16px;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(8px);
@@ -165,8 +176,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 5);
     font-family: 'VT323', monospace;
     cursor: pointer;
-    margin-bottom: 10px;
-    text-decoration:none;
+    text-decoration: none;
 }
 
     .register:hover {

@@ -45,21 +45,23 @@
 
         <div class="login-box">
 
-            <div class="glass-wrapper">
-                <p class="glass">Are you sure you want to Log out?</p>
+            <div class="sub-sub">
+
+                        <div class="glass-wrapper">
+                            <p class="glass">Are you sure you want to Log out?</p>
+                        </div>
+
+
+                        <form asp-action="LogoutConfirm" method="post">
+                                @Html.AntiForgeryToken()
+
+
+                            <a asp-controller="StoreItems" asp-action="Index" class="register">Back</a>
+
+                            <button type="submit" class="register register-alt">Log Out</button>
+
+                        </form>
             </div>
-
-
-            <form asp-action="LogoutConfirm" method="post">
-                    @Html.AntiForgeryToken()
-
-
-                <a asp-controller="StoreItems" asp-action="Index" class="register">Back</a>
-
-                <button type="submit" class="register register-alt">Log Out</button>
-
-            </form>
-
 
         </div>
 
