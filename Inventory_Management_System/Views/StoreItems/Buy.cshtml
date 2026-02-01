@@ -1,45 +1,98 @@
 ﻿@model Inventory_Management_System.ViewModels.BuyViewModel
 
-<h2>Buy Item</h2>
-
-<hr />
-
-<form asp-action="PreBuyConfirm" method="post">
-
-    <!-- Item ID (hidden, user never types this) -->
-    <input type="hidden" asp-for="id" />
-
-    <div>
-        <label><strong>Item Name:</strong></label>
-        <p>@Model.item_name</p>
-    </div>
-
-    @if (!string.IsNullOrWhiteSpace(Model.description))
-{
-    <div>
-        <label><strong>Description:</strong></label>
-        <p>@Model.description</p>
-    </div>
+@{
+    Layout = null;
 }
 
-    <div>
-        <label><strong>Price:</strong></label>
-        <p>@Model.price</p>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Item</title>
 
-    <div>
-        <label asp-for="quan">Quantity</label>
-        <input asp-for="quan" type="number" min="1" />
-    </div>
+    <link rel="stylesheet" href="~/css/buy.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
 
-    <br />
+<body>
 
-    <button type="submit" class="btn btn-primary">
-        Continue
-    </button>
+    <div class="bg-blur"></div>
 
-    <a asp-action="Index" class="btn btn-secondary">
-        Cancel
-    </a>
+    <main class="content">
 
-</form>
+        <nav class="nav-main">
+            <div class="Neko">NeKo</div>
+            <div class="font_title">About Us</div>
+        </nav>
+
+        <form asp-action="PreBuyConfirm" method="post" class="card-container">
+            @Html.AntiForgeryToken()
+
+            <!-- REQUIRED -->
+            <input type="hidden" asp-for="id" />
+
+            <img src="/Images/buy.png" alt="" class="bg-image">
+
+            <div class="container">
+                <img src="/Images/buying.png" alt="" class="paperbg">
+
+                <div class="actual">
+
+                    <div class="new">Buy Item</div>
+
+                    <div class="info">
+                        <div class="delete">
+                            Item: @Model.item_name
+                        </div>
+
+                        <div class="delete">
+                            Price: @Model.price
+                        </div>
+                    </div>
+
+                    <div class="descri">
+                        <div class="delete">Description:</div>
+                        <div class="text">
+                            @Model.description
+                        </div>
+                    </div>
+
+                    <div class="item-input">
+                        Quantity:
+                        <input asp-for="quan"
+                               type="number"
+                               min="1"
+                               class="box">
+                    </div>
+
+                    <div class="button">
+
+                        <a asp-action="Index"
+                           asp-controller="StoreItems"
+                           class="button-box one">
+                            Cancel
+                        </a>
+
+                        <button type="submit" class="button-box one">
+                            Buy
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+</body>
+</html>
