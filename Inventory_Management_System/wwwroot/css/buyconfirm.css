@@ -229,3 +229,14 @@ input:focus {
     border: none;
     font-size: 18px;
 }
+
+.alert-danger {
+    background-color: #e5d9b09d !important;
+    color: #8b0000 !important;
+    font-family: 'VT323', monospace;
+    font-size:25px;
+    padding: 10px 60px;
+    position:absolute;
+    top: 50px;  
+    
+}
