@@ -18,6 +18,8 @@ namespace Inventory_Management_System.Repositories.Interfaces
 
         Task<List<UserDto>> SearchAsync(string search);
 
+        Task<bool> DeleteprofileAsync(int userId);
+
 
     }
 }       

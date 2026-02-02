@@ -29,7 +29,7 @@
             <div class="font_title">About Us</div>
         </nav>
 
-        <form asp-action="DeleteConfirmed" method="post" class="card-container">
+        <form asp-action="DeleteAccountConfirmed" method="post" class="card-container">
             @Html.AntiForgeryToken()
             <input type="hidden" asp-for="id" />
 
@@ -64,20 +64,21 @@
 
             </div>
 
-           
-                <div class="button">
 
-                    <button type="submit" class="button-box one">
-                        Delete
-                    </button>
+            <div class="button">
 
-                    <a asp-action="Index"
-                       class="button-box two">
-                        Cancel
-                    </a>
+                <button type="submit" class="button-box one">
+                    Delete
+                </button>
 
-                </div>
-            
+                <a asp-action="Index"
+                   asp-controller="Profile"
+                   class="button-box two">
+                    Cancel
+                </a>
+
+            </div>
+
 
         </form>
 

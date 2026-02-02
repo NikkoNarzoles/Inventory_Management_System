@@ -61,7 +61,8 @@ nav {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    font-size: 15px;
+    font-size: 13px;
+    text-decoration:none;
 }
 
 .card-container {

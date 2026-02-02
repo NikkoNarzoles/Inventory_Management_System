@@ -1,8 +1,10 @@
 ﻿using Inventory_Management_System.Repositories.Interfaces;
 using Inventory_Management_System.Services.ServiceInterface;
 using Inventory_Management_System.ViewModels;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 
 namespace Inventory_Management_System.Controllers
@@ -246,6 +248,56 @@ namespace Inventory_Management_System.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+
+
+        //=================================================================================================================
+        //=================================================================================================================
+        //=================================================================================================================
+
+
+        [Authorize]
+        public async Task<IActionResult> DeleteAccount()
+        {
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+            var user = await _IuserService.GetDeleteAsync(userId);
+
+            if (user == null)
+                return NotFound();
+
+            return View(user);
+
+        }
+
+
+
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteAccountConfirmed()
+        {
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+            var success = await _IuserRepo.DeleteprofileAsync(userId);
+
+            if (!success)
+                return NotFound();
+
+            await HttpContext.SignOutAsync();
+
+            return RedirectToAction("Login", "Auth");
+        }
+
+
+
+
+
+
+
+
+
 
 
 

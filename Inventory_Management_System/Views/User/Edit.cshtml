@@ -26,7 +26,7 @@
     <nav class="nav-main">
         <a asp-controller="Profile" asp-action="Index" class="Neko">NeKo</a>
         <div class="Neko" style="margin-left:40px;">Edit Profile</div>
-        <div class="font_title">About Us</div>
+        <a asp-action="DeleteAccount" asp-controller="User" class="font_title">Delete Account</a>
     </nav>
 
     <form asp-action="Edit" method="post" class="card-container">
