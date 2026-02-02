@@ -1,29 +1,84 @@
 ﻿@model Inventory_Management_System.ViewModels.BuyViewModel
 
-<h2>Purchase Confirmed</h2>
-
-<hr />
-
-<p><strong>Item Name:</strong> @Model.item_name</p>
-
-
-@if (!string.IsNullOrWhiteSpace(Model.description))
-{
-<p><strong>Description:</strong> @Model.description</p>
+@{
+    Layout = null;
 }
 
-<p><strong>Price per Item:</strong> @Model.price</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Confirmed</title>
 
-<p><strong>Quantity Bought:</strong> @Model.quan</p>
+    <link rel="stylesheet" href="~/css/BuySuccess.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
 
-<p><strong>Total Price:</strong> @Model.total_price</p>
+<body>
 
-<hr />
+    <div class="bg-blur"></div>
 
-<a href="@(Url.IsLocalUrl(Model.ReturnUrl)
-               ? Model.ReturnUrl
-               : Url.Action("Index"))"
-   class="btn btn-primary">
-    Back
-</a>
+    <main class="content">
 
+        <nav class="nav-main">
+            <div class="Neko">NeKo</div>
+            <div class="font_title">About Us</div>
+        </nav>
+
+        <div class="card-container">
+            <img src="/Images/buy.png" alt="" class="bg-image">
+
+            <div class="container">
+                <img src="/Images/buying.png" alt="" class="paperbg">
+
+                <div class="actual">
+
+                    <div class="new">Receipt</div>
+
+                    <div class="info">
+
+                        <div class="row">
+                            <span class="label">Name:</span>
+                            <span class="value">@Model.item_name</span>
+                        </div>
+
+                        <div class="row">
+                            <span class="label">Price:</span>
+                            <span class="value">@Model.price</span>
+                        </div>
+
+                        <div class="row">
+                            <span class="label">Quantity:</span>
+                            <span class="value">@Model.quan x</span>
+                        </div>
+
+                        <div class="row">
+                            <span class="label">Total:</span>
+                            <span class="value">@Model.total_price</span>
+                        </div>
+
+                    </div>
+
+                    <div class="button">
+
+                        <a href="@(Url.IsLocalUrl(Model.ReturnUrl)
+                                                          ? Model.ReturnUrl
+                                                          : Url.Action("Index", "StoreItems"))"
+                           class="button-box one">
+                            Back
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>

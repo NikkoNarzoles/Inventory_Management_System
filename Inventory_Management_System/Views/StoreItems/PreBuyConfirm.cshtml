@@ -1,43 +1,113 @@
 ﻿@model Inventory_Management_System.ViewModels.BuyViewModel
 
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["Error"]
-    </div>
+@{
+    Layout = null;
 }
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Purchase</title>
 
-<h2>Confirm Your Purchase</h2>
+    <link rel="stylesheet" href="~/css/buyconfirm.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
 
-<hr />
+<body>
 
-<p><strong>Item Name:</strong> @Model.item_name</p>
+    <div class="bg-blur"></div>
 
-@if (!string.IsNullOrWhiteSpace(Model.description))
-{
-<p><strong>Description:</strong> @Model.description</p>
-}
+    <main class="content">
 
-<p><strong>Price per Item:</strong> @Model.price</p>
-<p><strong>Quantity:</strong> @Model.quan</p>
-<p><strong>Total Price:</strong> @Model.total_price</p>
+        <nav class="nav-main">
+            <a asp-action="Buy" asp-controller="StoreItems" class="Neko">Neko</a>
+            <div class="font_title">About Us</div>
+        </nav>
 
-<hr />
+        @* ERROR MESSAGE (kept from old view) *@
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
+        }
 
-<form asp-action="BuyConfirm" method="post">
-@Html.AntiForgeryToken()
-    <!-- Preserve data -->
-    <input type="hidden" asp-for="id" />
-    <input type="hidden" asp-for="quan" />
+        <form asp-action="BuyConfirm" method="post" class="card-container">
+            @Html.AntiForgeryToken()
 
-    <button type="submit" class="btn btn-success">
-        Confirm Purchase
-    </button>
-    
+            <!-- preserve data -->
+            <input type="hidden" asp-for="id" />
+            <input type="hidden" asp-for="quan" />
 
-    <a asp-action="Buy" asp-route-id="@Model.id" class="btn btn-secondary">
-        Cancel
-    </a>
+            <img src="/Images/buy.png" alt="" class="bg-image">
 
-</form>
+            <div class="container">
+                <img src="/Images/buying.png" alt="" class="paperbg">
+
+                <div class="actual">
+
+                    <div class="new">Confirm Purchase</div>
+
+                    <div class="info">
+                        <div class="delete">
+                            Item: @Model.item_name
+                        </div>
+
+                        <div class="delete">
+                            Price: @Model.price
+                        </div>
+                    </div>
+
+                    <div class="descri">
+                        <div class="delete">Description:</div>
+                        <div class="text">
+                            @Model.description
+                        </div>
+                    </div>
+
+                    <div class="price-container">
+
+                        <div class="item-input">
+                            Quantity:
+                            <div class="quanti">
+                                @Model.quan x
+                            </div>
+                        </div>
+
+                        <div class="item-input">
+                            Total: $
+                            <div class="quanti">
+                                @Model.total_price
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="button">
+
+                        <a asp-action="Buy"
+                           asp-route-id="@Model.id"
+                           class="button-box one">
+                            Cancel
+                        </a>
+
+                        <button type="submit" class="button-box one">
+                            Buy
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+
+    </main>
+
+</body>
+</html>
