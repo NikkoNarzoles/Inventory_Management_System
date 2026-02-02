@@ -2,6 +2,7 @@
 using Inventory_Management_System.DTOs;
 using Inventory_Management_System.Models;
 using Inventory_Management_System.Repositories.Interfaces;
+using Inventory_Management_System.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -191,6 +192,16 @@ namespace Inventory_Management_System.Repositories.Implementations
             await _context.SaveChangesAsync();
             return true;
         }
+
+        //=================================================================================================================
+        //=================================================================================================================
+
+        public async Task<bool> UserNameVerification(string username)
+        {
+            return await _context.Users
+                .AnyAsync(u => u.username == username);
+        }
+
 
 
 

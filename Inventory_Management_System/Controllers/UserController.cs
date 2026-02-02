@@ -147,10 +147,20 @@ namespace Inventory_Management_System.Controllers
             if (!ModelState.IsValid)
                 return View(viewModel);
 
+            bool exists = await _IuserRepo.UserNameVerification(viewModel.username);
+
+            if (exists)
+            {
+                ModelState.AddModelError(nameof(viewModel.username), "Username already exists");
+                return View(viewModel);
+            }
+
+
             await _IuserService.RegisterAsync(viewModel);
 
             return RedirectToAction("Index", "Home");
         }
+
 
 
 

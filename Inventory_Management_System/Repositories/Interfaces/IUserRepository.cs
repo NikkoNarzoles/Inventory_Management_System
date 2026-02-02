@@ -1,5 +1,6 @@
 ﻿using Inventory_Management_System.DTOs;
 using Inventory_Management_System.Models;
+using Inventory_Management_System.ViewModels;
 using System.Linq.Expressions;
 
 namespace Inventory_Management_System.Repositories.Interfaces
@@ -20,6 +21,7 @@ namespace Inventory_Management_System.Repositories.Interfaces
 
         Task<bool> DeleteprofileAsync(int userId);
 
+        Task<bool> UserNameVerification(string username);
 
     }
 }       

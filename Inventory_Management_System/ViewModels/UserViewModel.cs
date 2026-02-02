@@ -18,6 +18,7 @@ namespace Inventory_Management_System.ViewModels
 
 
         [Required(ErrorMessage = "Username is requied")]
+
         [StringLength(15, ErrorMessage = "Username is too long")]
         public string username { get; set; } = null!;
 
