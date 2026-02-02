@@ -92,7 +92,7 @@ body {
 .login-box {
     position: relative;
     height: 520px;
-    width: 450px;
+    width: 500px;
     margin: auto;
     background-image: url("/Images/logout.png");
     background-size: 100% 100%;

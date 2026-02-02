@@ -182,3 +182,13 @@ nav {
     border: 2px solid black;
     padding: 0px 8px;
 }
+
+
+.Nekos {
+    font-family: 'Press Start 2P', cursive;
+    color: #d4b503;
+    font-size: 20px;
+    text-decoration: none;
+    background: #00000099;
+    padding: 10px 15px;
+}

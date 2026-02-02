@@ -186,11 +186,8 @@ namespace Inventory_Management_System.Repositories.Implementations
         public async Task<bool> DeleteprofileAsync(int userId)
         {
             var user = await _context.Users.FindAsync(userId);
-            if (user == null) return false;
-
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-            return true;
+            if (user == null) {  return false; }
+                return true;
         }
 
         //=================================================================================================================

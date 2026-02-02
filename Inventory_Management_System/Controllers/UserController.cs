@@ -290,7 +290,12 @@ namespace Inventory_Management_System.Controllers
         {
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-            var success = await _IuserRepo.DeleteprofileAsync(userId);
+            var check = await _IuserRepo.DeleteprofileAsync(userId);
+
+            if (!check)
+                return NotFound();
+
+            var success = await _IuserService.DeleteAsync(userId);
 
             if (!success)
                 return NotFound();

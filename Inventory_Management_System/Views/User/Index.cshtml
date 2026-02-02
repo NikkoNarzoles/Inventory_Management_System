@@ -33,51 +33,59 @@
 
                 <div class="whole-content">
 
-                    @foreach (var user in Model)
-                    {
-                        <div class="paper-bg">
 
-                            <img src="/Images/userpaper.png" alt="">
-
-                            <div class="paper-info">
-                                <div class="Name">
-                                    @user.first_name
-                                </div>
-
-                                <div class="items">
-                                    Selling:
-                                    <div class="num">
-                                        @user.ItemCount items
-                                    </div>
-                                </div>
-                            </div>
-
-                            <a class="profile"
-                               asp-controller="User"
-                               asp-action="Profile"
-                               asp-route-id="@user.id">
-                            </a>
-
-                            @if (User.IsInRole("Admin"))
+                    @if (!Model.Any())
                             {
-                                <div class="button">
-                                    <a asp-action="Delete"
-                                       asp-route-id="@user.id"
-                                       style="color:red;">
-                                        | Delete |
-                                    </a>
-
-                                    <a asp-action="Edit"
-                                       asp-route-id="@user.id"
-                                       style="color:green;">
-                                        | Edit |
-                                    </a>
-                                </div>
+                                <p class="Nekos">There is no User.</p>
                             }
+                            else
+                            {
 
-                        </div>
-                    }
+                                        @foreach (var user in Model)
+                                        {
+                                            <div class="paper-bg">
 
+                                                <img src="/Images/userpaper.png" alt="">
+
+                                                <div class="paper-info">
+                                                    <div class="Name">
+                                                        @user.first_name
+                                                    </div>
+
+                                                    <div class="items">
+                                                        Selling:
+                                                        <div class="num">
+                                                            @user.ItemCount items
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <a class="profile"
+                                                   asp-controller="User"
+                                                   asp-action="Profile"
+                                                   asp-route-id="@user.id">
+                                                </a>
+
+                                                @if (User.IsInRole("Admin"))
+                                                {
+                                                    <div class="button">
+                                                        <a asp-action="Delete"
+                                                           asp-route-id="@user.id"
+                                                           style="color:red;">
+                                                            | Delete |
+                                                        </a>
+
+                                                        <a asp-action="Edit"
+                                                           asp-route-id="@user.id"
+                                                           style="color:green;">
+                                                            | Edit |
+                                                        </a>
+                                                    </div>
+                                                }
+
+                                            </div>
+                                        }
+                            }
                 </div>
             </div>
         </div>
