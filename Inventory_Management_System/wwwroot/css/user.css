@@ -119,12 +119,14 @@ nav {
 
 
 .paper-bg {
-    width: 30%;
+    width: 40%;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    box-shadow: 0 10px 10px black, 0 10px 20px black;
+    margin:20px 15px;
 }
 
 .paper-info {
@@ -157,12 +159,12 @@ nav {
     color: black;
     font-size: 8px;
     position: absolute;
-    height: 45px;
+    height: 20px;
     bottom: 0px;
 }
 
 .num {
-    margin: 15px;
+    margin: 5px;
 }
 
 .profile {
@@ -192,3 +194,18 @@ nav {
     background: #00000099;
     padding: 10px 15px;
 }
+
+.profile-box {
+    width: 70%;
+    aspect-ratio: 1 / 1;
+    flex-shrink: 0;
+    overflow: hidden;
+    box-shadow: 0 4px 5px rgba(173, 110, 23, 0.633), 0 4px 5px black
+}
+
+    .profile-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+

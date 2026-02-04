@@ -18,5 +18,7 @@
         public string role { get; set; } = "User";
 
         public int theme_id { get; set; } = 1;
+
+        public string? ProfileImagePath { get; set; }
     }
 }

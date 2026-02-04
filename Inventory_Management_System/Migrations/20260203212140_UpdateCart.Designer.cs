@@ -4,6 +4,7 @@ using Inventory_Management_System.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inventory_Management_System.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    partial class InventoryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260203212140_UpdateCart")]
+    partial class UpdateCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace Inventory_Management_System.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Cart", b =>
+            modelBuilder.Entity("Inventory_Management_System.Models.Cart", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -43,7 +46,7 @@ namespace Inventory_Management_System.Migrations
                     b.ToTable("Carts");
                 });
 
-            modelBuilder.Entity("CartItem", b =>
+            modelBuilder.Entity("Inventory_Management_System.Models.CartItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,18 +57,14 @@ namespace Inventory_Management_System.Migrations
                     b.Property<int>("CartId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsSelected")
-                        .HasColumnType("bit");
+                    b.Property<decimal>("PriceAtAdd")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<int>("StoreItemId")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("UnitPrice")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -74,61 +73,6 @@ namespace Inventory_Management_System.Migrations
                     b.HasIndex("StoreItemId");
 
                     b.ToTable("CartItems");
-                });
-
-            modelBuilder.Entity("Inventory_Management_System.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("TotalAmount")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("Inventory_Management_System.Models.OrderItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ItemName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StoreItemId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("UnitPrice")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("Inventory_Management_System.Models.Purchase", b =>
@@ -257,7 +201,7 @@ namespace Inventory_Management_System.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Cart", b =>
+            modelBuilder.Entity("Inventory_Management_System.Models.Cart", b =>
                 {
                     b.HasOne("Inventory_Management_System.Models.User", "User")
                         .WithMany()
@@ -268,9 +212,9 @@ namespace Inventory_Management_System.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("CartItem", b =>
+            modelBuilder.Entity("Inventory_Management_System.Models.CartItem", b =>
                 {
-                    b.HasOne("Cart", "Cart")
+                    b.HasOne("Inventory_Management_System.Models.Cart", "Cart")
                         .WithMany("CartItems")
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -287,25 +231,9 @@ namespace Inventory_Management_System.Migrations
                     b.Navigation("StoreItem");
                 });
 
-            modelBuilder.Entity("Inventory_Management_System.Models.OrderItem", b =>
-                {
-                    b.HasOne("Inventory_Management_System.Models.Order", "Order")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-                });
-
-            modelBuilder.Entity("Cart", b =>
+            modelBuilder.Entity("Inventory_Management_System.Models.Cart", b =>
                 {
                     b.Navigation("CartItems");
-                });
-
-            modelBuilder.Entity("Inventory_Management_System.Models.Order", b =>
-                {
-                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

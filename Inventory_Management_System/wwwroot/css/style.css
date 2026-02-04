@@ -424,7 +424,26 @@ body {
     flex-direction: row;
     justify-content: right;
     align-items: center;
+    text-align: center;
 }
+
+
+.Buy2 {
+    background-image: url(/Images/bg/buy.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000bb;
+    font-size: 100%;
+    text-decoration: none;
+    text-align: center;
+}
+
 
 .Buy {
     background-image: url(/Images/bg/buy.png);
@@ -439,7 +458,10 @@ body {
     color: #000000bb;
     font-size: 10px;
     text-decoration: none;
+    text-align: center;
 }
+
+
 
 
 .item-sort {
@@ -477,3 +499,12 @@ body {
     font-size: 20px;
     color: red;
 }
+
+button {
+    background: transparent;
+    border: none;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 100px;
+}
+
+

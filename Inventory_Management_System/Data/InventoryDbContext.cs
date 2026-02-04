@@ -15,6 +15,14 @@ namespace Inventory_Management_System.Data
 
         public DbSet<Purchase> Purchases { get; set; }
 
+        public DbSet<Cart> Carts { get; set; }
+
+        public DbSet<CartItem> CartItems { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderItem> OrderItems { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,9 +33,24 @@ namespace Inventory_Management_System.Data
             modelBuilder.Entity<Purchase>()
                 .Property(x => x.price)
                 .HasPrecision(10, 2);
+
             modelBuilder.Entity<Purchase>()
                 .Property(x => x.total_price)
                 .HasPrecision(10, 2);
+
+            modelBuilder.Entity<CartItem>()
+                .Property(p => p.UnitPrice)
+                .HasPrecision(18, 2);
+
+            
+            modelBuilder.Entity<Order>()
+                .Property(p => p.TotalAmount)
+                .HasPrecision(18, 2);
+
+        
+            modelBuilder.Entity<OrderItem>()
+                .Property(p => p.UnitPrice)
+                .HasPrecision(18, 2);
 
             base.OnModelCreating(modelBuilder);
         }

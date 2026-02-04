@@ -1,8 +1,10 @@
-﻿using Inventory_Management_System.DTOs;
+﻿using Humanizer;
+using Inventory_Management_System.DTOs;
 using Inventory_Management_System.Models;
 using Inventory_Management_System.Repositories.Interfaces;
 using Inventory_Management_System.Services.ServiceInterface;
 using Inventory_Management_System.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 
 
@@ -16,11 +18,15 @@ namespace Inventory_Management_System.Services.ServicesImplementation
 
         private readonly IProfileRepository _profileRepository;
 
-        public UserService (IUserRepository UserRepository, IProfileRepository profileRepository)
+        private readonly IWebHostEnvironment _env;
+
+        public UserService (IUserRepository UserRepository, IProfileRepository profileRepository, IWebHostEnvironment env)
         {
             _Irepository = UserRepository;
 
             _profileRepository = profileRepository;
+
+            _env = env;
         }
 
 
@@ -111,8 +117,50 @@ namespace Inventory_Management_System.Services.ServicesImplementation
         }
 
 
+        public EditUserViewModel Imthemap (UserDto dto, string returnUrl)
+        {
+            var vm = new EditUserViewModel
+            {
+                id = dto.id,
+                first_name = dto.first_name,
+                last_name = dto.last_name,
+                username = dto.username,
+                theme_id = dto.theme_id,
+                ReturnUrl = returnUrl
+            };
+
+            return (vm);
+        }
 
 
+        public async Task<bool> DeleteProfileImage(int userId)
+        {
+            var user = await _Irepository.FindAsync(userId);
+            if (user == null) return false;
+
+            // If already default or null, nothing to delete
+            if (string.IsNullOrEmpty(user.ProfileImagePath))
+                return true;
+
+            // NEVER delete default image
+            if (user.ProfileImagePath.Contains("Default_pfp"))
+                return true;
+
+            var fullPath = Path.Combine(
+                _env.WebRootPath,
+                user.ProfileImagePath.TrimStart('/')
+            );
+
+            if (File.Exists(fullPath))
+            {
+                File.Delete(fullPath);
+            }
+
+            user.ProfileImagePath = null;
+            await _Irepository.UpdateAsync(user);
+
+            return true;
+        }
 
 
     }

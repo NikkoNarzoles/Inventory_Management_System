@@ -5,6 +5,7 @@ using Inventory_Management_System.Repositories.Interfaces;
 using Inventory_Management_System.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using System.Security.Claims;
 
 
 namespace Inventory_Management_System.Repositories.Implementations
@@ -75,6 +76,7 @@ namespace Inventory_Management_System.Repositories.Implementations
                     first_name = u.first_name,
                     last_name = u.last_name,
                     username = u.username,
+                    ProfileImagePath = u.ProfileImagePath,
 
                     ItemCount = _context.StoreItems.Count(i => i.owners_id == u.id)
                 })
@@ -97,6 +99,7 @@ namespace Inventory_Management_System.Repositories.Implementations
                     first_name = u.first_name,
                     last_name = u.last_name,
                     username = u.username,
+                    ProfileImagePath = u.ProfileImagePath,
                     ItemCount = _context.StoreItems.Count(i => i.owners_id == u.id)
                 })
                 .ToListAsync();
@@ -153,6 +156,9 @@ namespace Inventory_Management_System.Repositories.Implementations
         }
 
 
+        
+
+
 
         //=================================================================================================================
         //=================================================================================================================
@@ -199,6 +205,21 @@ namespace Inventory_Management_System.Repositories.Implementations
                 .AnyAsync(u => u.username == username);
         }
 
+
+
+        public async Task<bool> SaveImage(string fileName, int userId)
+        {
+ 
+            var user = await _context.Users.FindAsync(userId);
+
+            if (user == null) return false;
+
+            user.ProfileImagePath = $"/Images/Profile-IMG/Users/{fileName}";
+
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
 
 
 

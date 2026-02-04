@@ -12,5 +12,7 @@
         public int theme_id { get; set; }
 
         public int ItemCount { get; set; }
+
+        public string? ProfileImagePath { get; set; }
     }
 }

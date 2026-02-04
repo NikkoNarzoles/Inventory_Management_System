@@ -1,0 +1,175 @@
+﻿@model Inventory_Management_System.ViewModels.CartViewModel
+
+@{
+    Layout = null;
+}
+
+<h2>My Cart</h2>
+
+
+
+@if (Model == null || Model.Items == null || !Model.Items.Any())
+{
+    <p>Your cart is empty.</p>
+
+            <a asp-action="Index"
+               asp-controller="StoreItems"
+               class="button-box one">
+                Back
+            </a>
+}
+else
+{
+            <p id="checkoutWarning" style="color:red; display:none;">
+                No Iten is Selected.
+           </p>
+    
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Item Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <!-- Select checkbox -->
+                        <td>
+                            <form asp-action="ToggleSelect" method="post">
+                            @Html.AntiForgeryToken()
+                                <input type="hidden" name="cartItemId" value="@item.CartItemId" />
+                                <input type="checkbox"
+                                       name="selected"
+                                       value="true"
+                                       @(item.IsSelected ? "checked" : "")
+                                       onchange="this.form.submit()" />
+                            </form>
+                        </td>
+
+                        <!-- Item name -->
+                        <td>@item.ItemName</td>
+
+                        <!-- Unit price -->
+                        <td>@item.UnitPrice</td>
+
+                        <!-- Quantity textbox -->
+                        <td>
+                            <form asp-action="UpdateQuantity" method="post">
+                                @Html.AntiForgeryToken()
+
+                                <input type="hidden" name="cartItemId" value="@item.CartItemId" />
+
+                                <input type="number"
+                                        name="quantity"
+                                        value="@item.Quantity"
+                                        min="1"
+                                        class="qty-input"
+                                        data-price="@item.UnitPrice" />
+                            </form>
+
+                        </td>
+
+                        <!-- Total -->
+                     
+                            <td class="row-total">
+                                @(item.Quantity* item.UnitPrice)
+                            </td>
+
+                       
+
+                        <!-- Remove -->
+                        <td>
+                            <form asp-action="RemoveItem" method="post">
+                            @Html.AntiForgeryToken()
+                                <input type="hidden" name="cartItemId" value="@item.CartItemId" />
+                                <button type="submit">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <br />
+
+        <!-- ⭐ Now goes to Checkout confirmation page -->
+            <a asp-controller="Checkout"
+               asp-action="Index"
+               id="checkoutBtn"
+               class="Buy Buy-large">
+                Checkout Selected
+            </a>
+
+             <a asp-action="Index"
+               asp-controller="StoreItems"
+               class="button-box one">
+                Back
+            </a>
+
+
+}
+
+
+
+<script>
+    document.addEventListener("input", function (e) {
+
+        if (!e.target.classList.contains("qty-input")) return;
+
+        let input = e.target;
+        let cartItemId = input.closest("form").querySelector("input[name='cartItemId']").value;
+        let qty = input.value;
+
+        let price = parseFloat(input.dataset.price);
+        let row = input.closest("tr");
+        let totalCell = row.querySelector(".row-total");
+
+        totalCell.textContent = (price * qty).toFixed(2);
+
+        updateCartTotal();
+
+        
+        fetch('/Cart/UpdateQuantity', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'RequestVerificationToken':
+                    document.querySelector('input[name="__RequestVerificationToken"]').value
+            },
+            body: `cartItemId=${cartItemId}&quantity=${qty}`
+        });
+    });
+
+    function updateCartTotal() {
+        let sum = 0;
+        document.querySelectorAll(".row-total").forEach(cell => {
+            sum += parseFloat(cell.textContent) || 0;
+        });
+
+        let cartTotal = document.getElementById("cartTotal");
+        if (cartTotal)
+            cartTotal.textContent = sum.toFixed(2);
+    }
+</script>
+
+
+<script>
+document.getElementById("checkoutBtn").addEventListener("click", function (e) {
+
+    let anyChecked = document.querySelectorAll(
+        "input[type='checkbox'][name='selected']:checked"
+    ).length > 0;
+
+    if (!anyChecked) {
+        e.preventDefault(); // stop navigation
+
+        document.getElementById("checkoutWarning").style.display = "block";
+    }
+});
+</script>

@@ -24,6 +24,7 @@
                         <main class="content">
 
                         <form asp-action="Index" method="get" class="filter-form">
+                             @Html.AntiForgeryToken()
 
                         <!-- NAV -->
                         <nav class="nav-main">
@@ -85,6 +86,10 @@
 
                                                         <a asp-controller="Profile" asp-action="Index" class="setting-button">
                                                         Profile
+                                                        </a>
+
+                                                        <a asp-controller="Cart" asp-action="Index" class="setting-button">
+                                                        Cart
                                                         </a>
 
                                                         <div class="setting-button">About Us</div>
@@ -151,6 +156,15 @@
 
                                                                     <div class="buttons">
 
+                                                                            <button type="button"
+                                                                                    class="Buy2"
+                                                                                    onclick="addToCart(@item.id)">
+                                                                                <i class="fa-solid fa-cart-shopping"></i>
+                                                                            </button>
+
+
+
+
                                                                             @if (User.IsInRole("Admin"))
                                                                             {
                                                                             <a asp-action="Edit"
@@ -190,3 +204,26 @@
 
 </body>
 </html>
+
+
+<script>
+function addToCart(id){
+
+    const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+    fetch('/Cart/AddToCart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'RequestVerificationToken': token
+        },
+        body: `storeItemId=${id}`
+    }).then(() => {
+
+        // ⭐ REDIRECT USER TO CART
+        window.location.href = "/Cart";
+
+    });
+}
+
+</script>

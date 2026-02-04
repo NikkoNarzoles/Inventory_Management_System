@@ -23,5 +23,7 @@ namespace Inventory_Management_System.Repositories.Interfaces
 
         Task<bool> UserNameVerification(string username);
 
+        Task<bool> SaveImage(string fileName, int userId);
+
     }
 }       

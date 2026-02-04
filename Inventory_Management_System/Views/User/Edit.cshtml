@@ -84,6 +84,43 @@
 
     </form>
 
+
+
+        <form asp-action="UpdateProfileImage"
+              method="post"
+              enctype="multipart/form-data"
+              class="upload-form">
+
+            <label class="file-label">
+                Choose Image
+                <input type="file"
+                       name="profileImage"
+                       accept="image/*"
+                       class="file-input" />
+            </label>
+
+            <button type="submit" class="upload-btn">
+                Save
+            </button>
+        </form>
+
+
+
+        <form asp-action="DeleteProfileImage"
+              method="post"
+              onsubmit="return confirm('Remove profile image?');"
+              class="delete-form">
+
+            <button type="submit" class="btn-delete-img">
+                Remove Profile Image
+            </button>
+        </form>
+
+
+
+
+
+
 </main>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

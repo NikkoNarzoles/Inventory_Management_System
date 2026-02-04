@@ -43,11 +43,22 @@ builder.Services.AddScoped< IUserService, UserService>();
 
 builder.Services.AddScoped< IAuthService, AuthService>();
 
+builder.Services.AddScoped<ICartService, CartService>();
+
+builder.Services.AddScoped<ICheckoutService, CheckoutService>();
+
+
+
+
 builder.Services.AddScoped< IStoreItemsService, StoreItemsService>();
 
 builder.Services.AddScoped< IPurchaseService, PurchaseService>();
 
 builder.Services.AddScoped< IProfileRepository, ProfileRepository>();
+
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 
 

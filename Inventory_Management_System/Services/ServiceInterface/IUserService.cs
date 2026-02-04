@@ -17,6 +17,10 @@ namespace Inventory_Management_System.Services.ServiceInterface
 
         Task<bool> UpdateAsync(EditUserViewModel vm);
 
-       
+        EditUserViewModel Imthemap(UserDto dto, string returnUrl);
+
+        Task<bool> DeleteProfileImage(int userId);
+
+
     }
 }

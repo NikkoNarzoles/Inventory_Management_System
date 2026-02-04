@@ -48,6 +48,19 @@
                                                 <img src="/Images/userpaper.png" alt="">
 
                                                 <div class="paper-info">
+                                                    
+
+                                                                <div class="profile-box">
+                                                                    <img src="@Url.Content(
+                                                                                string.IsNullOrEmpty(user.ProfileImagePath)
+                                                                                ? "~/Images/Profile-IMG/Default_pfp.jpg"
+                                                                                : user.ProfileImagePath)"
+                                                                         alt="Profile picture of @user.first_name" />
+                                                                </div>
+
+                                                                
+
+
                                                     <div class="Name">
                                                         @user.first_name
                                                     </div>

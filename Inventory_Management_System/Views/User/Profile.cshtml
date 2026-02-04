@@ -132,6 +132,23 @@
                                                                             </a>
                                                                             }
 
+                                                                           <form asp-controller="Cart"
+                                                                                  asp-action="AddToCart"
+                                                                                  method="post"
+                                                                                  style="display:inline;">
+
+                                                                                @Html.AntiForgeryToken()
+
+                                                                                <input type="hidden" name="storeItemId" value="@item.id" />
+
+                                                                                <button type="submit" class="Buy2">
+                                                                                    <i class="fa-solid fa-cart-shopping"></i>
+                                                                                </button>
+
+                                                                            </form>
+
+
+
                                                                             <a asp-controller="StoreItems"
                                                                                 asp-action="Buy"
                                                                                 asp-route-id="@item.id"
@@ -152,3 +169,6 @@
 
 </body>
 </html>
+
+
+                                                                                

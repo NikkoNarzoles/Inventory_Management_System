@@ -64,7 +64,7 @@ namespace Inventory_Management_System.Services.Implementations
 
 
 
-        public async Task<int> CreatePurchaseAsync(Purchase purchase)
+        public async Task<int>  CreatePurchaseAsync(Purchase purchase)
         {
             purchase.purchase_date = DateTime.UtcNow;
 

@@ -4,6 +4,7 @@ using Inventory_Management_System.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 
@@ -21,14 +22,18 @@ namespace Inventory_Management_System.Controllers
 
         private readonly IProfileRepository _IprofileRepo;
 
-       
-        public UserController(IUserService userService, IUserRepository userReposy, IProfileRepository profileRepository)
+        private readonly IWebHostEnvironment _env;
+
+
+        public UserController(IUserService userService, IUserRepository userReposy, IProfileRepository profileRepository, IWebHostEnvironment env)
         {
             _IuserService = userService;
 
             _IuserRepo = userReposy;
 
             _IprofileRepo = profileRepository;
+
+            _env = env;
         }
 
 
@@ -223,18 +228,11 @@ namespace Inventory_Management_System.Controllers
             if (dto == null)
                 return NotFound();
 
-            var vm = new EditUserViewModel
-            {
-                id = dto.id,
-                first_name = dto.first_name,
-                last_name = dto.last_name,
-                username = dto.username,
-                theme_id = dto.theme_id,
-                ReturnUrl = returnUrl
-            };
+            var vm = _IuserService.Imthemap(dto, returnUrl!);
 
             return View(vm);
         }
+
 
         //=================================================================================================================
         //=================================================================================================================
@@ -307,10 +305,54 @@ namespace Inventory_Management_System.Controllers
 
 
 
+        [HttpPost]
+        public async Task<IActionResult> UpdateProfileImage(IFormFile profileImage)
+        {
+            if (profileImage == null || profileImage.Length == 0)
+                return RedirectToAction("Profile");
+
+            var fileExt = Path.GetExtension(profileImage.FileName).ToLower();
+            var allowed = new[] { ".jpg", ".jpeg", ".png" };
+
+            if (!allowed.Contains(fileExt))
+                return RedirectToAction("Profile");
+
+            var fileName = $"{Guid.NewGuid()}{fileExt}";
+            var savePath = Path.Combine(
+                _env.WebRootPath,
+                "Images/Profile-IMG/Users",
+                fileName
+            );
+
+            using var stream = new FileStream(savePath, FileMode.Create);
+            await profileImage.CopyToAsync(stream);
+
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+            var done = await _IuserRepo.SaveImage(fileName, userId);
+
+            if (done == true) {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Edit));
+        }
 
 
 
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteProfileImage()
+        {
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+            bool done = await _IuserService.DeleteProfileImage(userId);
+
+            if (done)
+                return RedirectToAction(nameof(Profile));
+
+            return BadRequest();
+        }
 
 
 
