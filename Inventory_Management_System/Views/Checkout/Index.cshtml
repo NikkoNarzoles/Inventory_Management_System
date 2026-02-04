@@ -5,6 +5,13 @@
     Layout = null;
 }
 
+@if (TempData["Error"] != null)
+{
+    <div class="pixel-error">
+        @TempData["Error"]
+    </div>
+}
+
 
 <h2>Checkout Confirmation</h2>
 

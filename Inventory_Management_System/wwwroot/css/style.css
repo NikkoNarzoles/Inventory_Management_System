@@ -54,6 +54,7 @@ body {
     background-clip: text;
     color: transparent;
     font-size: 30px;
+    margin-left:20px;
 }
 
 .settings {
@@ -189,7 +190,7 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-right: 50px;
+    margin-left: 10px;
 }
 
 
@@ -508,3 +509,7 @@ button {
 }
 
 
+.navrow{
+    display:flex;
+    flex-direction:row; 
+}

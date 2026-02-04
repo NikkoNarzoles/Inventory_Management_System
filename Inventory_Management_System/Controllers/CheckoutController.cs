@@ -62,13 +62,25 @@ public class CheckoutController : Controller
     {
         int userId = GetUserId();
 
-        var orderId = await _checkoutService.CheckoutSelectedItems(userId);
+        try
+        {
+            var orderId = await _checkoutService.CheckoutSelectedItems(userId);
 
-        if (orderId == null)
+            if (orderId == null)
+                return RedirectToAction("Index", "Cart");
+
+            return RedirectToAction("Receipt", new { id = orderId });
+        }
+        catch (Exception ex)
+        {
+            // ⭐ show friendly error instead of system crash
+            TempData["Error"] = ex.Message;
+
             return RedirectToAction("Index", "Cart");
-
-        return RedirectToAction("Receipt", new { id = orderId });
+        }
     }
+
+
 
 
 
