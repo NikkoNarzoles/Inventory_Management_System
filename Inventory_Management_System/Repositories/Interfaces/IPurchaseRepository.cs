@@ -11,6 +11,8 @@ namespace Inventory_Management_System.Repositories.Interfaces
         Task UpdateAsync(Purchase purchase);
         Task<Purchase?> FindAsync(int id);
 
-        Task<IEnumerable<Purchase>> GetPurchasesByOwnerAsync(int ownerId);      
+        Task<IEnumerable<Purchase>> GetPurchasesByOwnerAsync(int ownerId);
+
+        Task<IEnumerable<Purchase>> GetOwnPurchaseAsync(int buyersId);
     }
 }

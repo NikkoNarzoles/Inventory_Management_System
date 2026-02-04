@@ -35,10 +35,10 @@ namespace Inventory_Management_System.Services.Implementations
             };
         }
 
-        public IEnumerable<PurchaseDto> MapToPurchaseViewModels(IEnumerable<Purchase> purchases, IEnumerable<UserDto> users)
+        public IEnumerable<PurchaseDto> MapToPurchaseViewModels(IEnumerable<Purchase> purchases, IEnumerable<UserDto>? users = null)
         {
             return purchases.Select(p => {
-                                                var user = users.FirstOrDefault(u => u.id == p.user_id);
+                                                var user = users?.FirstOrDefault(u => u.id == p.user_id);
 
                                                 return new PurchaseDto
                                                 {
@@ -104,5 +104,7 @@ namespace Inventory_Management_System.Services.Implementations
         }
 
 
+
+        
     }
 }

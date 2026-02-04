@@ -1,5 +1,6 @@
 ﻿using Inventory_Management_System.Models;
 using Inventory_Management_System.Repositories.Interfaces;
+using Inventory_Management_System.Services.Interfaces;
 using Inventory_Management_System.Services.ServiceInterface;
 using Inventory_Management_System.Services.ServicesImplementation;
 using Inventory_Management_System.ViewModels;
@@ -22,9 +23,14 @@ namespace Inventory_Management_System.Controllers
 
         private readonly IUserService _IuserService;
 
+        private readonly IPurchaseRepository _purchaseRepository;
+
+        private readonly IPurchaseService _purchaseService;
+
 
         public ProfileController(IProfileRepository profileRepository, IStoreItemsRepository storeItemsRepository, 
-                                 IStoreItemsService storeService,  IUserRepository  userRepository, IUserService userService)
+                                 IStoreItemsService storeService,  IUserRepository  userRepository, IUserService userService,
+                                 IPurchaseRepository purchaseRepository, IPurchaseService purchaseService )
         {
             _profileRepo = profileRepository;
 
@@ -35,6 +41,10 @@ namespace Inventory_Management_System.Controllers
             _userRepository = userRepository;
 
             _IuserService = userService;
+
+            _purchaseRepository = purchaseRepository;
+
+            _purchaseService = purchaseService;
         }
 
 
@@ -137,7 +147,16 @@ namespace Inventory_Management_System.Controllers
 
 
 
+        public async Task<IActionResult> OwnPurchase(int? id)
+        {
+            int userId = id ?? int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
+            var purchases = await _purchaseRepository.GetOwnPurchaseAsync(userId);
+
+            var vm = _purchaseService.MapToPurchaseViewModels(purchases);
+
+            return View(vm);
+        }
 
 
 

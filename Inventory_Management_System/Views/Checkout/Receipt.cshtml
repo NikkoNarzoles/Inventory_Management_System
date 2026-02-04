@@ -13,7 +13,7 @@
 else
 {
     <p><strong>Order ID:</strong> @Model.Id</p>
-    <p><strong>Date:</strong> @Model.CreatedAt</p>
+    <p><strong>Date:</strong> @Model.CreatedAt.ToLocalTime().ToString("MMMM dd, yyyy hh:mm tt")</p>
 
     <table border="1" cellpadding="8">
         <thead>

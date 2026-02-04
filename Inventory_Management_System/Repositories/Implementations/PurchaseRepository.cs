@@ -30,6 +30,14 @@ namespace Inventory_Management_System.Repositories.Implementations
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Purchase>> GetOwnPurchaseAsync(int buyersId)
+        {
+            return await _context.Purchases
+                .AsNoTracking()
+                .Where(p => p.user_id == buyersId)
+                .ToListAsync();
+        }
+
 
         public async Task AddAsync(Purchase purchase)
         {
