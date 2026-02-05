@@ -1,6 +1,7 @@
-﻿using Humanizer;
+﻿
+using Inventory_Management_System.Data;
 using Inventory_Management_System.DTOs;
-using Inventory_Management_System.Models;
+using Inventory_Management_System.Models.StoreModels;
 using Inventory_Management_System.Repositories.Interfaces;
 using Inventory_Management_System.Services.ServiceInterface;
 using Inventory_Management_System.ViewModels;
@@ -20,13 +21,21 @@ namespace Inventory_Management_System.Services.ServicesImplementation
 
         private readonly IWebHostEnvironment _env;
 
-        public UserService (IUserRepository UserRepository, IProfileRepository profileRepository, IWebHostEnvironment env)
+        private readonly InventoryDbContext _context;
+
+        private readonly IWalletService _walletService;
+
+        public UserService (IUserRepository UserRepository, IProfileRepository profileRepository, IWebHostEnvironment env, InventoryDbContext context, IWalletService walletService)
         {
             _Irepository = UserRepository;
 
             _profileRepository = profileRepository;
 
             _env = env;
+
+            _context = context;
+
+            _walletService = walletService;
         }
 
 
@@ -47,13 +56,13 @@ namespace Inventory_Management_System.Services.ServicesImplementation
         //create
         public async Task RegisterAsync(UserViewModel viewModel)
         {
-            // 0. Check if an Admin already exists
+            // 0️⃣ Check if an Admin already exists
             bool adminExists = await _Irepository.AnyAsync(u => u.role == "Admin");
 
-            // 1. Hash the password
+            // 1️⃣ Hash the password
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(viewModel.passwordhash);
 
-            // 2. Map ViewModel → Model
+            // 2️⃣ Map ViewModel → Model
             var user = new User
             {
                 first_name = viewModel.first_name,
@@ -62,14 +71,19 @@ namespace Inventory_Management_System.Services.ServicesImplementation
                 email = viewModel.email,
                 passwordhash = hashedPassword,
                 theme_id = 1,
-
-                // FIRST USER BECOMES ADMIN
                 role = adminExists ? "User" : "Admin"
             };
 
-            // 3. Save to database
+            // 3️⃣ Save user
             await _Irepository.AddAsync(user);
+
+            // ------------------------------------------------
+            // 🔥 AUTO CREATE WALLET (via WalletService)
+            // ------------------------------------------------
+            await _walletService.CreateWalletAsync(user.id);
         }
+
+
 
 
         //=================================================================================================================

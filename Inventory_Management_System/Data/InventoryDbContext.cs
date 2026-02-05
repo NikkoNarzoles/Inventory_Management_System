@@ -1,4 +1,6 @@
 ﻿using Inventory_Management_System.Models;
+using Inventory_Management_System.Models.StoreModels;
+using Inventory_Management_System.Models.TransactionModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace Inventory_Management_System.Data
@@ -22,6 +24,13 @@ namespace Inventory_Management_System.Data
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<OrderItem> OrderItems { get; set; }
+
+        public DbSet<Wallets> Wallets { get; set; }
+        public DbSet<Transactions> Transactions { get; set; }
+        public DbSet<LedgerEntries> LedgerEntries { get; set; }
+        public DbSet<AuditLogs> AuditLogs { get; set; }
+
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -51,6 +60,15 @@ namespace Inventory_Management_System.Data
             modelBuilder.Entity<OrderItem>()
                 .Property(p => p.UnitPrice)
                 .HasPrecision(18, 2);
+
+            modelBuilder.Entity<LedgerEntries>()
+                .Property(p => p.Amount)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Transactions>()
+                .Property(p => p.Amount)
+                .HasPrecision(18, 2);
+
 
             base.OnModelCreating(modelBuilder);
         }

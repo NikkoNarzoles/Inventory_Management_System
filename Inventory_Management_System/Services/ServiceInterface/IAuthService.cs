@@ -1,4 +1,4 @@
-﻿using Inventory_Management_System.Models;
+﻿using Inventory_Management_System.Models.StoreModels;
 using System.Security.Claims;
 
 namespace Inventory_Management_System.Services.ServiceInterface

@@ -18,5 +18,7 @@ namespace Inventory_Management_System.Services.ServiceInterface
 
         Task<bool> EditAsync(StoreItemsViewModels viewModel, int id);
 
+        Task<int> BuyConfirmWithWalletAsync(int id, int quan, int buyerUserId);
+
     }
 }

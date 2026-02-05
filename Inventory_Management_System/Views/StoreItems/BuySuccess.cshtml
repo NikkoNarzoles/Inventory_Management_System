@@ -26,8 +26,19 @@
 
         <nav class="nav-main">
             <div class="Neko">NeKo</div>
+            <div class="wallet-balance">
+                Wallet Balance: $@ViewBag.WalletBalance
+            </div>
             <div class="font_title">About Us</div>
         </nav>
+
+        @* ERROR MESSAGE (kept from old view) *@
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
+        }
 
         <div class="card-container">
             <img src="/Images/buy.png" alt="" class="bg-image">

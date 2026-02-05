@@ -1,5 +1,5 @@
 ﻿using Inventory_Management_System.Data;
-using Inventory_Management_System.Models;
+using Inventory_Management_System.Models.StoreModels;
 using Inventory_Management_System.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

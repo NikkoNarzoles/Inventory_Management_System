@@ -24,8 +24,10 @@ namespace Inventory_Management_System.Controllers
 
         private readonly IWebHostEnvironment _env;
 
+        private readonly IWalletService _walletService;
 
-        public UserController(IUserService userService, IUserRepository userReposy, IProfileRepository profileRepository, IWebHostEnvironment env)
+
+        public UserController(IUserService userService, IUserRepository userReposy, IProfileRepository profileRepository, IWebHostEnvironment env, IWalletService walletService)
         {
             _IuserService = userService;
 
@@ -34,6 +36,8 @@ namespace Inventory_Management_System.Controllers
             _IprofileRepo = profileRepository;
 
             _env = env;
+
+            _walletService = walletService;
         }
 
 

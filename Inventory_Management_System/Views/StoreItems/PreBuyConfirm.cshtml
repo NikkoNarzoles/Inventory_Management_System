@@ -26,6 +26,9 @@
 
         <nav class="nav-main">
             <a asp-action="Buy" asp-controller="StoreItems" class="Neko">Neko</a>
+            <div class="wallet-balance">
+                Wallet Balance: $@ViewBag.WalletBalance
+            </div>
             <div class="font_title">About Us</div>
         </nav>
 
@@ -91,16 +94,27 @@
                     <div class="button">
 
                         <a asp-action="Buy"
+                           asp-controller="StoreItems"
                            asp-route-id="@Model.id"
+                           asp-route-returnUrl="@Model.ReturnUrl"
                            class="button-box one">
                             Cancel
                         </a>
+    
 
                         <button type="submit" class="button-box one">
                             Buy
                         </button>
 
                     </div>
+
+
+                    <select asp-for="PaymentMethod" class="form-control">
+                        <option value="">-- Choose Payment --</option>
+                        <option value="COD">Cash on Delivery</option>
+                        <option value="Credit">Wallet Credit</option>
+                    </select>
+
 
                 </div>
             </div>

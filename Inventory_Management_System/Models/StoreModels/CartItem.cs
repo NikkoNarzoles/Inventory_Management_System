@@ -1,4 +1,4 @@
-﻿using Inventory_Management_System.Models;
+﻿using Inventory_Management_System.Models.StoreModels;
 
 public class CartItem
 {

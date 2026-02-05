@@ -5,6 +5,7 @@ using Inventory_Management_System.Services.ServiceInterface;
 using Inventory_Management_System.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Inventory_Management_System.DTOs;
+using Inventory_Management_System.Models.StoreModels;
 
 
 
@@ -15,14 +16,18 @@ namespace Inventory_Management_System.Services.ServiceImplementation
 
         private readonly IStoreItemsRepository _IStoreRepo;
         private readonly IPurchaseService _purchaseService;
-
+        private readonly IWalletService _walletService;
+        
 
         public StoreItemsService(
                 IStoreItemsRepository storeRepo,
-                IPurchaseService purchaseService)
+                IPurchaseService purchaseService,
+                IWalletService walletService)
         {
             _IStoreRepo = storeRepo;
             _purchaseService = purchaseService;
+            _walletService = walletService;
+           
         }
 
 
@@ -165,6 +170,61 @@ namespace Inventory_Management_System.Services.ServiceImplementation
           
             return purchaseId;
         }
+
+
+
+
+        public async Task<int> BuyConfirmWithWalletAsync(int id, int quan, int userId)
+        {
+            if (quan <= 0)
+                throw new Exception("Invalid quantity");
+
+            var item = await _IStoreRepo.FindAsync(id);
+
+            if (item == null)
+                throw new Exception("Item not found");
+
+            if (item.quantity < quan)
+                throw new Exception("Insufficient stock");
+
+            // 🔥 Calculate total first (needed for wallet transfer)
+            decimal totalAmount = item.price * quan;
+
+            // ------------------------------------------------
+            // 💳 WALLET TRANSFER (BUYER → SELLER)
+            // ------------------------------------------------
+            await _walletService.CreateTransactionByUserAsync(
+                userId, "User",        // Buyer wallet
+                item.owners_id, "User",// Seller wallet
+                totalAmount
+            );
+
+            
+            // 📦 CONTINUE NORMAL BUY FLOW
+            // ------------------------------------------------
+            item.quantity -= quan;
+            await _IStoreRepo.UpdateAsync(item);
+
+            var purchase = new Purchase
+            {
+                item_name = item.item_name!,
+                description = item.description,
+                quantity_bought = quan,
+                price = item.price,
+                total_price = totalAmount,
+                owners_id = item.owners_id,
+                user_id = userId
+            };
+
+            var purchaseId = await _purchaseService.CreatePurchaseAsync(purchase);
+
+            return purchaseId;
+        }
+
+
+
+
+
 
 
         public async Task<List<StoreItemsDto>> GetItemsAsync(string? search,StoreItemSortBy? sortBy)

@@ -1,6 +1,6 @@
-﻿using Inventory_Management_System.Models;
-using Inventory_Management_System.DTOs;
+﻿using Inventory_Management_System.DTOs;
 using Inventory_Management_System.ViewModels;
+using Inventory_Management_System.Models.StoreModels;
 
 namespace Inventory_Management_System.Services.Interfaces
 {

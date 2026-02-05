@@ -1,4 +1,5 @@
 ﻿using Inventory_Management_System.DTOs;
+using Inventory_Management_System.Models.StoreModels;
 using Inventory_Management_System.Repositories.Interfaces;
 using Inventory_Management_System.Services.Interfaces;
 using Inventory_Management_System.Services.ServiceInterface;
@@ -20,17 +21,21 @@ namespace Inventory_Management_System.Controllers
 
         private readonly IPurchaseService _purchaseService;
 
-          
+        private readonly IWalletService _walletService;
+
+
         public StoreItemsController(IStoreItemsRepository storeItemsRepository,
                                     IStoreItemsService SIS,
-                                    IPurchaseService purchaseService)
+                                    IPurchaseService purchaseService,
+                                    IWalletService walletService)
         {
             _Irepository = storeItemsRepository;
 
             _Iservice = SIS;
 
             _purchaseService = purchaseService;
-   
+
+            _walletService = walletService;
         }
 
 
@@ -39,46 +44,84 @@ namespace Inventory_Management_System.Controllers
         [Authorize]
         public async Task<IActionResult> Buy(int id, string? returnUrl)
         {
+
+            if (id <= 0)
+                return RedirectToAction("Index");
+
             var vm = await _Iservice.Buymap(id, 1);
             vm.ReturnUrl = returnUrl;
             return View(vm);
         }
 
 
+
+
         [Authorize]
-        public async Task<IActionResult> PreBuyConfirm(int id, int quan, string? returnUrl)
+        public async Task<IActionResult> PreBuyConfirm(int id, int quan, string paymentMethod, string? returnUrl)
         {
+            
             var vm = await _Iservice.Buymap(id, quan);
             vm.ReturnUrl = returnUrl;
+
+
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+            ViewBag.WalletBalance = await _walletService.GetUserWalletBalanceAsync(userId, "User");
+
             return View(vm);
         }
+
+
+
+
+
+
+
+
 
 
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> BuyConfirm(int id, int quan, string? returnUrl)
+        public async Task<IActionResult> BuyConfirm(int id, int quan, string paymentMethod, string? returnUrl)
         {
             try
             {
-
-
                 int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-               
-                var purchaseId = await _Iservice.BuyConfirmAsync(id, quan, userId);
+                int purchaseId;
 
-                return RedirectToAction(nameof(BuySuccess),new { purchaseId, returnUrl });
+                // 🔥 DECIDE PAYMENT FLOW
+                if (paymentMethod == "COD")
+                {
+                    // Normal flow (no wallet)
+                    purchaseId = await _Iservice.BuyConfirmAsync(id, quan, userId);
+                }
+                else if (paymentMethod == "Credit")
+                {
+                    // Wallet flow
+                    purchaseId = await _Iservice.BuyConfirmWithWalletAsync(id, quan, userId);
+                }
+                else
+                {
+                    throw new Exception("Invalid payment method");
+                }
+
+                return RedirectToAction(nameof(BuySuccess), new { purchaseId, returnUrl });
             }
             catch (Exception ex)
             {
-                
                 TempData["Error"] = ex.Message;
+                return RedirectToAction(nameof(PreBuyConfirm), new
+                {
+                    id,
+                    quan,
+                    paymentMethod,
+                    returnUrl
+                });
 
-
-                return RedirectToAction(nameof(PreBuyConfirm),new { id, quan, returnUrl });
             }
         }
+
 
 
         [Authorize]
@@ -95,9 +138,20 @@ namespace Inventory_Management_System.Controllers
             var vm = _purchaseService.MapToBuyViewModel(purchase);
             vm.ReturnUrl = returnUrl;
 
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+            ViewBag.WalletBalance = await _walletService.GetUserWalletBalanceAsync(userId, "User");
+
 
             return View(vm);
         }
+
+
+        
+
+
+
+
+
 
 
 

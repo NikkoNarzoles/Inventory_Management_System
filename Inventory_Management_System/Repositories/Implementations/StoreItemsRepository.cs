@@ -1,6 +1,6 @@
 ﻿using Inventory_Management_System.Data;
 using Inventory_Management_System.DTOs;
-using Inventory_Management_System.Models;
+using Inventory_Management_System.Models.StoreModels;
 using Inventory_Management_System.Repositories.Interfaces;
 using Inventory_Management_System.ViewModels;
 using Microsoft.EntityFrameworkCore;

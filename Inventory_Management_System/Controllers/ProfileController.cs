@@ -27,10 +27,12 @@ namespace Inventory_Management_System.Controllers
 
         private readonly IPurchaseService _purchaseService;
 
+        private readonly IWalletService _walletService;
+
 
         public ProfileController(IProfileRepository profileRepository, IStoreItemsRepository storeItemsRepository, 
                                  IStoreItemsService storeService,  IUserRepository  userRepository, IUserService userService,
-                                 IPurchaseRepository purchaseRepository, IPurchaseService purchaseService )
+                                 IPurchaseRepository purchaseRepository, IPurchaseService purchaseService, IWalletService walletService)
         {
             _profileRepo = profileRepository;
 
@@ -45,6 +47,8 @@ namespace Inventory_Management_System.Controllers
             _purchaseRepository = purchaseRepository;
 
             _purchaseService = purchaseService;
+
+            _walletService = walletService;
         }
 
 
@@ -58,6 +62,8 @@ namespace Inventory_Management_System.Controllers
             var items =  await _profileRepo.GetOwnItems(userId);
 
             ViewBag.ThemeId = await _profileRepo.GetUserThemeId(userId);
+
+            ViewBag.WalletBalance = await _walletService.GetUserWalletBalanceAsync(userId, "User");
 
             return View(items);
         }

@@ -1,4 +1,4 @@
-﻿using Inventory_Management_System.Models;
+﻿using Inventory_Management_System.Models.StoreModels;
 using Inventory_Management_System.Repositories.Interfaces;
 using Inventory_Management_System.Services.Implementations;
 using Inventory_Management_System.Services.Interfaces;

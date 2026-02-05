@@ -21,7 +21,9 @@ namespace Inventory_Management_System.ViewModels
         public decimal total_price { get; set; }
         public DateTime purchase_date { get; set; }
 
-        public string? ReturnUrl { get; set; } 
+        public string? ReturnUrl { get; set; }
+
+        public string PaymentMethod { get; set; } = null!;
 
     }
 }
