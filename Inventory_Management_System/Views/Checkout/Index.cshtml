@@ -1,54 +1,127 @@
 ﻿@model Inventory_Management_System.ViewModels.CheckoutIndexViewModel
-
-
 @{
     Layout = null;
 }
 
-@if (TempData["Error"] != null)
-{
-    <div class="pixel-error">
-        @TempData["Error"]
-    </div>
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Confirmation - NeKo</title>
 
+    <link rel="stylesheet" href="~/css/Confirmation.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
 
-<h2>Checkout Confirmation</h2>
+<body>
 
-@if (Model == null || Model.Items == null || !Model.Items.Any())
-{
-    <p>No items selected.</p>
-}
-else
-{
-    <table border="1" cellpadding="8">
-        <thead>
-            <tr>
-                <th>Item Name</th>
-                <th>Quantity</th>
-                <th>Unit Price</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Items)
-            {
-                <tr>
-                    <td>@item.ItemName</td>
-                    <td>@item.Quantity</td>
-                    <td>@item.UnitPrice</td>
-                    <td>@(item.Quantity* item.UnitPrice)</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="bg-blur"></div>
 
-    <h3>Total Amount: @Model.TotalAmount</h3>
+    <main class="content">
 
-    <br />
+        <nav class="nav-main">
+            <a asp-action="Index" asp-controller="StoreItems" class="Neko">Neko</a>
+            <div class="wallet-display">
+                Wallet: $@ViewBag.WalletBalance
+            </div>
 
-    <!-- ⭐ Confirm Checkout -->
-    <form asp-action="CheckoutSelected" method="post">
-        <button type="submit">Confirm Checkout</button>
-    </form>
-}
+            <div class="font_title">About Us</div>
+        </nav>
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="pixel-error">
+                @TempData["Error"]
+            </div>
+        }
+
+        @if (Model == null || Model.Items == null || !Model.Items.Any())
+        {
+            <div class="empty-checkout">
+                <p class="empty-message">No items selected.</p>
+                <div class="button-container">
+                    <img src="~/Images/bg/buy.png" class="imgbg">
+                    <a asp-action="Index" asp-controller="Cart" class="pindot">Back to Cart</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="box">
+                <img src="~/Images/AddToCart.png" class="board">
+
+                <div class="banner-container">
+
+                    @foreach (var item in Model.Items)
+                    {
+                        <div class="paper">
+                            <img src="~/Images/bg/paper.png" class="banner-bg">
+
+                            <div class="upper">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Item Name</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>@item.ItemName</th>
+                                            <th>$@item.UnitPrice</th>
+                                            <th>@(item.Quantity)x</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="lower">
+                                <div class="right">
+                                    <div class="tprice">Total: $@(item.Quantity* item.UnitPrice)</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+                <form asp-action="CheckoutSelected" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div class="buttons">
+
+                        <div class="button-container">
+                            <img src="~/Images/bg/buy.png" class="imgbg">
+                            <a asp-action="Index" asp-controller="Cart" class="pindot">Back</a>
+                        </div>
+
+                        <div class="mid">
+                          
+                            <div class="totalamount">
+                                Total Amount: $@Model.TotalAmount
+                            </div>
+
+                            <select name="paymentMethod" class="simple-select" required>
+                                <option value="COD">Cash on Delivery</option>
+                                <option value="Credit">Wallet Credit</option>
+                            </select>
+                        </div>
+
+                        <div class="button-container">
+                            <img src="~/Images/bg/buy.png" class="imgbg">
+                            <button type="submit" class="pindot-btn">Confirm</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        }
+
+    </main>
+
+</body>
+</html>

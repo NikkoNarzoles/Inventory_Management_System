@@ -1,49 +1,114 @@
 ﻿@using Inventory_Management_System.Models.StoreModels
 @model Order
-
 @{
     Layout = null;
 }
 
-<h2>Order Receipt</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Receipt - NeKo</title>
 
-@if (Model == null || Model.OrderItems == null || !Model.OrderItems.Any())
-{
-    <p>No order details found.</p>
-}
-else
-{
-    <p><strong>Order ID:</strong> @Model.Id</p>
-    <p><strong>Date:</strong> @Model.CreatedAt.ToLocalTime().ToString("MMMM dd, yyyy hh:mm tt")</p>
+    <link rel="stylesheet" href="~/css/CartReciepts.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
 
-    <table border="1" cellpadding="8">
-        <thead>
-            <tr>
-                <th>Item Name</th>
-                <th>Quantity</th>
-                <th>Unit Price</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.OrderItems)
+<body>
+
+    <div class="bg-blur"></div>
+
+    <main class="content">
+
+        <nav class="nav-main">
+            <div class="Neko">NeKo</div>
+
+            @if (ViewBag.WalletBalance != null)
             {
-                <tr>
-                    <td>@item.ItemName</td>
-                    <td>@item.Quantity</td>
-                    <td>@item.UnitPrice</td>
-                    <td>@(item.Quantity* item.UnitPrice)</td>
-                </tr>
+                <div class="wallet-display">Wallet: $@ViewBag.WalletBalance</div>
             }
-        </tbody>
-    </table>
 
-    <h3>Total Amount: @Model.TotalAmount</h3>
+            <div class="font_title">Order Receipt</div>
+        </nav>
 
+        @if (TempData["Error"] != null)
+        {
+            <div class="pixel-error">
+                @TempData["Error"]
+            </div>
+        }
 
-    <a asp-action="Index"
-       asp-controller="StoreItems"
-       class="button-box one">
-        Back
-    </a>
-}
+        @if (Model == null || Model.OrderItems == null || !Model.OrderItems.Any())
+        {
+            <div class="empty-receipt">
+                <p class="empty-message">No order details found.</p>
+                <div class="button-container">
+                    <img src="~/Images/bg/buy.png" class="imgbg">
+                        <a asp-action="Index" asp-controller="StoreItems" class="pindot">Back to Shop</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="box">
+                <img src="~/Images/AddToCart.png" class="board">
+
+                <div class="banner-container">
+
+                    @foreach (var item in Model.OrderItems)
+                    {
+                        <div class="paper">
+                            <img src="~/Images/bg/paper.png" class="banner-bg">
+
+                            <div class="upper">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Item Name</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>@item.ItemName</th>
+                                            <th>$@item.UnitPrice</th>
+                                            <th>@(item.Quantity)x</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="lower">
+                                <div class="right">
+                                    <div class="tprice">Total: $@(item.Quantity* item.UnitPrice)</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+                <div class="buttons">
+
+                    <div class="mid">
+                        <div class="totalamount">Total Amount: $@Model.TotalAmount</div>
+                        <div class="totalamount">Date: @Model.CreatedAt.ToLocalTime().ToString("MMMM dd, yyyy - hh:mm tt")</div>
+                    </div>
+
+                    <div class="button-container">
+                        <img src="~/Images/bg/buy.png" class="imgbg">
+                        <a asp-action="Index" asp-controller="StoreItems" class="pindot">Back</a>
+                    </div>
+
+                </div>
+            </div>
+        }
+
+    </main>
+
+</body>
+</html>

@@ -11,23 +11,27 @@ public class CheckoutController : Controller
     private readonly ICheckoutService _checkoutService;
     private readonly ICartService _cartService;
     private readonly IOrderRepository _IorderRepo;
-   
+    private readonly IWalletService _walletService;
 
 
 
     public CheckoutController(ICheckoutService checkoutService,
                               ICartService cartService,
-                              IOrderRepository iorderRepo)
+                              IOrderRepository iorderRepo,
+                              IWalletService walletService)
     {
         _checkoutService = checkoutService;
         _cartService = cartService;
         _IorderRepo = iorderRepo;
+        _walletService = walletService;
     }
 
     // ⭐ NEW — Confirmation Page
     public async Task<IActionResult> Index()
     {
         int userId = GetUserId();
+
+        ViewBag.WalletBalance = await _walletService.GetUserWalletBalanceAsync(userId, "User");
 
         var cart = await _cartService.GetActiveCart(userId);
 
@@ -58,13 +62,21 @@ public class CheckoutController : Controller
 
     // ⭐ Step 1 — Confirm Checkout
     [HttpPost]
-    public async Task<IActionResult> CheckoutSelected()
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> CheckoutSelected(string paymentMethod)
     {
-        int userId = GetUserId();
-
         try
         {
-            var orderId = await _checkoutService.CheckoutSelectedItems(userId);
+            int userId = GetUserId();
+
+            ViewBag.WalletBalance = await _walletService.GetUserWalletBalanceAsync(userId, "User");
+
+            int? orderId;
+
+            if (paymentMethod == "Credit")
+                orderId = await _checkoutService.CheckoutSelectedItemsCredit(userId);
+            else
+                orderId = await _checkoutService.CheckoutSelectedItems(userId);
 
             if (orderId == null)
                 return RedirectToAction("Index", "Cart");
@@ -73,9 +85,7 @@ public class CheckoutController : Controller
         }
         catch (Exception ex)
         {
-            // ⭐ show friendly error instead of system crash
             TempData["Error"] = ex.Message;
-
             return RedirectToAction("Index", "Cart");
         }
     }
@@ -89,9 +99,15 @@ public class CheckoutController : Controller
 
 
 
+
     // ⭐ Step 2 — Receipt Page
     public async Task<IActionResult> Receipt(int id)
     {
+
+        int userId = GetUserId();
+
+        ViewBag.WalletBalance = await _walletService.GetUserWalletBalanceAsync(userId, "User");
+
         var order = await _IorderRepo.GetOrderWithItems(id);
 
         if (order == null)

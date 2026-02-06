@@ -1,0 +1,312 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
+    justify-content: space-between;
+}
+
+.bg-blur {
+    position: fixed;
+    inset: 0;
+    background-image: url("/Images/bg/AddToCartBg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(4px);
+    transform: scale(1.1);
+    z-index: -10;
+}
+
+nav {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 18px 30px 15px 30px;
+    background-color: #00000062;
+    align-items: center;
+}
+
+.Neko {
+    font-family: 'Press Start 2P', cursive;
+    background: rgb(212, 181, 3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    .Neko:hover {
+        filter: brightness(1.2);
+    }
+
+.font_title {
+    font-family: 'Press Start 2P', cursive;
+    background: linear-gradient(to bottom, #f7d22c, #c98e05);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 15px;
+}
+
+.box {
+    width: 65%;
+    margin: auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.board {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+
+.banner-container {
+    position: absolute;
+    inset: 20% 13%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.banner-bg {
+    width: 100%;
+    display: block;
+}
+
+.paper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.upper {
+    position: absolute;
+    top: 13%;
+    left: 10%;
+    right: 10%;
+    color: rgba(0, 0, 0, 0.681);
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    display: flex;
+    font-weight: 10;
+}
+
+thead {
+    color: rgb(127, 15, 15);
+}
+
+.upper thead th {
+    border-bottom: 1px dashed #000;
+}
+
+.upper th,
+.upper td {
+    border-right: 1px dashed #000;
+}
+
+    .upper th:last-child,
+    .upper td:last-child {
+        border-right: none;
+    }
+
+.upper table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1.5px dashed #333;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.upper th,
+.upper td {
+    padding: 8px 12px;
+    text-align: center;
+}
+
+.lower {
+    position: absolute;
+    bottom: 22%;
+    left: 10%;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    display: flex;
+    font-weight: 10;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+}
+
+.date-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(0, 0, 0, 0.681);
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    padding: 5px 15px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+    .date-info i {
+        font-size: 16px;
+    }
+
+.delete-btn {
+    border: 2px solid rgb(163, 20, 20);
+    padding: 5px 15px;
+    border-radius: 15px;
+    color: rgb(163, 20, 20);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+    .delete-btn:hover {
+        background: rgba(163, 20, 20, 0.582);
+        color: rgba(0, 0, 0, 0.726);
+    }
+
+    .delete-btn:active {
+        transform: scale(0.95);
+    }
+
+    .delete-btn i {
+        font-size: 14px;
+    }
+
+/* Scrollbar width */
+.banner-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track (background behind the scrollbar) */
+.banner-container::-webkit-scrollbar-track {
+    background: #050000;
+    border: 2px solid #000;
+    border-radius: 25px;
+}
+
+/* Thumb (the draggable part) */
+.banner-container::-webkit-scrollbar-thumb {
+    background: #cdac1aa2;
+    border: 2px solid #000;
+    border-radius: 25px;
+}
+
+    /* Optional: hover effect */
+    .banner-container::-webkit-scrollbar-thumb:hover {
+        background: #5b430a;
+    }
+
+.buttons {
+    position: absolute;
+    width: 40%;
+    height: auto;
+    bottom: 1%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.button-container {
+    position: relative;
+    display: inline-block;
+}
+
+.imgbg {
+    width: 40%;
+}
+
+.pindot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 25px;
+    font-family: 'Press Start 2P', cursive;
+    color: #000000c2;
+    font-size: 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    .pindot:hover {
+        color: #000000;
+    }
+
+/* Empty purchases state */
+.empty-purchases {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin: auto;
+    height: 70vh;
+}
+
+.empty-message {
+    font-family: 'Press Start 2P', cursive;
+    color: #f7d22c;
+    font-size: 20px;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .box {
+        width: 90%;
+    }
+
+    .upper {
+        font-size: 16px;
+    }
+
+    .lower {
+        font-size: 14px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .font_title {
+        font-size: 12px;
+    }
+
+    .Neko {
+        font-size: 16px;
+    }
+}

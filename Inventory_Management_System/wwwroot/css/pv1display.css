@@ -91,6 +91,7 @@ body {
     align-items: center;
     justify-content: center;
     flex: 1;
+    margin-left:110px;
 }
 
 /* SETTINGS */
@@ -407,4 +408,15 @@ button {
     border: none;
     font-family: 'Press Start 2P', cursive;
     font-size: 100px;
+}
+
+.wallet-display {
+    background: rgb(182, 225, 122);
+    color: rgba(0, 0, 0, 0.778);
+    border: black 2px solid;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-right: 10px;
 }

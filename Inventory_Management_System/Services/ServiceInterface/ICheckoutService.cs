@@ -6,6 +6,8 @@ namespace Inventory_Management_System.Services.ServiceInterface
     {
         Task<int?> CheckoutSelectedItems(int userId);
 
+        Task<int?> CheckoutSelectedItemsCredit(int userId);
+
     }
 
 }
